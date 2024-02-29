@@ -7,7 +7,7 @@ namespace Pong.Entities;
 
 public class Ball : BaseRectangle
 {
-    public float directionX, directionY;
+    public int directionX, directionY;
 
     public Ball(int x, int y) : base(x, y, Globals.BALL_SIZE, Globals.BALL_SIZE, Color.White)
     {
@@ -18,8 +18,8 @@ public class Ball : BaseRectangle
 
     public void Update(GameTime gameTime)
     {
-        this.MoveBall((float)gameTime.ElapsedGameTime.TotalSeconds);
         this.UpdateDirectionsY();
+        this.MoveBall((float)gameTime.ElapsedGameTime.TotalSeconds);
     }
 
     private void MoveBall(float totalSecondsGameTime)
@@ -39,6 +39,16 @@ public class Ball : BaseRectangle
         {
             this.DefineDirectionY(-1);
         }
+    }
+
+    public void ToggleDirectionX()
+    {
+        this.DefineDirectionX(this.directionX * -1);
+    }
+
+    public void ToggleDirectionY()
+    {
+        this.DefineDirectionY(this.directionY * -1);
     }
 
     public void DefineDirectionX(int value)

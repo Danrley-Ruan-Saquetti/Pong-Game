@@ -24,19 +24,11 @@ public class BaseRectangle
         var bounds1 = this.GetBounds();
         var bounds2 = rect.GetBounds();
 
-        if (bounds2.PointX > bounds1.PointWidth)
+        if (bounds2.PointX > bounds1.PointWidth || bounds2.PointWidth < bounds1.PointX)
         {
             return false;
         }
-        if (bounds2.PointWidth < bounds1.PointX)
-        {
-            return false;
-        }
-        if (bounds2.PointY > bounds1.PointHeight)
-        {
-            return false;
-        }
-        if (bounds2.PointHeight < bounds1.PointY)
+        if (bounds2.PointY > bounds1.PointHeight || bounds2.PointHeight < bounds1.PointY)
         {
             return false;
         }
@@ -52,8 +44,8 @@ public class BaseRectangle
             PointY = this.rectangle.Y,
             Width = this.rectangle.Width,
             Height = this.rectangle.Height,
-            PointWidth = this.rectangle.Width + this.rectangle.X,
-            PointHeight = this.rectangle.Height + this.rectangle.Y,
+            PointWidth = this.rectangle.X + this.rectangle.Width,
+            PointHeight = this.rectangle.Y + this.rectangle.Height,
         };
 
         return bounds;

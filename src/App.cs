@@ -24,8 +24,8 @@ public class App : Game
         this.players = new PlayerModel[2];
 
         this.ball = new((Globals.WINDOW_WIDTH - Globals.BALL_SIZE) / 2, (Globals.WINDOW_HEIGHT - Globals.BALL_SIZE) / 2);
-        this.players[0] = new Player(Globals.RACKET_GAP_BOARD, (Globals.WINDOW_HEIGHT - Globals.RACKET_HEIGHT) / 2) { sideCode = (int)Sides.Right };
-        this.players[1] = new Adversary(Globals.WINDOW_WIDTH - Globals.RACKET_WIDTH - Globals.RACKET_GAP_BOARD, (Globals.WINDOW_HEIGHT - Globals.RACKET_HEIGHT) / 2) { sideCode = (int)Sides.Left };
+        this.players[0] = new Player(Globals.RACKET_GAP_BOARD, (Globals.WINDOW_HEIGHT - Globals.RACKET_HEIGHT) / 2) { sideCode = (int)Sides.Left };
+        this.players[1] = new Adversary(Globals.WINDOW_WIDTH - Globals.RACKET_WIDTH - Globals.RACKET_GAP_BOARD, (Globals.WINDOW_HEIGHT - Globals.RACKET_HEIGHT) / 2) { sideCode = (int)Sides.Right };
 
         this.ResetGame();
 
@@ -88,7 +88,7 @@ public class App : Game
             return;
         }
 
-        this.EndGame(sideWallCollided * -1);
+        this.EndGame(this.GetOppositeSide(sideWallCollided));
     }
 
     private void UpdateBallWhenCollisionBetweenBallAndPlayers()
@@ -100,18 +100,18 @@ public class App : Game
             return;
         }
 
-        this.ball.DefineDirectionX(sideCodePlayer * -1);
+        this.ball.DefineDirectionX(this.GetOppositeSide(sideCodePlayer));
     }
 
     private int GetSideWallCollidedBall()
     {
         if (this.ball.rectangle.X < 0)
         {
-            return this.players[0].sideCode;
+            return this.GetPlayerByCodeSide((int)Sides.Left).sideCode;
         }
         if (this.ball.rectangle.X + this.ball.rectangle.Width > Globals.WINDOW_WIDTH)
         {
-            return this.players[1].sideCode;
+            return this.GetPlayerByCodeSide((int)Sides.Right).sideCode;
         }
         return (int)Sides.Center;
     }
@@ -120,7 +120,7 @@ public class App : Game
     {
         foreach (var player in this.players)
         {
-            if (player.IsCollided(this.ball))
+            if (player.rectangle.Intersects(this.ball.rectangle))
             {
                 return player.sideCode;
             }
@@ -180,5 +180,10 @@ public class App : Game
                 player.points = 0;
             }
         }
+    }
+
+    private int GetOppositeSide(int side)
+    {
+        return side == (int)Sides.Left ? (int)Sides.Right : (int)Sides.Left;
     }
 }
