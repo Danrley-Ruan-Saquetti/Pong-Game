@@ -21,6 +21,6 @@ public class Globals
      RACKET_HEIGHT = (int)450 / 4,
      BALL_SIZE = 17,
      RACKET_GAP_BOARD = 20;
-    public static float PLAYER_SPEED = 300f, BALL_SPEED = 400f;
+    public static float PLAYER_SPEED = 300f, BALL_SPEED = 450f;
     public static Texture2D pixel;
 }

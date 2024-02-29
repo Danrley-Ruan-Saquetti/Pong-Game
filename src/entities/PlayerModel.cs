@@ -48,7 +48,7 @@ public class PlayerModel : Racket
     public virtual void MoveToTarget(int targetY, double totalSecondsGameTime)
     {
         var bounds = this.GetBounds();
-        int gap = (int)bounds.Height / 3;
+        int gap = 10; //(int)(bounds.Height / 4);
 
         if (targetY <= bounds.PointY + gap)
         {

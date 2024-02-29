@@ -24,3 +24,4 @@ c:\Users\danrs\OneDrive\Documentos\Work\Games\Pong\obj\Debug\net6.0\Pong.pdb
 c:\Users\danrs\OneDrive\Documentos\Work\Games\Pong\obj\Debug\net6.0\Pong.genruntimeconfig.cache
 c:\Users\danrs\OneDrive\Documentos\Work\Games\Pong\obj\Debug\net6.0\ref\Pong.dll
 C:\Users\danrs\OneDrive\Documentos\Work\Games\Pong\obj\Debug\net6.0\Pong.sourcelink.json
+C:\Users\danrs\OneDrive\Documentos\Work\Games\Pong\bin\Debug\net6.0\Content\Score.xnb

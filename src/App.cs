@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pong.Entities;
 using Pong.Global;
@@ -11,6 +12,7 @@ public class App : Game
     private GraphicsDeviceManager _graphics;
     PlayerModel[] players;
     Ball ball;
+    SpriteFont font;
 
     public App()
     {
@@ -37,6 +39,7 @@ public class App : Game
         Globals.spriteBatch = new(GraphicsDevice);
         Globals.pixel = new(GraphicsDevice, 1, 1);
         Globals.pixel.SetData(new[] { Color.White });
+        this.font = this.Content.Load<SpriteFont>("Score");
     }
 
     protected override void Update(GameTime gameTime)
@@ -68,15 +71,20 @@ public class App : Game
 
         Globals.spriteBatch.Begin();
 
+        this.DrawScore();
         foreach (var player in this.players)
-        {
             player.Draw(gameTime);
-        }
         this.ball.Draw(gameTime);
 
         Globals.spriteBatch.End();
 
         base.Draw(gameTime);
+    }
+
+    private void DrawScore()
+    {
+        Globals.spriteBatch.DrawString(this.font, this.GetPlayerByCodeSide((int)Sides.Left).points.ToString(), new Vector2(Globals.WINDOW_WIDTH / 4, Globals.WINDOW_HEIGHT / 10), Color.White);
+        Globals.spriteBatch.DrawString(this.font, this.GetPlayerByCodeSide((int)Sides.Right).points.ToString(), new Vector2(Globals.WINDOW_WIDTH / 4 * 3, Globals.WINDOW_HEIGHT / 10), Color.White);
     }
 
     private void UpdateBallWhenCollisionBetweenBallAndSideWalls()
