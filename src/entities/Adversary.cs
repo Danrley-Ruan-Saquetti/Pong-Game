@@ -12,14 +12,4 @@ public class Adversary : PlayerModel
         this.FollowTarget(this.ball.rectangle.Y + (this.ball.rectangle.Height / 2), (float)gameTime.ElapsedGameTime.TotalSeconds);
         base.Update(gameTime);
     }
-
-    public override void FollowTarget(int targetY, double totalSecondsGameTime)
-    {
-        if (this.ball.rectangle.X + (this.ball.rectangle.Width / 2) < (Globals.WINDOW_WIDTH / 2))
-        {
-            return;
-        }
-
-        base.FollowTarget(targetY, totalSecondsGameTime);
-    }
 }

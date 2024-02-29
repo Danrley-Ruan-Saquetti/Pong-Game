@@ -46,6 +46,8 @@ public class BaseRectangle
             Height = this.rectangle.Height,
             PointWidth = this.rectangle.X + this.rectangle.Width,
             PointHeight = this.rectangle.Y + this.rectangle.Height,
+            PointCenterX = this.rectangle.X + (this.rectangle.Width / 2),
+            PointCenterY = this.rectangle.Y + (this.rectangle.Height / 2)
         };
 
         return bounds;

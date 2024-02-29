@@ -9,7 +9,7 @@ public class Player : PlayerModel
 
     public override void Update(GameTime gameTime)
     {
-        this.FollowTarget(this.ball.rectangle.Y + (this.ball.rectangle.Height / 2), (float)gameTime.ElapsedGameTime.TotalSeconds);
+        this.FollowTarget(this.ball.GetBounds().PointCenterY, (float)gameTime.ElapsedGameTime.TotalSeconds);
         // this.MovePlayer(gameTime.ElapsedGameTime.TotalSeconds);
         base.Update(gameTime);
     }

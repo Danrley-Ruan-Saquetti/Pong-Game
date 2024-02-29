@@ -20,8 +20,35 @@ public class PlayerModel : Racket
 
     public virtual void FollowTarget(int targetY, double totalSecondsGameTime)
     {
+        if (this.ball.directionX != this.sideCode)
+        {
+            this.MoveToInitialPosition(totalSecondsGameTime);
+        }
+        this.MoveToTarget(targetY, totalSecondsGameTime);
+    }
+
+    public virtual void MoveToInitialPosition(double totalSecondsGameTime)
+    {
         var bounds = this.GetBounds();
-        int gap = (int)bounds.Height / 5;
+
+        if (this.initialPositionY + (bounds.Height / 2) < bounds.PointCenterY)
+        {
+            this.MoveUp(totalSecondsGameTime);
+        }
+        else if (this.initialPositionY + (bounds.Height / 2) > bounds.PointCenterY)
+        {
+            this.MoveDown(totalSecondsGameTime);
+        }
+        else
+        {
+            this.rectangle.Y = this.initialPositionY;
+        }
+    }
+
+    public virtual void MoveToTarget(int targetY, double totalSecondsGameTime)
+    {
+        var bounds = this.GetBounds();
+        int gap = (int)bounds.Height / 3;
 
         if (targetY <= bounds.PointY + gap)
         {
