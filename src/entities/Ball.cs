@@ -7,13 +7,12 @@ namespace Pong.Entities;
 
 public class Ball : BaseRectangle
 {
-    public int directionX, directionY;
+    public float directionX, directionY;
 
     public Ball(int x, int y) : base(x, y, Globals.BALL_SIZE, Globals.BALL_SIZE, Color.White)
     {
-        Random random = new();
 
-        this.directionY = random.Next(2) == 1 ? -1 : 1;
+        this.directionY = Globals.random.Next(2) == 1 ? -1 : 1;
     }
 
     public void Update(GameTime gameTime)
@@ -31,14 +30,18 @@ public class Ball : BaseRectangle
 
     private void UpdateDirectionsY()
     {
-        if (this.rectangle.Y < 0)
+        if (this.rectangle.Y >= 0 && this.rectangle.Y + this.rectangle.Height <= Globals.WINDOW_HEIGHT)
         {
-            this.DefineDirectionY(1);
+            return;
         }
-        else if (this.rectangle.Y + this.rectangle.Height > Globals.WINDOW_HEIGHT)
-        {
-            this.DefineDirectionY(-1);
-        }
+        this.DefineDirectionY(this.directionY * -1);
+    }
+
+    public void NewDirectionY()
+    {
+        double newDirection = Globals.random.NextDouble() * (1 - (-1)) + (-1);
+
+        this.DefineDirectionY((float)newDirection);
     }
 
     public void ToggleDirectionX()
@@ -51,12 +54,12 @@ public class Ball : BaseRectangle
         this.DefineDirectionY(this.directionY * -1);
     }
 
-    public void DefineDirectionX(int value)
+    public void DefineDirectionX(float value)
     {
         this.directionX = value;
     }
 
-    public void DefineDirectionY(int value)
+    public void DefineDirectionY(float value)
     {
         this.directionY = value;
     }

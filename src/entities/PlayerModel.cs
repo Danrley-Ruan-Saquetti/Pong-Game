@@ -20,7 +20,7 @@ public class PlayerModel : Racket
 
     public virtual void FollowTarget(int targetY, double totalSecondsGameTime)
     {
-        if (this.ball.directionX != this.sideCode)
+        if ((int)this.ball.directionX != this.sideCode)
         {
             this.MoveToInitialPosition(totalSecondsGameTime);
         }

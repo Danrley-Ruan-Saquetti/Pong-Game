@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Pong.Global;
@@ -11,6 +12,7 @@ public enum Sides
 
 public class Globals
 {
+    public static Random random = new();
     public static SpriteBatch spriteBatch;
     public static int
      WINDOW_WIDTH = 850,

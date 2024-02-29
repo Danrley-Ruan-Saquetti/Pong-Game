@@ -100,6 +100,7 @@ public class App : Game
             return;
         }
 
+        this.ball.NewDirectionY();
         this.ball.DefineDirectionX(this.GetOppositeSide(sideCodePlayer));
     }
 
