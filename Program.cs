@@ -1,5 +1,4 @@
 ﻿using Pong;
-using Pont.Services;
 
 namespace ProgramCore;
 
@@ -14,11 +13,8 @@ public class Program
 
     private static void StartGame()
     {
-        Log.Print("# Starting...");
-
         Program.game = new();
 
         game.Run();
-        Log.Print("# Finish");
     }
 }
