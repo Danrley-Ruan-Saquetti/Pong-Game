@@ -5,15 +5,11 @@ public class Position
     public int X, Y;
 
     public Position() { }
+    public Position(int value) : this(value, value) { }
     public Position(int x, int y)
     {
         this.X = x;
         this.Y = y;
-    }
-    public Position(int value)
-    {
-        this.X = value;
-        this.Y = value;
     }
 
     public override string ToString()

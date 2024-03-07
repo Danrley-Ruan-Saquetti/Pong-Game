@@ -8,21 +8,9 @@ public class Bounds
     public Position positionEnd => new(this.position.X + this.dimension.Width, this.position.Y + this.dimension.Height);
 
     public Bounds() { }
-    public Bounds(Position position)
-    {
-        this.position = position;
-        this.dimension = new();
-    }
-    public Bounds(Dimension dimension)
-    {
-        this.dimension = dimension;
-        this.position = new();
-    }
-    public Bounds(Position position, Dimension dimension)
-    {
-        this.position = position;
-        this.dimension = dimension;
-    }
+    public Bounds(Position position) : this(position, new()) { }
+    public Bounds(Dimension dimension) : this(new(), dimension) { }
+    public Bounds(Position position, Dimension dimension) : this(position.X, position.Y, dimension.Width, dimension.Height) { }
     public Bounds(int x, int y, int width, int height)
     {
         this.position = new(x, y);

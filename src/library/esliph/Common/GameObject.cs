@@ -4,7 +4,5 @@ namespace Library.Esliph.Common;
 
 public class GameObject
 {
-    public Body body;
-
 
 }

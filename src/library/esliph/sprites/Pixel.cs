@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+namespace Library.Esliph.Sprites;
+
 public class Pixel
 {
     public static Texture2D Texture;
