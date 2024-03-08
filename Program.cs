@@ -1,5 +1,7 @@
 ﻿using Pong;
 
+namespace Prong.Program;
+
 public class Program
 {
     private static App game;

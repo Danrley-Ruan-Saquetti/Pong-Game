@@ -1,5 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Library.Esliph.Core;
 
 namespace Library.Esliph.Sprites;
 
@@ -22,14 +24,18 @@ public class TriangleSprite : Sprite
         set { this.positions[2] = value; }
     }
 
-    public TriangleSprite() : this(new(), new(), new()) { }
-    public TriangleSprite(Vector2 position1, Vector2 position2, Vector2 position3) : base()
+    public TriangleSprite(Vector2 position1 = new(), Vector2 position2 = new(), Vector2 position3 = new(), Texture2D texture2D = null) : base(texture2D)
     {
         this.positions = new Vector2[3];
 
         this.positions[0] = position1;
         this.positions[1] = position2;
         this.positions[2] = position3;
+    }
+
+    public override void Draw(GameTime gameTime)
+    {
+        SpriteBatchExtensions.DrawTriangle(this.GetPosition(0), this.GetPosition(1), this.GetPosition(2), this.GetColor());
     }
 
     public Vector2 GetPosition(int index)

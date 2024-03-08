@@ -1,6 +1,7 @@
-using Library.Esliph.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Library.Esliph.Components;
+using Library.Esliph.Core;
 
 namespace Library.Esliph.Sprites;
 
@@ -18,12 +19,12 @@ public class RectangleSprite : Sprite
     }
     public float X
     {
-        get { return (float)this.rectangle.X; }
+        get { return this.rectangle.X; }
         set { this.rectangle.X = (int)value; }
     }
     public float Y
     {
-        get { return (float)this.rectangle.Y; }
+        get { return this.rectangle.Y; }
         set { this.rectangle.Y = (int)value; }
     }
     public Dimension dimension
@@ -37,24 +38,25 @@ public class RectangleSprite : Sprite
     }
     public float Width
     {
-        get { return (float)this.rectangle.Width; }
+        get { return this.rectangle.Width; }
         set { this.rectangle.Width = (int)value; }
     }
     public float Height
     {
-        get { return (float)this.rectangle.Height; }
+        get { return this.rectangle.Height; }
         set { this.rectangle.Height = (int)value; }
     }
 
-    public RectangleSprite() : base()
+    public RectangleSprite(Vector2 position = new(), Dimension dimension = default, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
     {
-        this.rectangle = new();
+        this.rectangle = new((int)position.X, (int)position.Y, (int)dimension.Width, (int)dimension.Height);
     }
-    public RectangleSprite(Vector2 position, Dimension dimension) : this((int)position.X, (int)position.Y, dimension.Width, dimension.Height) { }
-    public RectangleSprite(int x, int y, int width, int height) : this(null, x, y, width, height) { }
-    public RectangleSprite(Texture2D texture2D, int x, int y, int width, int height) : base(texture2D)
+
+    public override void Draw(GameTime gameTime)
     {
-        this.rectangle = new(x, y, width, height);
+        SpriteBatchExtensions.DrawRectangleFilled(this.GetRectangle(), this.GetColor());
+
+        base.Draw(gameTime);
     }
 
     public Rectangle GetRectangle()

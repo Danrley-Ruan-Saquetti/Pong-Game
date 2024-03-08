@@ -1,5 +1,4 @@
-﻿using Library.Esliph.Sprites;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,8 +7,6 @@ namespace Library.Esliph.Core;
 public class Core : Game
 {
     private GraphicsDeviceManager _graphics;
-    protected readonly SpriteBatchExtensions spriteBatch = new();
-    public TriangleSprite sprite;
 
     public Core()
     {
@@ -19,13 +16,12 @@ public class Core : Game
 
     protected override void Initialize()
     {
-        this.sprite = new(new(10, 10), new(250, 10), new(130, 250));
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        this.spriteBatch.LoadContent(this.GraphicsDevice);
+        SpriteBatchExtensions.LoadContent(this.GraphicsDevice);
 
         base.LoadContent();
     }
@@ -42,16 +38,14 @@ public class Core : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        this.spriteBatch.GetSpriteBatch().Begin();
+        SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        // this.spriteBatch.DrawRectangleFilled(new(10, 10, 50, 50), Color.Black);
-        // this.spriteBatch.DrawRectangleOutline(new(80, 10, 50, 50), Color.Black);
-        // this.spriteBatch.DrawCircleOutline(new(35, 95), 25, 36, Color.Black);
-        // this.spriteBatch.DrawLine(new(10, 140), new(15, 160), Color.Black);
+        // SpriteBatchExtensions.DrawRectangleFilled(new(10, 10, 50, 50), Color.Black);
+        // SpriteBatchExtensions.DrawRectangleOutline(new(80, 10, 50, 50), Color.Black);
+        // SpriteBatchExtensions.DrawCircleOutline(new(35, 95), 25, 36, Color.Black);
+        // SpriteBatchExtensions.DrawLine(new(10, 140), new(15, 160), Color.Black);
 
-        this.spriteBatch.DrawTriangle(this.sprite.GetPosition(0), this.sprite.GetPosition(1), this.sprite.GetPosition(2), Color.Black);
-
-        this.spriteBatch.GetSpriteBatch().End();
+        SpriteBatchExtensions.GetSpriteBatch().End();
 
         base.Draw(gameTime);
     }
