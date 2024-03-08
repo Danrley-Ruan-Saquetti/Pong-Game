@@ -48,7 +48,7 @@ public class GameCore : Game
     {
         Scenario scenario = this.GetCurrentScenario();
 
-        foreach (var gameObject in scenario.state.GetGameObjects())
+        foreach (var gameObject in scenario.GetGameObjects())
         {
             if (!gameObject.IsAlive())
             {
@@ -64,11 +64,11 @@ public class GameCore : Game
     {
         Scenario scenario = this.GetCurrentScenario();
 
-        GraphicsDevice.Clear(scenario.state.backgroundColor);
+        GraphicsDevice.Clear(scenario.backgroundColor);
 
         SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        foreach (var gameObject in scenario.state.GetGameObjects())
+        foreach (var gameObject in scenario.GetGameObjects())
         {
             if (!gameObject.IsAlive())
             {

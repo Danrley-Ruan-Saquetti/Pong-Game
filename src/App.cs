@@ -17,7 +17,7 @@ public class App : GameCore
     {
         int gap = 15;
 
-        this.GetCurrentScenario().state.AddGameObject(
+        this.GetCurrentScenario().AddGameObjects(
             new PlayerUser(gap),
             new PlayerIA(GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap)
         );
