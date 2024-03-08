@@ -79,9 +79,9 @@ public class Core : Game
         base.Draw(gameTime);
     }
 
-    public void AddGameObject(GameObject gameObject)
+    public void AddGameObject(params GameObject[] gameObjects)
     {
-        this.gameObjects.Add(gameObject);
+        this.gameObjects.AddRange(gameObjects);
     }
 
     public void RemoveGameObject(int index)
