@@ -3,7 +3,26 @@ using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Common;
 
-public class GameObject<T> where T : Sprite
+public interface IGameObject
+{
+    public Sprite GetSprite();
+    public void SetSprite(Sprite sprite);
+    public void Update(GameTime gameTime);
+    public void Draw(GameTime gameTime);
+    public bool IsAlive();
+    public void SetAlive(bool alive);
+}
+public interface IGameObject<T> where T : Sprite
+{
+    public T GetSprite();
+    public void SetSprite(T sprite);
+    public void Update(GameTime gameTime);
+    public void Draw(GameTime gameTime);
+    public bool IsAlive();
+    public void SetAlive(bool alive);
+}
+
+public class GameObject<T> : IGameObject where T : Sprite
 {
     private T sprite;
     private bool alive { get; set; }
@@ -29,9 +48,9 @@ public class GameObject<T> where T : Sprite
         return this.sprite;
     }
 
-    public void SetSprite(T sprite)
+    public void SetSprite(Sprite sprite)
     {
-        this.sprite = sprite;
+        this.sprite = (T)sprite;
     }
 
     public bool IsAlive()
@@ -42,5 +61,10 @@ public class GameObject<T> where T : Sprite
     public void SetAlive(bool alive)
     {
         this.alive = alive;
+    }
+
+    Sprite IGameObject.GetSprite()
+    {
+        throw new System.NotImplementedException();
     }
 }

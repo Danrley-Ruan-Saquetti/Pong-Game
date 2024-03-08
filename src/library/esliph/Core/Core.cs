@@ -4,16 +4,17 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Library.Esliph.Global;
+using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Core;
 
 public class Core : Game
 {
     private GraphicsDeviceManager _graphics;
-    private List<GameObject> gameObjects;
+    private List<IGameObject> gameObjects;
     public Color backgroundColor;
 
-    public Core(Color backgroundColor = new(), Dimension windowDimension = null)
+    public Core(Dimension windowDimension = null, Color backgroundColor = new())
     {
         if (windowDimension == null)
         {
@@ -75,7 +76,7 @@ public class Core : Game
         base.Draw(gameTime);
     }
 
-    public void AddGameObject(params GameObject[] gameObjects)
+    public void AddGameObject(params IGameObject[] gameObjects)
     {
         this.gameObjects.AddRange(gameObjects);
     }
@@ -83,5 +84,10 @@ public class Core : Game
     public void RemoveGameObject(int index)
     {
         this.gameObjects.RemoveAt(index);
+    }
+
+    public List<IGameObject> GetGameObjects()
+    {
+        return this.gameObjects;
     }
 }

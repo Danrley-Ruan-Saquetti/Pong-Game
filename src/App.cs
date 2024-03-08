@@ -1,23 +1,25 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Core;
 using Pong.Global;
 using Pong.Entities;
-using Microsoft.Xna.Framework.Input;
 
 namespace Pong;
 
 public class App : Core
 {
-    public App() : base(new(), GameGlobals.WINDOW_DIMENSION)
+    public App() : base(GameGlobals.WINDOW_DIMENSION)
     {
         this.Content.RootDirectory = "Content";
     }
 
     protected override void Initialize()
     {
+        int gap = 15;
+
         this.AddGameObject(
-            new Player(15),
-            new Player((int)(GameGlobals.WINDOW_DIMENSION.Width - 15 - GameGlobals.PLAYER_DIMENSION.Width))
+            new Player(gap),
+            new Player(GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap)
         );
 
         base.Initialize();
