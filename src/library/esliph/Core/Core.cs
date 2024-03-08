@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Library.Esliph.Common;
+using Library.Esliph.Components;
+using Library.Esliph.Global;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,9 +14,14 @@ public class Core : Game
     private List<GameObject> gameObjects;
     public Color backgroundColor;
 
-    public Core(Color backgroundColor = new())
+    public Core(Color backgroundColor = new(), Dimension windowDimension = null)
     {
-        this._graphics = new GraphicsDeviceManager(this);
+        windowDimension = windowDimension ?? Globals.WINDOW_DIMENSION;
+        this._graphics = new GraphicsDeviceManager(this)
+        {
+            PreferredBackBufferWidth = (int)windowDimension.Width,
+            PreferredBackBufferHeight = (int)windowDimension.Height
+        };
         this.IsMouseVisible = true;
         this.gameObjects = new();
         this.backgroundColor = backgroundColor;

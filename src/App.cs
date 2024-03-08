@@ -1,11 +1,12 @@
-using Library.Esliph.Core;
 using Microsoft.Xna.Framework;
+using Library.Esliph.Core;
+using Library.Esliph.Global;
 
 namespace Pong;
 
 public class App : Core
 {
-    public App() : base()
+    public App() : base(new(), Globals.WINDOW_DIMENSION)
     {
         this.Content.RootDirectory = "Content";
     }
