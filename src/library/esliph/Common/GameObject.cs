@@ -3,12 +3,12 @@ using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Common;
 
-public class GameObject
+public class GameObject<T> where T : Sprite
 {
-    private Sprite sprite;
+    private T sprite;
     private bool alive { get; set; }
 
-    public GameObject(Sprite sprite)
+    public GameObject(T sprite)
     {
         this.sprite = sprite;
         this.alive = true;
@@ -24,12 +24,12 @@ public class GameObject
         this.GetSprite().Draw(gameTime);
     }
 
-    public Sprite GetSprite()
+    public T GetSprite()
     {
         return this.sprite;
     }
 
-    public void SetSprite(Sprite sprite)
+    public void SetSprite(T sprite)
     {
         this.sprite = sprite;
     }
