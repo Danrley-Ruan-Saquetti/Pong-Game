@@ -18,8 +18,8 @@ public class App : Core
         int gap = 15;
 
         this.AddGameObject(
-            new Player(gap),
-            new Player(GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap)
+            new PlayerUser(gap),
+            new PlayerIA(GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap)
         );
 
         base.Initialize();

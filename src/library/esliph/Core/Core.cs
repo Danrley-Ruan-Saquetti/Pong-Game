@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Library.Esliph.Global;
-using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Core;
 
@@ -79,6 +78,11 @@ public class Core : Game
     public void AddGameObject(params IGameObject[] gameObjects)
     {
         this.gameObjects.AddRange(gameObjects);
+
+        foreach (var gameObject in gameObjects)
+        {
+            gameObject.Start();
+        }
     }
 
     public void RemoveGameObject(int index)

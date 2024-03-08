@@ -9,7 +9,7 @@ namespace Pong.Entities;
 public class Player : GameObject<RectangleSprite>
 {
     public float speed { get; set; }
-    public Player(float x) : this((int)x) { }
+    public Player(float x = 0) : this((int)x) { }
     public Player(int x) : base(new RectangleSprite(new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2), GameGlobals.PLAYER_DIMENSION, 0, null, Color.White))
     {
         this.speed = GameGlobals.PLAYER_SPEED;
@@ -21,19 +21,7 @@ public class Player : GameObject<RectangleSprite>
         base.Update(gameTime);
     }
 
-    public void MovePlayer(GameTime gameTime)
-    {
-        KeyboardState keyboard = Keyboard.GetState();
-
-        if (keyboard.IsKeyDown(Keys.W))
-        {
-            this.MoveUp(gameTime);
-        }
-        else if (keyboard.IsKeyDown(Keys.S))
-        {
-            this.MoveDown(gameTime);
-        }
-    }
+    public virtual void MovePlayer(GameTime gameTime) { }
 
     public void MoveUp(GameTime gameTime)
     {

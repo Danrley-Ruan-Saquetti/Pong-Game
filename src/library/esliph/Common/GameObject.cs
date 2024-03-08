@@ -6,6 +6,7 @@ namespace Library.Esliph.Common;
 public interface IGameObject
 {
     public Sprite GetSprite();
+    public void Start();
     public void SetSprite(Sprite sprite);
     public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime);
@@ -32,6 +33,8 @@ public class GameObject<T> : IGameObject where T : Sprite
         this.sprite = sprite;
         this.alive = true;
     }
+
+    public virtual void Start() { }
 
     public virtual void Update(GameTime gameTime)
     {
