@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Library.Esliph.Core;
+using Library.Esliph;
 using Pong.Global;
 using Pong.Entities;
 
 namespace Pong;
 
-public class App : Core
+public class App : GameCore
 {
     public App() : base(GameGlobals.WINDOW_DIMENSION)
     {
@@ -17,7 +17,7 @@ public class App : Core
     {
         int gap = 15;
 
-        this.AddGameObject(
+        this.GetCurrentScenario().state.AddGameObject(
             new PlayerUser(gap),
             new PlayerIA(GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap)
         );

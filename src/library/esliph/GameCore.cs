@@ -4,16 +4,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Library.Esliph.Global;
+using Library.Esliph.Core;
+using System.Linq;
 
-namespace Library.Esliph.Core;
+namespace Library.Esliph;
 
-public class Core : Game
+public class GameCore : Game
 {
     private GraphicsDeviceManager _graphics;
-    private List<IGameObject> gameObjects;
-    public Color backgroundColor;
+    private readonly List<Scenario> scenarios;
+    private int currentScenarioIndex { get; set; }
 
-    public Core(Dimension windowDimension = null, Color backgroundColor = new())
+    public GameCore(Dimension windowDimension = null)
     {
         if (windowDimension == null)
         {
@@ -25,8 +27,9 @@ public class Core : Game
             PreferredBackBufferHeight = (int)windowDimension.Height
         };
         this.IsMouseVisible = true;
-        this.gameObjects = new();
-        this.backgroundColor = backgroundColor;
+        this.scenarios = new();
+        this.NewScenario();
+        this.currentScenarioIndex = 0;
     }
 
     protected override void Initialize()
@@ -43,7 +46,9 @@ public class Core : Game
 
     protected override void Update(GameTime gameTime)
     {
-        foreach (var gameObject in this.gameObjects)
+        Scenario scenario = this.GetCurrentScenario();
+
+        foreach (var gameObject in scenario.state.GetGameObjects())
         {
             if (!gameObject.IsAlive())
             {
@@ -57,11 +62,13 @@ public class Core : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(this.backgroundColor);
+        Scenario scenario = this.GetCurrentScenario();
+
+        GraphicsDevice.Clear(scenario.state.backgroundColor);
 
         SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        foreach (var gameObject in this.gameObjects)
+        foreach (var gameObject in scenario.state.GetGameObjects())
         {
             if (!gameObject.IsAlive())
             {
@@ -75,23 +82,27 @@ public class Core : Game
         base.Draw(gameTime);
     }
 
-    public void AddGameObject(params IGameObject[] gameObjects)
+    public Scenario NewScenario()
     {
-        this.gameObjects.AddRange(gameObjects);
+        Scenario scenario = new();
 
-        foreach (var gameObject in gameObjects)
-        {
-            gameObject.Start();
-        }
+        this.scenarios.Add(scenario);
+
+        return scenario;
     }
 
-    public void RemoveGameObject(int index)
+    public List<Scenario> GetScenarios()
     {
-        this.gameObjects.RemoveAt(index);
+        return this.scenarios;
     }
 
-    public List<IGameObject> GetGameObjects()
+    public Scenario GetCurrentScenario()
     {
-        return this.gameObjects;
+        return this.scenarios.ElementAt(this.currentScenarioIndex);
+    }
+
+    public Scenario GetScenario(int scenarioIndex)
+    {
+        return this.scenarios.ElementAt(scenarioIndex);
     }
 }
