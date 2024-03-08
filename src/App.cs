@@ -1,4 +1,5 @@
 using Library.Esliph.Core;
+using Microsoft.Xna.Framework;
 
 namespace Pong;
 
@@ -12,5 +13,15 @@ public class App : Core
     protected override void Initialize()
     {
         base.Initialize();
+    }
+
+    protected override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+    }
+
+    protected override void Draw(GameTime gameTime)
+    {
+        base.Draw(gameTime);
     }
 }

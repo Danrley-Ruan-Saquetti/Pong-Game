@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Library.Esliph.Common;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,11 +9,15 @@ namespace Library.Esliph.Core;
 public class Core : Game
 {
     private GraphicsDeviceManager _graphics;
+    private List<GameObject> gameObjects;
+    public Color backgroundColor;
 
-    public Core()
+    public Core(Color backgroundColor = new())
     {
-        _graphics = new GraphicsDeviceManager(this);
-        IsMouseVisible = true;
+        this._graphics = new GraphicsDeviceManager(this);
+        this.IsMouseVisible = true;
+        this.gameObjects = new();
+        this.backgroundColor = backgroundColor;
     }
 
     protected override void Initialize()
@@ -31,22 +37,37 @@ public class Core : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        foreach (var gameObject in this.gameObjects)
+        {
+            gameObject.Update(gameTime);
+        }
+
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(this.backgroundColor);
 
         SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        // SpriteBatchExtensions.DrawRectangleFilled(new(10, 10, 50, 50), Color.Black);
-        // SpriteBatchExtensions.DrawRectangleOutline(new(80, 10, 50, 50), Color.Black);
-        // SpriteBatchExtensions.DrawCircleOutline(new(35, 95), 25, 36, Color.Black);
-        // SpriteBatchExtensions.DrawLine(new(10, 140), new(15, 160), Color.Black);
+        foreach (var gameObject in this.gameObjects)
+        {
+            gameObject.Draw(gameTime);
+        }
 
         SpriteBatchExtensions.GetSpriteBatch().End();
 
         base.Draw(gameTime);
+    }
+
+    public void AddGameObject(GameObject gameObject)
+    {
+        this.gameObjects.Add(gameObject);
+    }
+
+    public void RemoveGameObject(int index)
+    {
+        this.gameObjects.RemoveAt(index);
     }
 }
