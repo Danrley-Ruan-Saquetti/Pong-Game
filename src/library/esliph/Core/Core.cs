@@ -16,7 +16,10 @@ public class Core : Game
 
     public Core(Color backgroundColor = new(), Dimension windowDimension = null)
     {
-        windowDimension = windowDimension ?? Globals.WINDOW_DIMENSION;
+        if (windowDimension == null)
+        {
+            windowDimension = Globals.WINDOW_DIMENSION;
+        }
         this._graphics = new GraphicsDeviceManager(this)
         {
             PreferredBackBufferWidth = (int)windowDimension.Width,
@@ -46,6 +49,10 @@ public class Core : Game
 
         foreach (var gameObject in this.gameObjects)
         {
+            if (!gameObject.IsAlive())
+            {
+                continue;
+            }
             gameObject.Update(gameTime);
         }
 
@@ -60,6 +67,10 @@ public class Core : Game
 
         foreach (var gameObject in this.gameObjects)
         {
+            if (!gameObject.IsAlive())
+            {
+                continue;
+            }
             gameObject.Draw(gameTime);
         }
 
