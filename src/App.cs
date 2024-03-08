@@ -19,7 +19,8 @@ public class App : GameCore
 
         this.GetCurrentScenario().AddGameObjects(
             new PlayerUser(gap),
-            new PlayerIA(GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap)
+            new PlayerIA(GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap),
+            new Ball()
         );
 
         base.Initialize();

@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Core;
 using Microsoft.Xna.Framework.Graphics;
+using Library.Esliph.Global;
 
 namespace Library.Esliph.Sprites;
 
-public class Circle : Sprite
+public class CircleSprite : Sprite
 {
     private Vector2 position;
     public float X
@@ -45,11 +46,11 @@ public class Circle : Sprite
     }
     private int segments { get; set; }
 
-    public Circle(Vector2 position = new(), float radius = 0, int segments = 0, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
+    public CircleSprite(Vector2 position = new(), float radius = 0, int? segments = null, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
     {
         this.position = position;
         this.radius = radius;
-        this.segments = segments;
+        this.segments = segments ?? Globals.SEGMENTS_CIRCLE_DEFAULT;
     }
 
     public override void Draw(GameTime gameTime)

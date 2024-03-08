@@ -6,7 +6,10 @@ public class GameGlobals
 {
     public static Dimension WINDOW_DIMENSION = new(900, 450);
     public static Dimension PLAYER_DIMENSION = new(12, 100);
-    public static float PLAYER_SPEED = 400f;
+    public static float
+    PLAYER_SPEED = 400f,
+    BALL_SPEED = 500f,
+    BALL_RADIUS = 12f;
 
     public static int CalcDistanceMove(float speed, float totalSecondsGameTime)
     {

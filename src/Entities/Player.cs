@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Sprites;
 using Pong.Global;
-using Microsoft.Xna.Framework.Input;
 
 namespace Pong.Entities;
 
