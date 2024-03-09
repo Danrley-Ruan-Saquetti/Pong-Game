@@ -5,9 +5,9 @@ namespace Pong.Entities;
 
 public class PlayerUser : Player
 {
-    public PlayerUser() : base() { }
-    public PlayerUser(float x) : base(x) { }
-    public PlayerUser(int x) : base(x) { }
+    public PlayerUser(PlayerSide side) : base(side) { }
+    public PlayerUser(PlayerSide side, float x) : base(side, x) { }
+    public PlayerUser(PlayerSide side, int x) : base(side, x) { }
 
     public override void MovePlayer(GameTime gameTime)
     {

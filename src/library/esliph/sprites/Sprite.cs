@@ -8,6 +8,15 @@ public interface ISprite
 {
     public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime);
+    public float GetRotation();
+    public void Rotate(float degrees);
+    public void RotateToLeft(float degrees);
+    public void RotateToRight(float degrees);
+    public void SetRotation(float rotation);
+    public void SetColor(Color color);
+    public Color GetColor();
+    public void SetTexture2D(Texture2D texture2D);
+    public Texture2D GetTexture2D();
 }
 
 public class Sprite : ISprite

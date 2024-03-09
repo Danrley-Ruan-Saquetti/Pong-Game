@@ -60,6 +60,11 @@ public class CircleSprite : Sprite
         base.Draw(gameTime);
     }
 
+    public virtual bool Intersects(CircleSprite circle)
+    {
+        return Vector2.Distance(circle.position, this.position) < this.radius + circle.radius;
+    }
+
     public Vector2 GetPosition()
     {
         return this.position;
