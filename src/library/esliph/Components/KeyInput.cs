@@ -1,4 +1,3 @@
-using System.Numerics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Library.Esliph.Components;
@@ -34,34 +33,9 @@ public class KeyEvent
         return new(key, KeyEventType.KEY_UP, capsLock, shiftPress);
     }
 
-    public static bool operator !=(KeyEvent left, KeyEvent right)
+    public bool IsEquals(Keys key)
     {
-        return !(left == right);
-    }
-
-    public static bool operator ==(KeyEvent left, KeyEvent right)
-    {
-        return left.GetKey() == right.GetKey();
-    }
-
-    public static bool operator !=(KeyEvent left, Keys right)
-    {
-        return !(left.GetKey() == right);
-    }
-
-    public static bool operator ==(KeyEvent left, Keys right)
-    {
-        return left.GetKey() == right;
-    }
-
-    public static bool operator !=(Keys left, KeyEvent right)
-    {
-        return !(right.GetKey() == left);
-    }
-
-    public static bool operator ==(Keys left, KeyEvent right)
-    {
-        return right.GetKey() == left;
+        return this.GetKey() == key;
     }
 
     public Keys GetKey()

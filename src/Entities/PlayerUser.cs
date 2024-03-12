@@ -12,11 +12,11 @@ public class PlayerUser : Player
 
     public override void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
     {
-        if (keyEvent == Keys.W)
+        if (keyEvent.IsEquals(Keys.W))
         {
             this.MoveUp(gameTime);
         }
-        else if (keyEvent == Keys.S)
+        else if (keyEvent.IsEquals(Keys.S))
         {
             this.MoveDown(gameTime);
         }
