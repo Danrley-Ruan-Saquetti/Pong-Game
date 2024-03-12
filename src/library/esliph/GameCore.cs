@@ -56,7 +56,7 @@ public class GameCore : Game
     {
         this.ReadKeyboardState(gameTime);
 
-        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
+        var gameObjects = this.GetGameObjectsToUpdateOfTheCurrentScenario();
 
         foreach (var gameObject in gameObjects)
         {
@@ -72,7 +72,7 @@ public class GameCore : Game
 
         SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        var gameObjects = this.GetGameObjectsVisibleOfTheCurrentScenario();
+        var gameObjects = this.GetGameObjectsToDrawOfTheCurrentScenario();
 
         foreach (var gameObject in gameObjects)
         {
@@ -168,17 +168,22 @@ public class GameCore : Game
 
     protected List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
     {
-        return this.GetScenario(scenarioIndex).GetGameObjectsAlive();
+        return this.GetScenario(scenarioIndex).GetGameObjectsIsAlive();
     }
 
     protected List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
     {
-        return this.GetCurrentScenario().GetGameObjectsAlive();
+        return this.GetCurrentScenario().GetGameObjectsIsAlive();
     }
 
-    protected List<IGameObject> GetGameObjectsVisibleOfTheCurrentScenario()
+    protected List<IGameObject> GetGameObjectsToUpdateOfTheCurrentScenario()
     {
-        return this.GetCurrentScenario().GetGameObjectsVisible();
+        return this.GetCurrentScenario().GetGameObjectsToUpdate();
+    }
+
+    protected List<IGameObject> GetGameObjectsToDrawOfTheCurrentScenario()
+    {
+        return this.GetCurrentScenario().GetGameObjectsToDraw();
     }
 
     protected List<IScenario> GetScenarios()
