@@ -11,6 +11,7 @@ public interface IScenario
     public void RemoveGameObject(int index);
     public List<IGameObject> GetGameObjects();
     public List<IGameObject> GetGameObjectsAlive();
+    public List<IGameObject> GetGameObjectsVisible();
     public Color GetBackgroundColor();
     public void SetBackgroundColor(Color color);
 }
@@ -51,6 +52,11 @@ public class Scenario : IScenario
     public List<IGameObject> GetGameObjectsAlive()
     {
         return this.gameObjects.Where(gameObject => gameObject.IsAlive()).ToList();
+    }
+
+    public List<IGameObject> GetGameObjectsVisible()
+    {
+        return this.gameObjects.Where(gameObject => gameObject.IsVisible()).ToList();
     }
 
     public Color GetBackgroundColor()

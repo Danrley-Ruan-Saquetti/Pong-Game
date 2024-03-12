@@ -15,6 +15,8 @@ public interface IGameObject
     public void Draw(GameTime gameTime);
     public bool IsAlive();
     public void SetAlive(bool alive);
+    public bool IsVisible();
+    public void SetVisible(bool visible);
 }
 public interface IGameObject<T> where T : ISprite
 {
@@ -32,10 +34,12 @@ public class GameObject<T> : IGameObject where T : ISprite
 {
     private T sprite;
     private bool alive { get; set; }
+    private bool visible { get; set; }
 
-    public GameObject(T sprite)
+    public GameObject(T sprite = default, bool visible = true)
     {
         this.sprite = sprite;
+        this.visible = visible;
         this.alive = true;
     }
 
@@ -72,6 +76,16 @@ public class GameObject<T> : IGameObject where T : ISprite
     public void SetAlive(bool alive)
     {
         this.alive = alive;
+    }
+
+    public bool IsVisible()
+    {
+        return visible;
+    }
+
+    public void SetVisible(bool visible)
+    {
+        this.visible = visible;
     }
 
     ISprite IGameObject.GetSprite()

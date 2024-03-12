@@ -71,7 +71,7 @@ public class GameCore : Game
 
         SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
+        var gameObjects = this.GetGameObjectsVisibleOfTheCurrentScenario();
 
         foreach (var gameObject in gameObjects)
         {
@@ -151,6 +151,11 @@ public class GameCore : Game
     public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsAlive();
+    }
+
+    public List<IGameObject> GetGameObjectsVisibleOfTheCurrentScenario()
+    {
+        return this.GetCurrentScenario().GetGameObjectsVisible();
     }
 
     public IScenario NewScenario()

@@ -3,6 +3,8 @@ using Library.Esliph.Common;
 using Library.Esliph.Sprites;
 using Pong.Global;
 
+namespace Pong.Entities;
+
 public class Ball : GameObject<CircleSprite>
 {
     private float speed { get; set; }
