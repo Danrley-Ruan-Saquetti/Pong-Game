@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using Library.Esliph;
 using Pong.Global;
 using Pong.Entities;
+using System;
 
 namespace Pong;
 
@@ -31,7 +32,9 @@ public class App : GameCore
     protected override void Update(GameTime gameTime)
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        {
             Exit();
+        }
 
         base.Update(gameTime);
     }

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Sprites;
+using Library.Esliph.Components;
 
 namespace Library.Esliph.Common;
 
@@ -9,6 +10,8 @@ public interface IGameObject
     public void Start();
     public void SetSprite(ISprite sprite);
     public void Update(GameTime gameTime);
+    public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
+    public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
     public void Draw(GameTime gameTime);
     public bool IsAlive();
     public void SetAlive(bool alive);
@@ -18,6 +21,8 @@ public interface IGameObject<T> where T : ISprite
     public T GetSprite();
     public void SetSprite(T sprite);
     public void Update(GameTime gameTime);
+    public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
+    public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
     public void Draw(GameTime gameTime);
     public bool IsAlive();
     public void SetAlive(bool alive);
@@ -46,6 +51,9 @@ public class GameObject<T> : IGameObject where T : ISprite
         this.GetSprite().Draw(gameTime);
     }
 
+    public virtual void OnKeyDown(GameTime gameTime, KeyEvent keyEvent) { }
+    public virtual void OnKeyUp(GameTime gameTime, KeyEvent keyEvent) { }
+
     public T GetSprite()
     {
         return this.sprite;
@@ -68,6 +76,6 @@ public class GameObject<T> : IGameObject where T : ISprite
 
     ISprite IGameObject.GetSprite()
     {
-        throw new System.NotImplementedException();
+        return this.sprite;
     }
 }

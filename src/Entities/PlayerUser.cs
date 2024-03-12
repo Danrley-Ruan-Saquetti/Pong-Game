@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Library.Esliph.Components;
 
 namespace Pong.Entities;
 
@@ -9,15 +10,13 @@ public class PlayerUser : Player
     public PlayerUser(PlayerSide side, float x) : base(side, x) { }
     public PlayerUser(PlayerSide side, int x) : base(side, x) { }
 
-    public override void MovePlayer(GameTime gameTime)
+    public override void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
     {
-        KeyboardState keyboard = Keyboard.GetState();
-
-        if (keyboard.IsKeyDown(Keys.W))
+        if (keyEvent == Keys.W)
         {
             this.MoveUp(gameTime);
         }
-        else if (keyboard.IsKeyDown(Keys.S))
+        else if (keyEvent == Keys.S)
         {
             this.MoveDown(gameTime);
         }

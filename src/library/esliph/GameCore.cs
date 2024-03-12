@@ -6,6 +6,7 @@ using Library.Esliph.Components;
 using Library.Esliph.Global;
 using Library.Esliph.Core;
 using System.Linq;
+using Microsoft.Xna.Framework.Input;
 
 namespace Library.Esliph;
 
@@ -48,6 +49,8 @@ public class GameCore : Game
     {
         Scenario scenario = this.GetCurrentScenario();
 
+        this.ReadKeyboardState(gameTime);
+
         foreach (var gameObject in scenario.GetGameObjects())
         {
             if (!gameObject.IsAlive())
@@ -80,6 +83,54 @@ public class GameCore : Game
         SpriteBatchExtensions.GetSpriteBatch().End();
 
         base.Draw(gameTime);
+    }
+
+    private void ReadKeyboardState(GameTime gameTime)
+    {
+        KeyboardState keyboardState = Keyboard.GetState();
+
+        if (keyboardState.GetPressedKeys().Length > 0)
+        {
+            Keys lastKeyPressed = keyboardState.GetPressedKeys()[0];
+
+            if (keyboardState.IsKeyDown(lastKeyPressed))
+            {
+                this.EmitKeyDownEventToGameObjects(gameTime, KeyEvent.KeyDown(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift)));
+            }
+
+            if (keyboardState.IsKeyUp(lastKeyPressed))
+            {
+                this.EmitKeyUpEventToGameObjects(gameTime, KeyEvent.KeyUp(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyUp(Keys.LeftShift) || keyboardState.IsKeyUp(Keys.RightShift)));
+            }
+        }
+    }
+
+    private void EmitKeyDownEventToGameObjects(GameTime gameTime, KeyEvent keyEvent)
+    {
+        Scenario scenario = this.GetCurrentScenario();
+
+        foreach (var gameObject in scenario.GetGameObjects())
+        {
+            if (!gameObject.IsAlive())
+            {
+                continue;
+            }
+            gameObject.OnKeyDown(gameTime, keyEvent);
+        }
+    }
+
+    private void EmitKeyUpEventToGameObjects(GameTime gameTime, KeyEvent keyEvent)
+    {
+        Scenario scenario = this.GetCurrentScenario();
+
+        foreach (var gameObject in scenario.GetGameObjects())
+        {
+            if (!gameObject.IsAlive())
+            {
+                continue;
+            }
+            gameObject.OnKeyUp(gameTime, keyEvent);
+        }
     }
 
     public Scenario NewScenario()
