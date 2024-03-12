@@ -10,8 +10,11 @@ public interface IScenario
     public void AddGameObjects(params IGameObject[] gameObjects);
     public void RemoveGameObject(int index);
     public List<IGameObject> GetGameObjects();
-    public List<IGameObject> GetGameObjectsAlive();
-    public List<IGameObject> GetGameObjectsVisible();
+    public List<IGameObject> GetGameObjectsIsAlive();
+    public List<IGameObject> GetGameObjectsIsVisible();
+    public List<IGameObject> GetGameObjectsIsComponentGame();
+    public List<IGameObject> GetGameObjectsToUpdate();
+    public List<IGameObject> GetGameObjectsToDraw();
     public Color GetBackgroundColor();
     public void SetBackgroundColor(Color color);
     public string GetName();
@@ -53,14 +56,29 @@ public class Scenario : IScenario
         return this.gameObjects;
     }
 
-    public List<IGameObject> GetGameObjectsAlive()
+    public List<IGameObject> GetGameObjectsIsAlive()
     {
         return this.gameObjects.Where(gameObject => gameObject.IsAlive()).ToList();
     }
 
-    public List<IGameObject> GetGameObjectsVisible()
+    public List<IGameObject> GetGameObjectsIsVisible()
     {
         return this.gameObjects.Where(gameObject => gameObject.IsVisible()).ToList();
+    }
+
+    public List<IGameObject> GetGameObjectsIsComponentGame()
+    {
+        return this.gameObjects.Where(gameObject => gameObject.IsComponentGame()).ToList();
+    }
+
+    public List<IGameObject> GetGameObjectsToUpdate()
+    {
+        return this.gameObjects.Where(gameObject => gameObject.IsAlive()).ToList();
+    }
+
+    public List<IGameObject> GetGameObjectsToDraw()
+    {
+        return this.gameObjects.Where(gameObject => gameObject.IsVisible() && gameObject.IsAlive() && gameObject.IsComponentGame()).ToList();
     }
 
     public Color GetBackgroundColor()

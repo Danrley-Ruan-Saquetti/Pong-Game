@@ -1,8 +1,8 @@
+using System.Linq;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Library.Esliph.Sprites;
 using Library.Esliph.Components;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Library.Esliph.Common;
 
@@ -19,10 +19,12 @@ public interface IGameObject
     public void SetAlive(bool alive);
     public bool IsVisible();
     public void SetVisible(bool visible);
+    public bool IsComponentGame();
 }
 public interface IGameObject<T> where T : ISprite
 {
     public T GetSprite();
+    public void Start();
     public void SetSprite(T sprite);
     public void Update(GameTime gameTime);
     public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
@@ -30,20 +32,24 @@ public interface IGameObject<T> where T : ISprite
     public void Draw(GameTime gameTime);
     public bool IsAlive();
     public void SetAlive(bool alive);
+    public bool IsVisible();
+    public void SetVisible(bool visible);
+    public bool IsComponentGame();
 }
 
 public class GameObject<T> : IGameObject where T : ISprite
 {
     private List<string> tags;
     private T sprite;
-    private bool alive { get; set; }
-    private bool visible { get; set; }
+    private bool alive, visible;
+    private readonly bool componentGame;
 
-    public GameObject(T sprite = default, bool visible = true)
+    public GameObject(T sprite = default, bool componentGame = true)
     {
         this.sprite = sprite;
-        this.visible = visible;
+        this.visible = true;
         this.alive = true;
+        this.componentGame = componentGame;
         this.tags = new();
     }
 
@@ -105,6 +111,11 @@ public class GameObject<T> : IGameObject where T : ISprite
     public void SetVisible(bool visible)
     {
         this.visible = visible;
+    }
+
+    public bool IsComponentGame()
+    {
+        return componentGame;
     }
 
     ISprite IGameObject.GetSprite()
