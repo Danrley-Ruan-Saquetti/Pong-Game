@@ -2,15 +2,16 @@ using Microsoft.Xna.Framework;
 
 namespace Pong.Entities;
 
-public class PlayerIA : Player
+public class PlayerCPU : Player
 {
     private Ball ball { get; set; }
 
-    public PlayerIA(PlayerSide side) : base(side) { }
-    public PlayerIA(PlayerSide side, float x, Ball ball) : this(side, (int)x, ball) { }
-    public PlayerIA(PlayerSide side, int x, Ball ball) : base(side, x)
+    public PlayerCPU(PlayerSide side) : base(side) { }
+    public PlayerCPU(PlayerSide side, float x, Ball ball) : this(side, (int)x, ball) { }
+    public PlayerCPU(PlayerSide side, int x, Ball ball) : base(side, x)
     {
         this.ball = ball;
+        this.AddTags("CPU");
     }
 
     public override void Update(GameTime gameTime)

@@ -20,6 +20,7 @@ public class Ball : GameObject<CircleSprite>
         this.GetSprite().SetColor(Color.White);
         this.direction = new(1, 1);
         this.speed = GameGlobals.BALL_SPEED;
+        this.AddTags("Entity", "Ball");
     }
 
     public override void Update(GameTime gameTime)

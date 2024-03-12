@@ -6,9 +6,18 @@ namespace Pong.Entities;
 
 public class PlayerUser : Player
 {
-    public PlayerUser(PlayerSide side) : base(side) { }
-    public PlayerUser(PlayerSide side, float x) : base(side, x) { }
-    public PlayerUser(PlayerSide side, int x) : base(side, x) { }
+    public PlayerUser(PlayerSide side) : base(side)
+    {
+        this.AddTags("User");
+    }
+    public PlayerUser(PlayerSide side, float x) : base(side, x)
+    {
+        this.AddTags("User");
+    }
+    public PlayerUser(PlayerSide side, int x) : base(side, x)
+    {
+        this.AddTags("User");
+    }
 
     public override void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
     {

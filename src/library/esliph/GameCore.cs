@@ -103,12 +103,12 @@ public class GameCore : Game
         }
     }
 
-    public virtual void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
+    protected virtual void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
     {
         this.EmitKeyDownEventToGameObjects(gameTime, keyEvent);
     }
 
-    public virtual void OnKeyUp(GameTime gameTime, KeyEvent keyEvent)
+    protected virtual void OnKeyUp(GameTime gameTime, KeyEvent keyEvent)
     {
         this.EmitKeyUpEventToGameObjects(gameTime, keyEvent);
     }
@@ -133,56 +133,47 @@ public class GameCore : Game
         }
     }
 
-    public List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
+    protected List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjects();
     }
 
-    public List<IGameObject> GetGameObjectsOfTheCurrentScenario()
+    protected List<IGameObject> GetGameObjectsOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjects();
     }
 
-    public List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
+    protected List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjectsAlive();
     }
 
-    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
+    protected List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsAlive();
     }
 
-    public List<IGameObject> GetGameObjectsVisibleOfTheCurrentScenario()
+    protected List<IGameObject> GetGameObjectsVisibleOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsVisible();
     }
 
-    public IScenario NewScenario()
-    {
-        IScenario scenario = new Scenario();
-
-        this.AddScenario(scenario);
-
-        return scenario;
-    }
-
-    public void AddScenario(IScenario scenario)
+    protected void AddScenario(IScenario scenario)
     {
         this.scenarios.Add(scenario);
     }
 
-    public List<IScenario> GetScenarios()
+    protected List<IScenario> GetScenarios()
     {
         return this.scenarios;
     }
 
-    public IScenario GetCurrentScenario()
+    protected IScenario GetCurrentScenario()
     {
         return this.currentScenario;
     }
 
-    public IScenario GetScenario(int scenarioIndex)
+    protected IScenario GetScenario(int scenarioIndex)
     {
         return this.scenarios.ElementAt(scenarioIndex);
     }

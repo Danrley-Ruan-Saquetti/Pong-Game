@@ -7,7 +7,7 @@ namespace Pong.Scenarios;
 
 public class MainScenario : Scenario
 {
-    public MainScenario() : base(Color.Black) { }
+    public MainScenario() : base("Game", Color.Black) { }
 
     public override void Initialize()
     {
@@ -17,7 +17,7 @@ public class MainScenario : Scenario
 
         this.AddGameObjects(
             new PlayerUser(PlayerSide.LEFT, gap),
-            new PlayerIA(PlayerSide.RIGHT, GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap, ball),
+            new PlayerCPU(PlayerSide.RIGHT, GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap, ball),
             ball
         );
 

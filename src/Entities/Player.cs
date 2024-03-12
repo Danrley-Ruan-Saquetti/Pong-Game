@@ -23,6 +23,7 @@ public class Player : GameObject<RectangleSprite>
         this.speed = GameGlobals.PLAYER_SPEED;
         this.side = side;
         this.initialPosition = new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2);
+        this.AddTags("Entity", "Player");
     }
 
     public override void Update(GameTime gameTime)

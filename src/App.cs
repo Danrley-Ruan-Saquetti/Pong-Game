@@ -15,7 +15,7 @@ public class App : GameCore
 
     protected override void Initialize()
     {
-        MainScenario mainScenario = new MainScenario();
+        MainScenario mainScenario = new();
 
         mainScenario.Initialize();
 

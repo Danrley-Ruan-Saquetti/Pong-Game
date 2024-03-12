@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Sprites;
 using Library.Esliph.Components;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Library.Esliph.Common;
 
@@ -32,6 +34,7 @@ public interface IGameObject<T> where T : ISprite
 
 public class GameObject<T> : IGameObject where T : ISprite
 {
+    private List<string> tags;
     private T sprite;
     private bool alive { get; set; }
     private bool visible { get; set; }
@@ -41,6 +44,7 @@ public class GameObject<T> : IGameObject where T : ISprite
         this.sprite = sprite;
         this.visible = visible;
         this.alive = true;
+        this.tags = new();
     }
 
     public virtual void Start() { }
@@ -57,6 +61,21 @@ public class GameObject<T> : IGameObject where T : ISprite
 
     public virtual void OnKeyDown(GameTime gameTime, KeyEvent keyEvent) { }
     public virtual void OnKeyUp(GameTime gameTime, KeyEvent keyEvent) { }
+
+    public void AddTags(params string[] tags)
+    {
+        this.tags.AddRange(tags);
+    }
+
+    public bool CompareTo(string tagName)
+    {
+        return this.tags.Any(tag => tag == tagName);
+    }
+
+    public List<string> GetTags()
+    {
+        return this.tags;
+    }
 
     public T GetSprite()
     {
