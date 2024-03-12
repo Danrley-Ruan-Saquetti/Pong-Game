@@ -2,8 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Library.Esliph;
 using Pong.Global;
-using Pong.Entities;
-using System;
+using Pong.Scenarios;
 
 namespace Pong;
 
@@ -16,15 +15,11 @@ public class App : GameCore
 
     protected override void Initialize()
     {
-        int gap = 15;
+        MainScenario mainScenario = new MainScenario();
 
-        var ball = new Ball();
+        mainScenario.Initialize();
 
-        this.GetCurrentScenario().AddGameObjects(
-            new PlayerUser(PlayerSide.LEFT, gap),
-            new PlayerIA(PlayerSide.RIGHT, GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap, ball),
-            ball
-        );
+        this.AddScenario(mainScenario);
 
         base.Initialize();
     }

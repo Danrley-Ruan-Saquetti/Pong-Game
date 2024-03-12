@@ -1,20 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Library.Esliph.Global;
 using Library.Esliph.Core;
-using System.Linq;
-using Microsoft.Xna.Framework.Input;
 
 namespace Library.Esliph;
 
 public class GameCore : Game
 {
     private GraphicsDeviceManager _graphics;
-    private readonly List<Scenario> scenarios;
+    private readonly List<IScenario> scenarios;
     private int currentScenarioIndex { get; set; }
+    private IScenario currentScenario
+    {
+        get
+        {
+            return this.scenarios.ElementAt(this.currentScenarioIndex);
+        }
+    }
 
     public GameCore(Dimension windowDimension = null)
     {
@@ -29,7 +36,6 @@ public class GameCore : Game
         };
         this.IsMouseVisible = true;
         this.scenarios = new();
-        this.NewScenario();
         this.currentScenarioIndex = 0;
     }
 
@@ -47,16 +53,12 @@ public class GameCore : Game
 
     protected override void Update(GameTime gameTime)
     {
-        Scenario scenario = this.GetCurrentScenario();
-
         this.ReadKeyboardState(gameTime);
 
-        foreach (var gameObject in scenario.GetGameObjects())
+        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
+
+        foreach (var gameObject in gameObjects)
         {
-            if (!gameObject.IsAlive())
-            {
-                continue;
-            }
             gameObject.Update(gameTime);
         }
 
@@ -65,18 +67,14 @@ public class GameCore : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        Scenario scenario = this.GetCurrentScenario();
-
-        GraphicsDevice.Clear(scenario.backgroundColor);
+        GraphicsDevice.Clear(this.currentScenario.GetBackgroundColor());
 
         SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        foreach (var gameObject in scenario.GetGameObjects())
+        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
+
+        foreach (var gameObject in gameObjects)
         {
-            if (!gameObject.IsAlive())
-            {
-                continue;
-            }
             gameObject.Draw(gameTime);
         }
 
@@ -95,64 +93,91 @@ public class GameCore : Game
 
             if (keyboardState.IsKeyDown(lastKeyPressed))
             {
-                this.EmitKeyDownEventToGameObjects(gameTime, KeyEvent.KeyDown(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift)));
+                this.OnKeyDown(gameTime, KeyEvent.KeyDown(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift)));
             }
 
             if (keyboardState.IsKeyUp(lastKeyPressed))
             {
-                this.EmitKeyUpEventToGameObjects(gameTime, KeyEvent.KeyUp(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyUp(Keys.LeftShift) || keyboardState.IsKeyUp(Keys.RightShift)));
+                this.OnKeyUp(gameTime, KeyEvent.KeyUp(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyUp(Keys.LeftShift) || keyboardState.IsKeyUp(Keys.RightShift)));
             }
         }
     }
 
+    public virtual void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
+    {
+        this.EmitKeyDownEventToGameObjects(gameTime, keyEvent);
+    }
+
+    public virtual void OnKeyUp(GameTime gameTime, KeyEvent keyEvent)
+    {
+        this.EmitKeyUpEventToGameObjects(gameTime, keyEvent);
+    }
+
     private void EmitKeyDownEventToGameObjects(GameTime gameTime, KeyEvent keyEvent)
     {
-        Scenario scenario = this.GetCurrentScenario();
+        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
 
-        foreach (var gameObject in scenario.GetGameObjects())
+        foreach (var gameObject in gameObjects)
         {
-            if (!gameObject.IsAlive())
-            {
-                continue;
-            }
             gameObject.OnKeyDown(gameTime, keyEvent);
         }
     }
 
     private void EmitKeyUpEventToGameObjects(GameTime gameTime, KeyEvent keyEvent)
     {
-        Scenario scenario = this.GetCurrentScenario();
+        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
 
-        foreach (var gameObject in scenario.GetGameObjects())
+        foreach (var gameObject in gameObjects)
         {
-            if (!gameObject.IsAlive())
-            {
-                continue;
-            }
             gameObject.OnKeyUp(gameTime, keyEvent);
         }
     }
 
-    public Scenario NewScenario()
+    public List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
     {
-        Scenario scenario = new();
+        return this.GetScenario(scenarioIndex).GetGameObjects();
+    }
 
-        this.scenarios.Add(scenario);
+    public List<IGameObject> GetGameObjectsOfTheCurrentScenario()
+    {
+        return this.GetCurrentScenario().GetGameObjects();
+    }
+
+    public List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
+    {
+        return this.GetScenario(scenarioIndex).GetGameObjectsAlive();
+    }
+
+    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
+    {
+        return this.GetCurrentScenario().GetGameObjectsAlive();
+    }
+
+    public IScenario NewScenario()
+    {
+        IScenario scenario = new Scenario();
+
+        this.AddScenario(scenario);
 
         return scenario;
     }
 
-    public List<Scenario> GetScenarios()
+    public void AddScenario(IScenario scenario)
+    {
+        this.scenarios.Add(scenario);
+    }
+
+    public List<IScenario> GetScenarios()
     {
         return this.scenarios;
     }
 
-    public Scenario GetCurrentScenario()
+    public IScenario GetCurrentScenario()
     {
-        return this.scenarios.ElementAt(this.currentScenarioIndex);
+        return this.currentScenario;
     }
 
-    public Scenario GetScenario(int scenarioIndex)
+    public IScenario GetScenario(int scenarioIndex)
     {
         return this.scenarios.ElementAt(scenarioIndex);
     }
