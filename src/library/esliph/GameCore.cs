@@ -7,6 +7,7 @@ using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Library.Esliph.Global;
 using Library.Esliph.Core;
+using System;
 
 namespace Library.Esliph;
 
@@ -133,6 +134,28 @@ public class GameCore : Game
         }
     }
 
+    protected void AddScenario(IScenario scenario)
+    {
+        this.scenarios.Add(scenario);
+    }
+
+    protected void ToggleScenario(string nameScenario)
+    {
+        var scenarioIndex = this.scenarios.FindIndex(scenario => scenario.GetName() == nameScenario);
+
+        if (scenarioIndex < 0)
+        {
+            throw new Exception("Scenario \" " + nameScenario + "\" not found");
+        }
+
+        this.ToggleScenario(scenarioIndex);
+    }
+
+    protected void ToggleScenario(int scenarioIndex)
+    {
+        this.currentScenarioIndex = scenarioIndex;
+    }
+
     protected List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjects();
@@ -158,11 +181,6 @@ public class GameCore : Game
         return this.GetCurrentScenario().GetGameObjectsVisible();
     }
 
-    protected void AddScenario(IScenario scenario)
-    {
-        this.scenarios.Add(scenario);
-    }
-
     protected List<IScenario> GetScenarios()
     {
         return this.scenarios;
@@ -171,6 +189,11 @@ public class GameCore : Game
     protected IScenario GetCurrentScenario()
     {
         return this.currentScenario;
+    }
+
+    protected IScenario GetScenario(string name)
+    {
+        return this.scenarios.Find(scenario => scenario.GetName() == name);
     }
 
     protected IScenario GetScenario(int scenarioIndex)
