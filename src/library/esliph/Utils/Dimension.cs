@@ -1,4 +1,4 @@
-namespace Library.Esliph.Components;
+namespace Library.Esliph.Utils;
 
 public class Dimension
 {

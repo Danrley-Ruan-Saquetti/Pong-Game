@@ -1,9 +1,8 @@
-using System;
-using Microsoft.Xna.Framework.Input;
-using Library.Esliph.Components;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Library.Esliph.Common;
 
-namespace Library.Esliph.Controllers;
+namespace Library.Esliph.Components;
 
 public interface IScriptKeyEvent
 {
@@ -11,18 +10,18 @@ public interface IScriptKeyEvent
     public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
 }
 
-public class KeyEventController
+public class KeyEventComponent : Component
 {
     private readonly IScriptKeyEvent script;
 
-    public KeyEventController(IScriptKeyEvent script)
+    public KeyEventComponent(IScriptKeyEvent script) : base()
     {
         this.script = script;
     }
 
-    public void ReadKeyboard(GameTime gameTime)
+    public override void Update(GameTime gameTime, IGameObject gameObject)
     {
-        KeyEvent keyEvent = KeyEventController.ReadKeyboardState();
+        KeyEvent keyEvent = KeyEventComponent.ReadKeyboardState();
 
         if (!keyEvent.IsActive())
         {

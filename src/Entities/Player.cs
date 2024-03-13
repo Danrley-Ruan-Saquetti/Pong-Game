@@ -29,6 +29,7 @@ public class Player : GameObject<RectangleSprite>
     public override void Update(GameTime gameTime)
     {
         this.MovePlayer(gameTime);
+        base.Update(gameTime);
     }
 
     public virtual void MovePlayer(GameTime gameTime) { }

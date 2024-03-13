@@ -7,7 +7,7 @@ namespace Pong.Scenarios;
 
 public class MainScenario : Scenario
 {
-    public MainScenario() : base("Game", Color.Black) { }
+    public MainScenario() : base("Main", Color.Black) { }
 
     public override void Initialize()
     {

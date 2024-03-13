@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Sprites;
+using Library.Esliph.Components;
 
 namespace Test.Entities;
 
@@ -12,12 +13,12 @@ public class RectangleTestCollision : GameObject<RectangleSprite>
     {
         this.GetSprite().SetColor(Color.White);
         this.directionX = directionX;
+        this.AddComponents(
+        );
     }
 
     public override void Update(GameTime gameTime)
     {
         this.GetSprite().X += this.directionX;
-
-        base.Update(gameTime);
     }
 }

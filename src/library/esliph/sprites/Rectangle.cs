@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Library.Esliph.Components;
+using Library.Esliph.Utils;
 using Library.Esliph.Core;
 
 namespace Library.Esliph.Sprites;

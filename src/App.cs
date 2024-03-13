@@ -18,7 +18,8 @@ public class App : GameCore
         this.CreateScenario<MainScenario>();
         this.CreateScenario<ColliderTestScenario>();
 
-        this.ToggleScenario("ColliderTest");
+        // this.ToggleScenario("ColliderTest");
+        this.ToggleScenario("Main");
 
         base.Initialize();
     }
@@ -29,7 +30,6 @@ public class App : GameCore
         {
             Exit();
         }
-
         base.Update(gameTime);
     }
 

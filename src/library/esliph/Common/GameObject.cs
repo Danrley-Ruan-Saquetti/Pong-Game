@@ -8,13 +8,16 @@ namespace Library.Esliph.Common;
 
 public interface IGameObject
 {
-    public ISprite GetSprite();
     public void Start();
-    public void SetSprite(ISprite sprite);
     public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime);
-    public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
-    public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
+    public void AddTags(params string[] tags);
+    public bool CompareTo(string tagName);
+    public List<string> GetTags();
+    public void AddComponents(params IComponent[] components);
+    public List<IComponent> GetComponents();
+    public ISprite GetSprite();
+    public void SetSprite(ISprite sprite);
     public bool IsAlive();
     public void SetAlive(bool alive);
     public bool IsVisible();
@@ -23,13 +26,16 @@ public interface IGameObject
 }
 public interface IGameObject<T> where T : ISprite
 {
-    public T GetSprite();
     public void Start();
-    public void SetSprite(T sprite);
     public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime);
-    public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
-    public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
+    public void AddTags(params string[] tags);
+    public bool CompareTo(string tagName);
+    public List<string> GetTags();
+    public void AddComponents(params IComponent[] components);
+    public List<IComponent> GetComponents();
+    public T GetSprite();
+    public void SetSprite(ISprite sprite);
     public bool IsAlive();
     public void SetAlive(bool alive);
     public bool IsVisible();
@@ -39,6 +45,7 @@ public interface IGameObject<T> where T : ISprite
 
 public class GameObject<T> : IGameObject where T : ISprite
 {
+    private List<IComponent> components;
     private List<string> tags;
     private T sprite;
     private bool alive, visible;
@@ -51,12 +58,14 @@ public class GameObject<T> : IGameObject where T : ISprite
         this.alive = true;
         this.componentGame = componentGame;
         this.tags = new();
+        this.components = new();
     }
 
     public virtual void Start() { }
 
     public virtual void Update(GameTime gameTime)
     {
+        this.UpdateComponents(gameTime);
         this.GetSprite().Update(gameTime);
     }
 
@@ -64,9 +73,6 @@ public class GameObject<T> : IGameObject where T : ISprite
     {
         this.GetSprite().Draw(gameTime);
     }
-
-    public virtual void OnKeyDown(GameTime gameTime, KeyEvent keyEvent) { }
-    public virtual void OnKeyUp(GameTime gameTime, KeyEvent keyEvent) { }
 
     public void AddTags(params string[] tags)
     {
@@ -81,6 +87,29 @@ public class GameObject<T> : IGameObject where T : ISprite
     public List<string> GetTags()
     {
         return this.tags;
+    }
+
+    public void AddComponents(params IComponent[] components)
+    {
+        this.components.AddRange(components);
+
+        foreach (var component in components)
+        {
+            component.Start();
+        }
+    }
+
+    public void UpdateComponents(GameTime gameTime)
+    {
+        foreach (var component in this.components)
+        {
+            component.Update(gameTime, this);
+        }
+    }
+
+    public List<IComponent> GetComponents()
+    {
+        return this.components;
     }
 
     public T GetSprite()

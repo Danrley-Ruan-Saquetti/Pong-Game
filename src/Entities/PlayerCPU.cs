@@ -14,11 +14,6 @@ public class PlayerCPU : Player
         this.AddTags("CPU");
     }
 
-    public override void Update(GameTime gameTime)
-    {
-        this.MovePlayer(gameTime);
-    }
-
     public override void MovePlayer(GameTime gameTime)
     {
         if (this.IsTargetBallInThisPlayer())

@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Common;
-using Library.Esliph.Components;
+using Library.Esliph.Utils;
 using Library.Esliph.Global;
 using Library.Esliph.Core;
-using Library.Esliph.Controllers;
 
 namespace Library.Esliph;
 
@@ -60,8 +59,6 @@ public class GameCore : Game
         {
             gameObject.Update(gameTime);
         }
-
-        base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
