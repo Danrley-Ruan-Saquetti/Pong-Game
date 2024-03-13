@@ -18,7 +18,7 @@ public class App : GameCore
         this.CreateScenario<MainScenario>();
         this.CreateScenario<ColliderTestScenario>();
 
-        this.ToggleScenario("Game");
+        this.ToggleScenario("ColliderTest");
 
         base.Initialize();
     }
