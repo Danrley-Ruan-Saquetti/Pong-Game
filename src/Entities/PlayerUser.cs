@@ -4,7 +4,7 @@ using Library.Esliph.Components;
 
 namespace Pong.Entities;
 
-public class PlayerUser : Player, IScriptKeyEvent
+public class PlayerUser : Player, IKeyEventComponentObject
 {
     public PlayerUser(PlayerSide side) : this(side, 0) { }
     public PlayerUser(PlayerSide side, float x) : this(side, (int)x) { }

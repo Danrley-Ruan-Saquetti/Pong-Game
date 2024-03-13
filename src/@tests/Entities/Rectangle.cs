@@ -5,20 +5,26 @@ using Library.Esliph.Components;
 
 namespace Test.Entities;
 
-public class RectangleTestCollision : GameObject<RectangleSprite>
+public class RectangleTestCollision : GameObject<RectangleSprite>, IRectangleColliderComponentObject
 {
     private int directionX;
 
     public RectangleTestCollision(int x, int directionX) : base(new(new(x, 10), new(50, 50)))
     {
-        this.GetSprite().SetColor(Color.White);
         this.directionX = directionX;
+        this.GetSprite().SetColor(Color.White);
         this.AddComponents(
+            new RectangleColliderComponent<RectangleTestCollision>(this)
         );
     }
 
     public override void Update(GameTime gameTime)
     {
         this.GetSprite().X += this.directionX;
+    }
+
+    public void OnCollision()
+    {
+
     }
 }

@@ -24,26 +24,13 @@ public interface IGameObject
     public void SetVisible(bool visible);
     public bool IsComponentGame();
 }
-public interface IGameObject<T> where T : ISprite
+public interface IGameObject<T> : IGameObject where T : ISprite
 {
-    public void Start();
-    public void Update(GameTime gameTime);
-    public void Draw(GameTime gameTime);
-    public void AddTags(params string[] tags);
-    public bool CompareTo(string tagName);
-    public List<string> GetTags();
-    public void AddComponents(params IComponent[] components);
-    public List<IComponent> GetComponents();
-    public T GetSprite();
-    public void SetSprite(ISprite sprite);
-    public bool IsAlive();
-    public void SetAlive(bool alive);
-    public bool IsVisible();
-    public void SetVisible(bool visible);
-    public bool IsComponentGame();
+    public new T GetSprite();
+    public void SetSprite(T sprite);
 }
 
-public class GameObject<T> : IGameObject where T : ISprite
+public class GameObject<T> : IGameObject<T> where T : ISprite
 {
     private List<IComponent> components;
     private List<string> tags;
@@ -117,9 +104,8 @@ public class GameObject<T> : IGameObject where T : ISprite
         return this.sprite;
     }
 
-    public void SetSprite(ISprite sprite)
+    public void SetSprite(T sprite)
     {
-        this.sprite = (T)sprite;
     }
 
     public bool IsAlive()
@@ -150,5 +136,29 @@ public class GameObject<T> : IGameObject where T : ISprite
     ISprite IGameObject.GetSprite()
     {
         return this.sprite;
+    }
+
+    T IGameObject<T>.GetSprite()
+    {
+        return this.sprite;
+    }
+
+    public void SetSprite(ISprite sprite) { }
+}
+
+public class GameObject : GameObject<Sprite>
+{
+    private ISprite sprite;
+
+    public GameObject(Sprite sprite = default, bool componentGame = true) : base(sprite, componentGame) { }
+
+    public new Sprite GetSprite()
+    {
+        return base.GetSprite();
+    }
+
+    public new void SetSprite(ISprite sprite)
+    {
+        this.sprite = sprite;
     }
 }
