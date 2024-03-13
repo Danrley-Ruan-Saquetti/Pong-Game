@@ -1,13 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Library.Esliph.Global;
 using Library.Esliph.Core;
-using System;
+using Library.Esliph.Controllers;
 
 namespace Library.Esliph;
 
@@ -54,8 +54,6 @@ public class GameCore : Game
 
     protected override void Update(GameTime gameTime)
     {
-        this.ReadKeyboardState(gameTime);
-
         var gameObjects = this.GetGameObjectsToUpdateOfTheCurrentScenario();
 
         foreach (var gameObject in gameObjects)
@@ -84,56 +82,6 @@ public class GameCore : Game
         base.Draw(gameTime);
     }
 
-    private void ReadKeyboardState(GameTime gameTime)
-    {
-        KeyboardState keyboardState = Keyboard.GetState();
-
-        if (keyboardState.GetPressedKeys().Length > 0)
-        {
-            Keys lastKeyPressed = keyboardState.GetPressedKeys()[0];
-
-            if (keyboardState.IsKeyDown(lastKeyPressed))
-            {
-                this.OnKeyDown(gameTime, KeyEvent.KeyDown(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift)));
-            }
-
-            if (keyboardState.IsKeyUp(lastKeyPressed))
-            {
-                this.OnKeyUp(gameTime, KeyEvent.KeyUp(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyUp(Keys.LeftShift) || keyboardState.IsKeyUp(Keys.RightShift)));
-            }
-        }
-    }
-
-    protected virtual void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
-    {
-        this.EmitKeyDownEventToGameObjects(gameTime, keyEvent);
-    }
-
-    protected virtual void OnKeyUp(GameTime gameTime, KeyEvent keyEvent)
-    {
-        this.EmitKeyUpEventToGameObjects(gameTime, keyEvent);
-    }
-
-    private void EmitKeyDownEventToGameObjects(GameTime gameTime, KeyEvent keyEvent)
-    {
-        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
-
-        foreach (var gameObject in gameObjects)
-        {
-            gameObject.OnKeyDown(gameTime, keyEvent);
-        }
-    }
-
-    private void EmitKeyUpEventToGameObjects(GameTime gameTime, KeyEvent keyEvent)
-    {
-        var gameObjects = this.GetGameObjectsAliveOfTheCurrentScenario();
-
-        foreach (var gameObject in gameObjects)
-        {
-            gameObject.OnKeyUp(gameTime, keyEvent);
-        }
-    }
-
     protected void AddScenario(IScenario scenario)
     {
         this.scenarios.Add(scenario);
@@ -145,7 +93,7 @@ public class GameCore : Game
 
         if (scenarioIndex < 0)
         {
-            throw new Exception("Scenario \" " + nameScenario + "\" not found");
+            throw new Exception("Scenario \"" + nameScenario + "\" not found");
         }
 
         this.ToggleScenario(scenarioIndex);

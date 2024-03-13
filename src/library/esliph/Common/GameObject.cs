@@ -12,9 +12,9 @@ public interface IGameObject
     public void Start();
     public void SetSprite(ISprite sprite);
     public void Update(GameTime gameTime);
+    public void Draw(GameTime gameTime);
     public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
     public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
-    public void Draw(GameTime gameTime);
     public bool IsAlive();
     public void SetAlive(bool alive);
     public bool IsVisible();
@@ -27,9 +27,9 @@ public interface IGameObject<T> where T : ISprite
     public void Start();
     public void SetSprite(T sprite);
     public void Update(GameTime gameTime);
+    public void Draw(GameTime gameTime);
     public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
     public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
-    public void Draw(GameTime gameTime);
     public bool IsAlive();
     public void SetAlive(bool alive);
     public bool IsVisible();

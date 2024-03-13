@@ -38,6 +38,21 @@ public class KeyEvent
         return this.GetKey() == key;
     }
 
+    public bool IsKeyDown()
+    {
+        return this.GetKeyEventType() == KeyEventType.KEY_DOWN;
+    }
+
+    public bool IsKeyUp()
+    {
+        return this.GetKeyEventType() == KeyEventType.KEY_UP;
+    }
+
+    public bool IsActive()
+    {
+        return this.GetKeyEventType() != KeyEventType.NONE;
+    }
+
     public Keys GetKey()
     {
         return this.key;

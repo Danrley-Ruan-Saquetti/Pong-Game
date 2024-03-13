@@ -8,6 +8,8 @@ namespace Library.Esliph.Sprites;
 public class CircleSprite : Sprite
 {
     private Vector2 position;
+    private float radius { get; set; }
+    private int segments { get; set; }
     public float X
     {
         get { return this.position.X; }
@@ -38,13 +40,11 @@ public class CircleSprite : Sprite
         get { return this.position.Y + this.radius; }
         set { this.position.Y = value - this.radius; }
     }
-    private float radius { get; set; }
     public float diameter
     {
         get { return this.radius * 2; }
-        set { this.diameter = value / 2; }
+        set { this.radius = value / 2; }
     }
-    private int segments { get; set; }
 
     public CircleSprite(Vector2 position = new(), float radius = 0, int? segments = null, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
     {
