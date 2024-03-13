@@ -15,14 +15,8 @@ public class App : GameCore
 
     protected override void Initialize()
     {
-        MainScenario mainScenario = new();
-        ColliderTestScenario colliderTestScenario = new();
-
-        mainScenario.Initialize();
-        colliderTestScenario.Initialize();
-
-        this.AddScenario(mainScenario);
-        this.AddScenario(colliderTestScenario);
+        this.CreateScenario<MainScenario>();
+        this.CreateScenario<ColliderTestScenario>();
 
         this.ToggleScenario("Game");
 

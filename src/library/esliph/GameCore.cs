@@ -82,7 +82,14 @@ public class GameCore : Game
         base.Draw(gameTime);
     }
 
-    protected void AddScenario(IScenario scenario)
+    protected void CreateScenario<TScenario>() where TScenario : Scenario, new()
+    {
+        Scenario scenario = new TScenario();
+
+        this.AddScenario(scenario);
+    }
+
+    private void AddScenario(IScenario scenario)
     {
         this.scenarios.Add(scenario);
     }
@@ -102,6 +109,7 @@ public class GameCore : Game
     protected void ToggleScenario(int scenarioIndex)
     {
         this.currentScenarioIndex = scenarioIndex;
+        this.GetScenario(scenarioIndex).Initialize();
     }
 
     protected List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
