@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Library.Esliph.Sprites;
 using Library.Esliph.Components;
+using Library.Esliph.Controller;
+using System;
 
 namespace Library.Esliph.Common;
 
@@ -23,6 +25,7 @@ public interface IGameObject
     public bool IsVisible();
     public void SetVisible(bool visible);
     public bool IsComponentGame();
+    public Guid GetId();
 }
 public interface IGameObject<T> : IGameObject where T : ISprite
 {
@@ -32,6 +35,8 @@ public interface IGameObject<T> : IGameObject where T : ISprite
 
 public class GameObject<T> : IGameObject<T> where T : ISprite
 {
+    protected GameController gameController = GameController.GetInstance();
+    private readonly Guid id;
     private List<IComponent> components;
     private List<string> tags;
     private T sprite;
@@ -46,6 +51,7 @@ public class GameObject<T> : IGameObject<T> where T : ISprite
         this.componentGame = componentGame;
         this.tags = new();
         this.components = new();
+        this.id = Guid.NewGuid();
     }
 
     public virtual void Start() { }
@@ -141,6 +147,11 @@ public class GameObject<T> : IGameObject<T> where T : ISprite
     T IGameObject<T>.GetSprite()
     {
         return this.sprite;
+    }
+
+    public Guid GetId()
+    {
+        return this.id;
     }
 
     public void SetSprite(ISprite sprite) { }

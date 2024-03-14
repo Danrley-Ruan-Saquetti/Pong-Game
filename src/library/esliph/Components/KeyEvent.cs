@@ -12,9 +12,7 @@ public interface IKeyEventComponentObject : IGameObject
 
 public class KeyEventComponent : Component<IKeyEventComponentObject>
 {
-    public KeyEventComponent(IKeyEventComponentObject componentObject) : base(componentObject) { }
-
-    public override void Update(GameTime gameTime, IGameObject gameObject)
+    public override void Update(GameTime gameTime, IKeyEventComponentObject gameObject)
     {
         KeyEvent keyEvent = KeyEventComponent.ReadKeyboardState();
 
@@ -25,11 +23,11 @@ public class KeyEventComponent : Component<IKeyEventComponentObject>
 
         if (keyEvent.IsKeyDown())
         {
-            this.componentObject.OnKeyDown(gameTime, keyEvent);
+            gameObject.OnKeyDown(gameTime, keyEvent);
         }
         if (keyEvent.IsKeyUp())
         {
-            this.componentObject.OnKeyUp(gameTime, keyEvent);
+            gameObject.OnKeyUp(gameTime, keyEvent);
         }
     }
 

@@ -14,13 +14,14 @@ public class RectangleTestCollision : GameObject<RectangleSprite>, IRectangleCol
         this.directionX = directionX;
         this.GetSprite().SetColor(Color.White);
         this.AddComponents(
-            new RectangleColliderComponent<RectangleTestCollision>(this)
+            new RectangleColliderComponent()
         );
     }
 
     public override void Update(GameTime gameTime)
     {
         this.GetSprite().X += this.directionX;
+        base.Update(gameTime);
     }
 
     public void OnCollision()

@@ -12,7 +12,7 @@ public class PlayerUser : Player, IKeyEventComponentObject
     {
         this.AddTags("User");
         this.AddComponents(
-            new KeyEventComponent(this)
+            new KeyEventComponent()
         );
     }
 

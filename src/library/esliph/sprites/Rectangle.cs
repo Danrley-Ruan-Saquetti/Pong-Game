@@ -5,7 +5,12 @@ using Library.Esliph.Core;
 
 namespace Library.Esliph.Sprites;
 
-public class RectangleSprite : Sprite
+public interface IRectangleSprite : ISprite
+{
+    public Rectangle GetRectangle();
+}
+
+public class RectangleSprite : Sprite, IRectangleSprite
 {
     private Rectangle rectangle;
     public Vector2 position
@@ -57,22 +62,6 @@ public class RectangleSprite : Sprite
         SpriteBatchExtensions.DrawRectangleFilled(this.GetRectangle(), this.GetColor());
 
         base.Draw(gameTime);
-    }
-
-    public virtual bool Intersects(RectangleSprite rectangle)
-    {
-        return this.rectangle.Intersects(rectangle.GetRectangle());
-    }
-
-    public virtual bool Contains(RectangleSprite rectangle)
-    {
-        return this.rectangle.Contains(rectangle.GetRectangle());
-    }
-
-    public virtual bool Intersects(CircleSprite circle)
-    {
-
-        return false;
     }
 
     public Rectangle GetRectangle()

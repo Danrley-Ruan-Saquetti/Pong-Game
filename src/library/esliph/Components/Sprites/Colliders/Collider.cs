@@ -1,11 +1,10 @@
+using Library.Esliph.Common;
+
 namespace Library.Esliph.Components;
 
-public interface IColliderComponentObject
+public interface IColliderComponentObject : IGameObject
 {
     public void OnCollision();
 }
 
-public class ColliderComponent<T> : Component<T> where T : IColliderComponentObject
-{
-    public ColliderComponent(T componentObject) : base(componentObject) { }
-}
+public class ColliderComponent : Component { }
