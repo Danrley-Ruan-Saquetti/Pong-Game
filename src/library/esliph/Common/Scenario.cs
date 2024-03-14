@@ -14,7 +14,7 @@ public interface IScenario
     public List<IGameObject> GetGameObjectsIsAlive();
     public List<IGameObject> GetGameObjectsIsVisible();
     public List<IGameObject> GetGameObjectsIsComponentGame();
-    public List<IGameObject> GetGameObjectsIsComponentGame<T>() where T : ISprite;
+    public List<IGameObject<T>> GetGameObjectsIsComponentGame<T>() where T : ISprite;
     public List<IGameObject> GetGameObjectsToUpdate();
     public List<IGameObject> GetGameObjectsToDraw();
     public Color GetBackgroundColor();
@@ -73,9 +73,9 @@ public class Scenario : IScenario
         return this.gameObjects.Where(gameObject => gameObject.IsComponentGame()).ToList();
     }
 
-    public List<IGameObject> GetGameObjectsIsComponentGame<T>() where T : ISprite
+    public List<IGameObject<T>> GetGameObjectsIsComponentGame<T>() where T : ISprite
     {
-        return this.gameObjects.Where(gameObject => gameObject.IsComponentGame() && gameObject.GetSprite() is T).ToList();
+        return this.gameObjects.Where(gameObject => gameObject.IsComponentGame() && gameObject.GetSprite() is T).ToList() as List<IGameObject<T>>;
     }
 
     public List<IGameObject> GetGameObjectsToUpdate()

@@ -7,4 +7,4 @@ public interface IColliderComponentObject : IGameObject
     public void OnCollision();
 }
 
-public class ColliderComponent : Component { }
+public class ColliderComponent<T> : Component<T> where T : IColliderComponentObject { }
