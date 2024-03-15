@@ -1,10 +1,11 @@
-using Library.Esliph.Sprites;
-
 namespace Library.Esliph.Common;
 
-public class AbstractObject : GameObject<ISprite>
+public class AbstractObject : GameObject
 {
-    public AbstractObject() : base(null, false) { }
+    public AbstractObject() : base()
+    {
+        this.SetVisible(false);
+    }
 
     public override void Start()
     {

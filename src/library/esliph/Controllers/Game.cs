@@ -32,7 +32,7 @@ public class GameController
 
     public void CreateScenario<TScenario>() where TScenario : Scenario, new()
     {
-        Scenario scenario = new TScenario();
+        IScenario scenario = new TScenario();
 
         this.AddScenario(scenario);
     }
@@ -60,32 +60,32 @@ public class GameController
         this.GetScenario(scenarioIndex).Initialize();
     }
 
-    public List<IGameObject<ISprite>> GetGameObjectsOfTheScenario(int scenarioIndex)
+    public List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjects();
     }
 
-    public List<IGameObject<ISprite>> GetGameObjectsOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjects();
     }
 
-    public List<IGameObject<ISprite>> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
+    public List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjectsIsAlive();
     }
 
-    public List<IGameObject<ISprite>> GetGameObjectsAliveOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsIsAlive();
     }
 
-    public List<IGameObject<ISprite>> GetGameObjectsToUpdateOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsToUpdateOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsToUpdate();
     }
 
-    public List<IGameObject<ISprite>> GetGameObjectsToDrawOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsToDrawOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsToDraw();
     }

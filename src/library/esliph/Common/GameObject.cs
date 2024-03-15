@@ -2,13 +2,12 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Library.Esliph.Sprites;
 using Library.Esliph.Controller;
 using Library.Esliph.Components;
 
 namespace Library.Esliph.Common;
 
-public interface IGameObject<GISprite> where GISprite : ISprite
+public interface IGameObject
 {
     public void Start();
     public void Update(GameTime gameTime);
@@ -21,47 +20,32 @@ public interface IGameObject<GISprite> where GISprite : ISprite
     public void SetAlive(bool alive);
     public bool IsVisible();
     public void SetVisible(bool visible);
-    public bool IsComponentGame();
-    public GISprite GetSprite();
-    public void SetSprite(GISprite sprite);
     public void AddComponents(params IComponent[] components);
     public List<IComponent> GetComponents();
     public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent;
     public GIComponent GetComponent<GIComponent>() where GIComponent : IComponent;
 }
 
-public class GameObject<GISprite> : IGameObject<GISprite> where GISprite : ISprite
+public class GameObject : IGameObject
 {
     protected GameController gameController = GameController.GetInstance();
     private readonly Guid id;
     private List<string> tags;
-    private GISprite sprite;
     private bool alive, visible;
-    private readonly bool componentGame;
     private List<IComponent> components;
 
-    public GameObject(GISprite sprite = default, bool isComponentGame = true)
+    public GameObject()
     {
-        this.sprite = sprite;
         this.visible = true;
         this.alive = true;
-        this.componentGame = isComponentGame;
         this.tags = new();
         this.id = Guid.NewGuid();
         this.components = new();
     }
 
     public virtual void Start() { }
-
-    public virtual void Update(GameTime gameTime)
-    {
-        this.GetSprite().Update(gameTime);
-    }
-
-    public virtual void Draw(GameTime gameTime)
-    {
-        this.GetSprite().Draw(gameTime);
-    }
+    public virtual void Update(GameTime gameTime) { }
+    public virtual void Draw(GameTime gameTime) { }
 
     public void AddTags(params string[] tags)
     {
@@ -76,16 +60,6 @@ public class GameObject<GISprite> : IGameObject<GISprite> where GISprite : ISpri
     public List<string> GetTags()
     {
         return this.tags;
-    }
-
-    public GISprite GetSprite()
-    {
-        return this.sprite;
-    }
-
-    public void SetSprite(GISprite sprite)
-    {
-        this.sprite = sprite;
     }
 
     public bool IsAlive()
@@ -106,11 +80,6 @@ public class GameObject<GISprite> : IGameObject<GISprite> where GISprite : ISpri
     public void SetVisible(bool visible)
     {
         this.visible = visible;
-    }
-
-    public bool IsComponentGame()
-    {
-        return componentGame;
     }
 
     public Guid GetId()

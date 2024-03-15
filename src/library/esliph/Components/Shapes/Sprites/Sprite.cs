@@ -1,12 +1,12 @@
 using System;
+using Library.Esliph.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Library.Esliph.Sprites;
 
-public interface ISprite
+public interface ISprite : IComponent
 {
-    public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime);
     public float GetRotation();
     public void Rotate(float degrees);
@@ -19,7 +19,7 @@ public interface ISprite
     public Texture2D GetTexture2D();
 }
 
-public class Sprite : ISprite
+public class Sprite : Component, ISprite
 {
     private Texture2D texture2D;
     private float rotation;
@@ -32,7 +32,6 @@ public class Sprite : ISprite
         this.color = color;
     }
 
-    public virtual void Update(GameTime gameTime) { }
     public virtual void Draw(GameTime gameTime) { }
 
     public float GetRotation()

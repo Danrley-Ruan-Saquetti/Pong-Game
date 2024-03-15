@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Core;
 using Pong.Global;
-using Pong.Scenarios;
 
 namespace Pong;
 
@@ -15,11 +14,11 @@ public class App : AppGame
 
     protected override void Initialize()
     {
-        this.gameController.CreateScenario<MainScenario>();
-        this.gameController.CreateScenario<ColliderTestScenario>();
+        // this.gameController.CreateScenario<MainScenario>();
+        // this.gameController.CreateScenario<ColliderTestScenario>();
 
         // this.gameController.ToggleScenario("ColliderTest");
-        this.gameController.ToggleScenario("Main");
+        // this.gameController.ToggleScenario("Main");
 
         base.Initialize();
     }
