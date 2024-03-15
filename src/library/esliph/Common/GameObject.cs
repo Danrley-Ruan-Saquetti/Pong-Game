@@ -46,10 +46,6 @@ public class GameObject : IGameObject
     }
 
     public virtual void Start() { }
-<<<<<<< HEAD
-    public virtual void Update(GameTime gameTime) { }
-    public virtual void Draw(GameTime gameTime) { }
-=======
 
     public virtual void Update(GameTime gameTime)
     {
@@ -72,7 +68,6 @@ public class GameObject : IGameObject
 
         sprite.Draw(gameTime);
     }
->>>>>>> checkpoint
 
     public void AddTags(params string[] tags)
     {
