@@ -1,6 +1,6 @@
 namespace Library.Esliph.Components;
 
-public abstract class IColliderComponentObject
+public interface IColliderComponentObject
 {
-    public abstract void OnCollision();
+    public void OnCollision();
 }

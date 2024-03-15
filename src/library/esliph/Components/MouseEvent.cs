@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Library.Esliph.Components;
 
-public abstract class IScriptMouseEvent
+public interface IScriptMouseEvent
 {
-    public abstract void OnMouseDown(GameTime gameTime, MouseEvent keyEvent);
-    public abstract void OnMouseUp(GameTime gameTime, MouseEvent keyEvent);
+    public void OnMouseDown(GameTime gameTime, MouseEvent keyEvent);
+    public void OnMouseUp(GameTime gameTime, MouseEvent keyEvent);
 }
 
 public class MouseEventController
