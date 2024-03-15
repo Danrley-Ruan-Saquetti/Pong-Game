@@ -13,7 +13,6 @@ public interface IGameObject
     public void Start();
     public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime);
-    public Guid GetId();
     public void AddTags(params string[] tags);
     public bool CompareTo(string tagName);
     public List<string> GetTags();
@@ -21,11 +20,14 @@ public interface IGameObject
     public void SetAlive(bool alive);
     public bool IsVisible();
     public void SetVisible(bool visible);
+    public Guid GetId();
     public void AddComponents(params IComponent[] components);
     public GISprite GetSprite<GISprite>() where GISprite : ISprite;
     public List<IComponent> GetComponents();
+    public List<IComponent> GetComponentsActive();
     public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent;
     public GIComponent GetComponent<GIComponent>() where GIComponent : IComponent;
+    public GIComponent GetComponentActive<GIComponent>() where GIComponent : IComponent;
 }
 
 public class GameObject : IGameObject
@@ -142,5 +144,10 @@ public class GameObject : IGameObject
     public GIComponent GetComponent<GIComponent>() where GIComponent : IComponent
     {
         return (GIComponent)this.components.Find(component => component is GIComponent);
+    }
+
+    public GIComponent GetComponentActive<GIComponent>() where GIComponent : IComponent
+    {
+        return (GIComponent)this.components.Find(component => component.IsActive() && component is GIComponent);
     }
 }

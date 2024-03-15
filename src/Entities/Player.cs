@@ -14,6 +14,7 @@ public enum PlayerSide
 public class Player : GameObject
 {
     public float speed { get; set; }
+    public int score;
     public readonly PlayerSide side;
     public Vector2 initialPosition;
 
@@ -27,6 +28,13 @@ public class Player : GameObject
         this.AddComponents(
             new RectangleSprite(new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2), GameGlobals.PLAYER_DIMENSION, 0, null, Color.White)
         );
+    }
+
+    public override void Start()
+    {
+        this.score = 0;
+
+        base.Start();
     }
 
     public override void Update(GameTime gameTime)
