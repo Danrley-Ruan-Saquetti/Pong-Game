@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Library.Esliph.Common;
+using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Controller;
 
@@ -59,32 +60,32 @@ public class GameController
         this.GetScenario(scenarioIndex).Initialize();
     }
 
-    public List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
+    public List<IGameObject<ISprite>> GetGameObjectsOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjects();
     }
 
-    public List<IGameObject> GetGameObjectsOfTheCurrentScenario()
+    public List<IGameObject<ISprite>> GetGameObjectsOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjects();
     }
 
-    public List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
+    public List<IGameObject<ISprite>> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjectsIsAlive();
     }
 
-    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
+    public List<IGameObject<ISprite>> GetGameObjectsAliveOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsIsAlive();
     }
 
-    public List<IGameObject> GetGameObjectsToUpdateOfTheCurrentScenario()
+    public List<IGameObject<ISprite>> GetGameObjectsToUpdateOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsToUpdate();
     }
 
-    public List<IGameObject> GetGameObjectsToDrawOfTheCurrentScenario()
+    public List<IGameObject<ISprite>> GetGameObjectsToDrawOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsToDraw();
     }

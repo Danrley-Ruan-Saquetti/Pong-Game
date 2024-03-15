@@ -1,64 +1,60 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Library.Esliph.Sprites;
-using Library.Esliph.Components;
 using Library.Esliph.Controller;
-using System;
+using Library.Esliph.Components;
 
 namespace Library.Esliph.Common;
 
-public interface IGameObject
+public interface IGameObject<GISprite> where GISprite : ISprite
 {
     public void Start();
     public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime);
+    public Guid GetId();
     public void AddTags(params string[] tags);
     public bool CompareTo(string tagName);
     public List<string> GetTags();
-    public void AddComponents(params IComponent[] components);
-    public List<IComponent> GetComponents();
-    public ISprite GetSprite();
-    public void SetSprite(ISprite sprite);
     public bool IsAlive();
     public void SetAlive(bool alive);
     public bool IsVisible();
     public void SetVisible(bool visible);
     public bool IsComponentGame();
-    public Guid GetId();
-}
-public interface IGameObject<T> : IGameObject where T : ISprite
-{
-    public new T GetSprite();
-    public void SetSprite(T sprite);
+    public GISprite GetSprite();
+    public void SetSprite(GISprite sprite);
+    public void AddComponents(params IComponent[] components);
+    public List<IComponent> GetComponents();
+    public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent;
+    public GIComponent GetComponent<GIComponent>() where GIComponent : IComponent;
 }
 
-public class GameObject<T> : IGameObject<T> where T : ISprite
+public class GameObject<GISprite> : IGameObject<GISprite> where GISprite : ISprite
 {
     protected GameController gameController = GameController.GetInstance();
     private readonly Guid id;
-    private List<IComponent> components;
     private List<string> tags;
-    private T sprite;
+    private GISprite sprite;
     private bool alive, visible;
     private readonly bool componentGame;
+    private List<IComponent> components;
 
-    public GameObject(T sprite = default, bool componentGame = true)
+    public GameObject(GISprite sprite = default, bool isComponentGame = true)
     {
         this.sprite = sprite;
         this.visible = true;
         this.alive = true;
-        this.componentGame = componentGame;
+        this.componentGame = isComponentGame;
         this.tags = new();
-        this.components = new();
         this.id = Guid.NewGuid();
+        this.components = new();
     }
 
     public virtual void Start() { }
 
     public virtual void Update(GameTime gameTime)
     {
-        this.UpdateComponents(gameTime);
         this.GetSprite().Update(gameTime);
     }
 
@@ -82,36 +78,14 @@ public class GameObject<T> : IGameObject<T> where T : ISprite
         return this.tags;
     }
 
-    public void AddComponents(params IComponent[] components)
-    {
-        this.components.AddRange(components);
-
-        foreach (var component in components)
-        {
-            component.Start();
-        }
-    }
-
-    public void UpdateComponents(GameTime gameTime)
-    {
-        foreach (var component in this.components)
-        {
-            component.Update(gameTime, this);
-        }
-    }
-
-    public List<IComponent> GetComponents()
-    {
-        return this.components;
-    }
-
-    public T GetSprite()
+    public GISprite GetSprite()
     {
         return this.sprite;
     }
 
-    public void SetSprite(T sprite)
+    public void SetSprite(GISprite sprite)
     {
+        this.sprite = sprite;
     }
 
     public bool IsAlive()
@@ -139,37 +113,33 @@ public class GameObject<T> : IGameObject<T> where T : ISprite
         return componentGame;
     }
 
-    ISprite IGameObject.GetSprite()
-    {
-        return this.sprite;
-    }
-
-    T IGameObject<T>.GetSprite()
-    {
-        return this.sprite;
-    }
-
     public Guid GetId()
     {
         return this.id;
     }
 
-    public void SetSprite(ISprite sprite) { }
-}
-
-public class GameObject : GameObject<Sprite>
-{
-    private ISprite sprite;
-
-    public GameObject(Sprite sprite = default, bool componentGame = true) : base(sprite, componentGame) { }
-
-    public new Sprite GetSprite()
+    public void AddComponents(params IComponent[] components)
     {
-        return base.GetSprite();
+        this.components.AddRange(components);
+
+        foreach (var component in components)
+        {
+            component.Start();
+        }
     }
 
-    public new void SetSprite(ISprite sprite)
+    public List<IComponent> GetComponents()
     {
-        this.sprite = sprite;
+        return this.components;
+    }
+
+    public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent
+    {
+        return this.components.Where(component => component is GIComponent).ToList() as List<GIComponent>;
+    }
+
+    public GIComponent GetComponent<GIComponent>() where GIComponent : IComponent
+    {
+        return (GIComponent)this.components.Find(component => component is GIComponent);
     }
 }

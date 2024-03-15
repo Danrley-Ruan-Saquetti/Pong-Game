@@ -2,9 +2,9 @@ using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Common;
 
-public class AbstractObject : GameObject<Sprite>
+public class AbstractObject : GameObject<ISprite>
 {
-    public AbstractObject() : base(new(), false) { }
+    public AbstractObject() : base(null, false) { }
 
     public override void Start()
     {

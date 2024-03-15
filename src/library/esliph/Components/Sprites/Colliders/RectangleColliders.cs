@@ -6,9 +6,9 @@ namespace Library.Esliph.Components;
 
 public interface IRectangleColliderComponentObject : IGameObject<RectangleSprite>, IColliderComponentObject { }
 
-public class RectangleColliderComponent : ColliderComponent<IRectangleColliderComponentObject>
+public class RectangleColliderComponent : Component
 {
-    public override void Update(GameTime gameTime, IRectangleColliderComponentObject gameObject)
+    public override void Update(GameTime gameTime, IGameObject<ISprite> gameObject)
     {
         var gameObjects = this.gameController.GetCurrentScenario().GetGameObjectsIsComponentGame<RectangleSprite>();
 
@@ -19,9 +19,11 @@ public class RectangleColliderComponent : ColliderComponent<IRectangleColliderCo
                 continue;
             }
 
-            if (gameObject.GetSprite().GetRectangle().Intersects(_gameObject.GetSprite().GetRectangle()))
+            IRectangleColliderComponentObject gameObjectRectangle = gameObject as IRectangleColliderComponentObject;
+
+            if (gameObjectRectangle.GetSprite().GetRectangle().Intersects(_gameObject.GetSprite().GetRectangle()))
             {
-                gameObject.OnCollision();
+                gameObjectRectangle.OnCollision();
             }
         }
 

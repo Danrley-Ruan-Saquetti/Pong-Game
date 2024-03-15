@@ -1,5 +1,5 @@
-using Library.Esliph.Common;
 using Microsoft.Xna.Framework;
+using Library.Esliph.Common;
 using Pong.Entities;
 using Pong.Global;
 
@@ -15,11 +15,9 @@ public class MainScenario : Scenario
 
         var ball = new Ball();
 
-        this.AddGameObjects(
-            new PlayerUser(PlayerSide.LEFT, gap),
-            new PlayerCPU(PlayerSide.RIGHT, GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap, ball),
-            ball
-        );
+        this.AddGameObject(ball);
+        this.AddGameObject(new PlayerUser(PlayerSide.LEFT, gap));
+        this.AddGameObject(new PlayerCPU(PlayerSide.RIGHT, GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap, ball));
 
         base.Initialize();
     }

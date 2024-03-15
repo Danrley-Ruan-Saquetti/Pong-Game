@@ -18,8 +18,8 @@ public class App : AppGame
         this.gameController.CreateScenario<MainScenario>();
         this.gameController.CreateScenario<ColliderTestScenario>();
 
-        this.gameController.ToggleScenario("ColliderTest");
-        // this.ToggleScenario("Main");
+        // this.gameController.ToggleScenario("ColliderTest");
+        this.gameController.ToggleScenario("Main");
 
         base.Initialize();
     }

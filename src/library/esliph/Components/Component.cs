@@ -1,33 +1,38 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Controller;
+using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Components;
 
 public interface IComponent
 {
     public void Start();
-    public void Update(GameTime gameTime, IGameObject gameObject);
-}
-public interface IComponent<T> where T : IGameObject
-{
-    public void Start();
-    public void Update(GameTime gameTime, T gameObject);
+    public void Update(GameTime gameTime, IGameObject<ISprite> gameObject);
+    public bool IsActive();
+    public void SetActive(bool active);
 }
 
 public class Component : IComponent
 {
     protected GameController gameController = GameController.GetInstance();
+    private bool active;
+
+    public Component(bool active = true)
+    {
+        this.active = active;
+    }
 
     public virtual void Start() { }
-    public virtual void Update(GameTime gameTime, IGameObject gameObject) { }
-}
-public class Component<T> : IComponent, IComponent<T> where T : IGameObject
-{
-    protected GameController gameController = GameController.GetInstance();
+    public virtual void Update(GameTime gameTime, IGameObject<ISprite> gameObject) { }
 
-    public virtual void Start() { }
-    public virtual void Update(GameTime gameTime, T gameObject) { }
+    public bool IsActive()
+    {
+        return this.active;
+    }
 
-    public void Update(GameTime gameTime, IGameObject gameObject) { }
+    public void SetActive(bool active)
+    {
+        this.active = active;
+    }
 }
