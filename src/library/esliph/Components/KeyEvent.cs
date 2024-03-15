@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Common;
-using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Components;
 
-public interface IKeyEventComponentObject
+public interface IKeyEventComponentObject : IGameObject
 {
     public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
     public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
@@ -13,7 +12,14 @@ public interface IKeyEventComponentObject
 
 public class KeyEventComponent : Component
 {
-    public override void Update(GameTime gameTime, IGameObject<ISprite> gameObject)
+    private IKeyEventComponentObject keyEventComponentObject;
+
+    public KeyEventComponent(IKeyEventComponentObject keyEventComponentObject, bool active = true) : base(active)
+    {
+        this.keyEventComponentObject = keyEventComponentObject;
+    }
+
+    public override void Update(GameTime gameTime, IGameObject gameObject)
     {
         KeyEvent keyEvent = KeyEventComponent.ReadKeyboardState();
 
@@ -22,15 +28,13 @@ public class KeyEventComponent : Component
             return;
         }
 
-        IKeyEventComponentObject gameObjectKeyEvent = gameObject as IKeyEventComponentObject;
-
         if (keyEvent.IsKeyDown())
         {
-            gameObjectKeyEvent.OnKeyDown(gameTime, keyEvent);
+            this.keyEventComponentObject.OnKeyDown(gameTime, keyEvent);
         }
         if (keyEvent.IsKeyUp())
         {
-            gameObjectKeyEvent.OnKeyUp(gameTime, keyEvent);
+            this.keyEventComponentObject.OnKeyUp(gameTime, keyEvent);
         }
     }
 

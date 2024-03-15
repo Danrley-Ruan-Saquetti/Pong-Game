@@ -11,19 +11,22 @@ public enum PlayerSide
     RIGHT = 1
 }
 
-public class Player : GameObject<RectangleSprite>
+public class Player : GameObject
 {
     public float speed { get; set; }
     public readonly PlayerSide side;
     public Vector2 initialPosition;
 
     public Player(PlayerSide side, float x = 0) : this(side, (int)x) { }
-    public Player(PlayerSide side, int x) : base(new RectangleSprite(new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2), GameGlobals.PLAYER_DIMENSION, 0, null, Color.White))
+    public Player(PlayerSide side, int x) : base()
     {
         this.speed = GameGlobals.PLAYER_SPEED;
         this.side = side;
         this.initialPosition = new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2);
         this.AddTags("Entity", "Player");
+        this.AddComponents(
+            new RectangleSprite(new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2), GameGlobals.PLAYER_DIMENSION, 0, null, Color.White)
+        );
     }
 
     public override void Update(GameTime gameTime)
@@ -68,5 +71,10 @@ public class Player : GameObject<RectangleSprite>
         {
             this.GetSprite().Y = this.initialPosition.Y;
         }
+    }
+
+    public RectangleSprite GetSprite()
+    {
+        return this.GetSprite<RectangleSprite>();
     }
 }

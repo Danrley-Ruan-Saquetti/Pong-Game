@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Library.Esliph.Sprites;
+namespace Library.Esliph.Global;
 
 public class Pixel
 {

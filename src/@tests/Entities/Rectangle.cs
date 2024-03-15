@@ -4,13 +4,16 @@ using Library.Esliph.Sprites;
 
 namespace Test.Entities;
 
-public class RectangleTestCollision : GameObject<RectangleSprite>
+public class RectangleTestCollision : GameObject
 {
     private int directionX;
 
-    public RectangleTestCollision(int x, int directionX) : base(new(new(x, 10 + directionX), new(50, 50)))
+    public RectangleTestCollision(int x, int directionX) : base()
     {
         this.directionX = directionX;
+        this.AddComponents(
+            new RectangleSprite(new(x, 10 + directionX), new(50, 50))
+        );
         this.GetSprite().SetColor(Color.White);
     }
 
@@ -18,5 +21,10 @@ public class RectangleTestCollision : GameObject<RectangleSprite>
     {
         this.GetSprite().X += this.directionX;
         base.Update(gameTime);
+    }
+
+    public RectangleSprite GetSprite()
+    {
+        return this.GetSprite<RectangleSprite>();
     }
 }

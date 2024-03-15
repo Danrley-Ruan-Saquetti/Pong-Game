@@ -33,6 +33,11 @@ public class AppGame : Game
 
     protected override void Initialize()
     {
+        if (this.gameController.GetScenarios().Count == 0)
+        {
+            this.gameController.CreateScenario<BaseScenario>();
+        }
+
         base.Initialize();
     }
 

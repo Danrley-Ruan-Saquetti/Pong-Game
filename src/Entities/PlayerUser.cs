@@ -1,6 +1,6 @@
+using Library.Esliph.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Library.Esliph.Components;
 
 namespace Pong.Entities;
 
@@ -11,7 +11,7 @@ public class PlayerUser : Player, IKeyEventComponentObject
     public PlayerUser(PlayerSide side, int x) : base(side, x)
     {
         this.AddTags("User");
-        this.AddComponents(new KeyEventComponent());
+        this.AddComponents(new KeyEventComponent(this));
     }
 
     public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
@@ -26,6 +26,5 @@ public class PlayerUser : Player, IKeyEventComponentObject
         }
     }
 
-    public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent)
-    { }
+    public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent) { }
 }

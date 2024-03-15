@@ -1,26 +1,26 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
-using Library.Esliph.Sprites;
 using Pong.Global;
+using Library.Esliph.Sprites;
 
 namespace Pong.Entities;
 
-public class Ball : GameObject<CircleSprite>
+public class Ball : GameObject
 {
     private float speed { get; set; }
     private Vector2 direction;
 
-    public Ball() : base(
-        new(
-            new(GameGlobals.WINDOW_DIMENSION.Width / 2, GameGlobals.WINDOW_DIMENSION.Height / 2),
-            GameGlobals.BALL_RADIUS
-        )
-    )
+    public Ball() : base()
     {
-        this.GetSprite().SetColor(Color.White);
         this.direction = new(1, 1);
         this.speed = GameGlobals.BALL_SPEED;
         this.AddTags("Entity", "Ball");
+        this.AddComponents(
+            new CircleSprite(new(GameGlobals.WINDOW_DIMENSION.Width / 2, GameGlobals.WINDOW_DIMENSION.Height / 2),
+            GameGlobals.BALL_RADIUS, null, 0, null, Color.White)
+        );
+
+        this.GetSprite().SetColor(Color.White);
     }
 
     public override void Update(GameTime gameTime)
@@ -54,5 +54,10 @@ public class Ball : GameObject<CircleSprite>
     public Vector2 GetDirection()
     {
         return this.direction;
+    }
+
+    public CircleSprite GetSprite()
+    {
+        return this.GetSprite<CircleSprite>();
     }
 }
