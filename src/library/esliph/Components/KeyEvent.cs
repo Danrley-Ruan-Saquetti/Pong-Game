@@ -4,7 +4,11 @@ using Library.Esliph.Common;
 
 namespace Library.Esliph.Components;
 
+<<<<<<< HEAD
 public interface KeyEventComponentObject
+=======
+public interface IKeyEventComponentObject : IGameObject
+>>>>>>> checkpoint
 {
     public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent);
     public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent);
@@ -12,6 +16,16 @@ public interface KeyEventComponentObject
 
 public class KeyEventComponent : Component
 {
+<<<<<<< HEAD
+=======
+    private IKeyEventComponentObject keyEventComponentObject;
+
+    public KeyEventComponent(IKeyEventComponentObject keyEventComponentObject, bool active = true) : base(active)
+    {
+        this.keyEventComponentObject = keyEventComponentObject;
+    }
+
+>>>>>>> checkpoint
     public override void Update(GameTime gameTime, IGameObject gameObject)
     {
         KeyEvent keyEvent = KeyEventComponent.ReadKeyboardState();
@@ -21,15 +35,18 @@ public class KeyEventComponent : Component
             return;
         }
 
+<<<<<<< HEAD
         KeyEventComponentObject gameObjectKeyEvent = gameObject as KeyEventComponentObject;
 
+=======
+>>>>>>> checkpoint
         if (keyEvent.IsKeyDown())
         {
-            gameObjectKeyEvent.OnKeyDown(gameTime, keyEvent);
+            this.keyEventComponentObject.OnKeyDown(gameTime, keyEvent);
         }
         if (keyEvent.IsKeyUp())
         {
-            gameObjectKeyEvent.OnKeyUp(gameTime, keyEvent);
+            this.keyEventComponentObject.OnKeyUp(gameTime, keyEvent);
         }
     }
 

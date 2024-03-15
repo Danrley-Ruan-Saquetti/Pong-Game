@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Library.Esliph.Controller;
 using Library.Esliph.Components;
+using Library.Esliph.Sprites;
 
 namespace Library.Esliph.Common;
 
@@ -21,6 +22,7 @@ public interface IGameObject
     public bool IsVisible();
     public void SetVisible(bool visible);
     public void AddComponents(params IComponent[] components);
+    public GISprite GetSprite<GISprite>() where GISprite : ISprite;
     public List<IComponent> GetComponents();
     public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent;
     public GIComponent GetComponent<GIComponent>() where GIComponent : IComponent;
@@ -44,8 +46,33 @@ public class GameObject : IGameObject
     }
 
     public virtual void Start() { }
+<<<<<<< HEAD
     public virtual void Update(GameTime gameTime) { }
     public virtual void Draw(GameTime gameTime) { }
+=======
+
+    public virtual void Update(GameTime gameTime)
+    {
+        var componentsActive = this.GetComponentsActive();
+
+        foreach (var component in componentsActive)
+        {
+            component.Update(gameTime, this);
+        }
+    }
+
+    public virtual void Draw(GameTime gameTime)
+    {
+        ISprite sprite = this.GetSprite<ISprite>();
+
+        if (sprite == null)
+        {
+            return;
+        }
+
+        sprite.Draw(gameTime);
+    }
+>>>>>>> checkpoint
 
     public void AddTags(params string[] tags)
     {
@@ -97,9 +124,19 @@ public class GameObject : IGameObject
         }
     }
 
+    public GISprite GetSprite<GISprite>() where GISprite : ISprite
+    {
+        return this.GetComponent<GISprite>();
+    }
+
     public List<IComponent> GetComponents()
     {
         return this.components;
+    }
+
+    public List<IComponent> GetComponentsActive()
+    {
+        return this.components.Where(component => component.IsActive()).ToList();
     }
 
     public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent
