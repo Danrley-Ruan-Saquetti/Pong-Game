@@ -12,6 +12,7 @@ public interface IShape2D : IComponent
     public void Rotate(float degrees);
     public void RotateToLeft(float degrees);
     public void RotateToRight(float degrees);
+    public bool IsInsideArea(Vector2 position, float radius);
     public void SetRotation(float rotation);
     public void SetColor(Color color);
     public Color GetColor();
@@ -37,6 +38,11 @@ public class Shape2D : Component, IShape2D
     public float GetRotation()
     {
         return this.rotation;
+    }
+
+    public virtual bool IsInsideArea(Vector2 position, float radius)
+    {
+        return false;
     }
 
     public void Rotate(float degrees)

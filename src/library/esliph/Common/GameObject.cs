@@ -23,6 +23,7 @@ public interface IGameObject
     public Guid GetId();
     public void AddComponents(params IComponent[] components);
     public GIShape2D GetShape2D<GIShape2D>() where GIShape2D : IShape2D;
+    public bool HasComponent<GIComponent>() where GIComponent : IComponent;
     public List<IComponent> GetComponents();
     public List<IComponent> GetComponentsActive();
     public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent;
@@ -109,6 +110,11 @@ public class GameObject : IGameObject
     public Guid GetId()
     {
         return this.id;
+    }
+
+    public bool HasComponent<GIComponent>() where GIComponent : IComponent
+    {
+        return this.GetComponent<GIComponent>() != null;
     }
 
     public void AddComponents(params IComponent[] components)

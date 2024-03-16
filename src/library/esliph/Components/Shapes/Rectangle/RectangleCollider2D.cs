@@ -15,14 +15,14 @@ public class RectangleCollider2DComponent : Component
 
     public override void Update(GameTime gameTime, IGameObject gameObject)
     {
-        RectangleShape2D rectangleShape2D = gameObject.GetComponentActive<RectangleShape2D>();
+        RectangleShape2D rectangleShape2D = gameObject.GetShape2D<RectangleShape2D>();
 
         if (rectangleShape2D == null)
         {
             return;
         }
 
-        var gameObjects = this.gameController.GetGameObjectsAliveOfTheCurrentScenario();
+        var gameObjects = this.gameController.GetGameObjectsAliveInAreaOfTheCurrentScenario(rectangleShape2D.center, rectangleShape2D.Width + rectangleShape2D.Height);
 
         foreach (var _gameObject in gameObjects)
         {
@@ -31,7 +31,7 @@ public class RectangleCollider2DComponent : Component
                 continue;
             }
 
-            RectangleShape2D _rectangleShape2D = _gameObject.GetComponentActive<RectangleShape2D>();
+            RectangleShape2D _rectangleShape2D = _gameObject.GetShape2D<RectangleShape2D>();
             if (_rectangleShape2D == null)
             {
                 continue;

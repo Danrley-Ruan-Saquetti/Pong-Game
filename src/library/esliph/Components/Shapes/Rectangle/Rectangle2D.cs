@@ -22,6 +22,15 @@ public class RectangleShape2D : Shape2D, IRectangleShape2D
             this.Y = (int)value.Y;
         }
     }
+    public Vector2 center
+    {
+        get { return new(this.X + (this.Width / 2), this.Y + (this.Height / 2)); }
+        set
+        {
+            this.X = (int)value.X - (this.Width / 2);
+            this.Y = (int)value.Y - (this.Height / 2);
+        }
+    }
     public float X
     {
         get { return this.rectangle.X; }
@@ -62,6 +71,11 @@ public class RectangleShape2D : Shape2D, IRectangleShape2D
         SpriteBatchExtensions.DrawRectangleFilled(this.GetRectangle(), this.GetColor());
 
         base.Draw(gameTime);
+    }
+
+    public override bool IsInsideArea(Vector2 position, float radius)
+    {
+        return Vector2.Distance(this.center, position) <= radius;
     }
 
     public Rectangle GetRectangle()

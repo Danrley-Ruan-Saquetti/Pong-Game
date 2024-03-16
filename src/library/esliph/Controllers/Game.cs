@@ -2,7 +2,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Library.Esliph.Common;
-using Library.Esliph.Shape2Ds;
+using Library.Esliph.Shapes;
+using Microsoft.Xna.Framework;
 
 namespace Library.Esliph.Controller;
 
@@ -73,6 +74,11 @@ public class GameController
     public List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
     {
         return this.GetScenario(scenarioIndex).GetGameObjectsIsAlive();
+    }
+
+    public List<IGameObject> GetGameObjectsAliveInAreaOfTheCurrentScenario(Vector2 position, float radius)
+    {
+        return this.GetGameObjectsAliveOfTheCurrentScenario().Where(gameObject => gameObject.GetShape2D<Shape2D>().IsInsideArea(position, radius)).ToList();
     }
 
     public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
