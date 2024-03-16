@@ -62,7 +62,7 @@ public class AppGame : Game
     {
         GraphicsDevice.Clear(this.gameController.GetCurrentScenario().GetBackgroundColor());
 
-        SpriteBatchExtensions.GetSprite2DBatch().Begin();
+        SpriteBatchExtensions.GetShape2DBatch().Begin();
 
         var gameObjects = this.gameController.GetGameObjectsToDrawOfTheCurrentScenario();
 
@@ -71,7 +71,7 @@ public class AppGame : Game
             gameObject.Draw(gameTime);
         }
 
-        SpriteBatchExtensions.GetSprite2DBatch().End();
+        SpriteBatchExtensions.GetShape2DBatch().End();
 
         base.Draw(gameTime);
     }

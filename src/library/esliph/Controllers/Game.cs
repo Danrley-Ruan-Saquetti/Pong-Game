@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Library.Esliph.Common;
-using Library.Esliph.Sprite2Ds;
+using Library.Esliph.Shape2Ds;
 
 namespace Library.Esliph.Controller;
 

@@ -1,23 +1,23 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
-using Library.Esliph.Sprite2Ds;
+using Library.Esliph.Shapes;
 
 namespace Library.Esliph.Components;
 
-public class RectangleColliderComponent : Component
+public class RectangleCollider2DComponent : Component
 {
     private IColliderComponentObject colliderComponentObject;
 
-    public RectangleColliderComponent(IColliderComponentObject colliderComponentObject)
+    public RectangleCollider2DComponent(IColliderComponentObject colliderComponentObject)
     {
         this.colliderComponentObject = colliderComponentObject;
     }
 
     public override void Update(GameTime gameTime, IGameObject gameObject)
     {
-        RectangleSprite2D rectangleSprite2D = gameObject.GetComponentActive<RectangleSprite2D>();
+        RectangleShape2D rectangleShape2D = gameObject.GetComponentActive<RectangleShape2D>();
 
-        if (rectangleSprite2D == null)
+        if (rectangleShape2D == null)
         {
             return;
         }
@@ -31,13 +31,13 @@ public class RectangleColliderComponent : Component
                 continue;
             }
 
-            RectangleSprite2D _rectangleSprite2D = _gameObject.GetComponentActive<RectangleSprite2D>();
-            if (_rectangleSprite2D == null)
+            RectangleShape2D _rectangleShape2D = _gameObject.GetComponentActive<RectangleShape2D>();
+            if (_rectangleShape2D == null)
             {
                 continue;
             }
 
-            if (rectangleSprite2D.GetRectangle().Intersects(_rectangleSprite2D.GetRectangle()))
+            if (rectangleShape2D.GetRectangle().Intersects(_rectangleShape2D.GetRectangle()))
             {
                 this.colliderComponentObject.OnCollision(_gameObject);
             }

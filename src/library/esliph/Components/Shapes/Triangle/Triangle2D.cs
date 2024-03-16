@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Core;
 
-namespace Library.Esliph.Sprite2Ds;
+namespace Library.Esliph.Shapes;
 
-public class TriangleSprite2D : Sprite2D
+public class TriangleShape2D : Shape2D
 {
     private Vector2[] positions;
     public Vector2 position1
@@ -24,7 +24,7 @@ public class TriangleSprite2D : Sprite2D
         set { this.positions[2] = value; }
     }
 
-    public TriangleSprite2D(Vector2 position1 = new(), Vector2 position2 = new(), Vector2 position3 = new(), Texture2D texture2D = null) : base(texture2D)
+    public TriangleShape2D(Vector2 position1 = new(), Vector2 position2 = new(), Vector2 position3 = new(), Texture2D texture2D = null) : base(texture2D)
     {
         this.positions = new Vector2[3];
 

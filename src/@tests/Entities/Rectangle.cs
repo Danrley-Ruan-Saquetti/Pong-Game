@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
-using Library.Esliph.Sprite2Ds;
+using Library.Esliph.Shapes;
 
 namespace Test.Entities;
 
@@ -12,19 +12,19 @@ public class RectangleTestCollision : GameObject
     {
         this.directionX = directionX;
         this.AddComponents(
-            new RectangleSprite2D(new(x, 10 + directionX), new(50, 50))
+            new RectangleShape2D(new(x, 10 + directionX), new(50, 50))
         );
-        this.GetSprite2D().SetColor(Color.White);
+        this.GetShape2D().SetColor(Color.White);
     }
 
     public override void Update(GameTime gameTime)
     {
-        this.GetSprite2D().X += this.directionX;
+        this.GetShape2D().X += this.directionX;
         base.Update(gameTime);
     }
 
-    public RectangleSprite2D GetSprite2D()
+    public RectangleShape2D GetShape2D()
     {
-        return this.GetSprite2D<RectangleSprite2D>();
+        return this.GetShape2D<RectangleShape2D>();
     }
 }

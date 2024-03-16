@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Library.Esliph.Controller;
 using Library.Esliph.Components;
-using Library.Esliph.Sprite2Ds;
+using Library.Esliph.Shapes;
 
 namespace Library.Esliph.Common;
 
@@ -22,7 +22,7 @@ public interface IGameObject
     public void SetVisible(bool visible);
     public Guid GetId();
     public void AddComponents(params IComponent[] components);
-    public GISprite2D GetSprite2D<GISprite2D>() where GISprite2D : ISprite2D;
+    public GIShape2D GetShape2D<GIShape2D>() where GIShape2D : IShape2D;
     public List<IComponent> GetComponents();
     public List<IComponent> GetComponentsActive();
     public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent;
@@ -61,14 +61,14 @@ public class GameObject : IGameObject
 
     public virtual void Draw(GameTime gameTime)
     {
-        ISprite2D sprite = this.GetSprite2D<ISprite2D>();
+        IShape2D shape = this.GetShape2D<IShape2D>();
 
-        if (sprite == null)
+        if (shape == null)
         {
             return;
         }
 
-        sprite.Draw(gameTime);
+        shape.Draw(gameTime);
     }
 
     public void AddTags(params string[] tags)
@@ -121,9 +121,9 @@ public class GameObject : IGameObject
         }
     }
 
-    public GISprite2D GetSprite2D<GISprite2D>() where GISprite2D : ISprite2D
+    public GIShape2D GetShape2D<GIShape2D>() where GIShape2D : IShape2D
     {
-        return this.GetComponent<GISprite2D>();
+        return this.GetComponent<GIShape2D>();
     }
 
     public List<IComponent> GetComponents()

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
-using Library.Esliph.Sprite2Ds;
+using Library.Esliph.Shapes;
 using Pong.Global;
 
 namespace Pong.Entities;
@@ -26,7 +26,7 @@ public class Player : GameObject
         this.initialPosition = new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2);
         this.AddTags("Entity", "Player");
         this.AddComponents(
-            new RectangleSprite2D(new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2), GameGlobals.PLAYER_DIMENSION, 0, null, Color.White)
+            new RectangleShape2D(new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2), GameGlobals.PLAYER_DIMENSION, 0, null, Color.White)
         );
     }
 
@@ -47,42 +47,42 @@ public class Player : GameObject
 
     public void MoveUp(GameTime gameTime)
     {
-        if (this.GetSprite2D().Y < 0)
+        if (this.GetShape2D().Y < 0)
         {
-            this.GetSprite2D().Y = 0;
+            this.GetShape2D().Y = 0;
             return;
         }
-        this.GetSprite2D().Y -= GameGlobals.CalcDistanceMove(this.speed, (float)gameTime.ElapsedGameTime.TotalSeconds);
+        this.GetShape2D().Y -= GameGlobals.CalcDistanceMove(this.speed, (float)gameTime.ElapsedGameTime.TotalSeconds);
     }
 
     public void MoveDown(GameTime gameTime)
     {
-        if (this.GetSprite2D().Y + this.GetSprite2D().Height > GameGlobals.WINDOW_DIMENSION.Height)
+        if (this.GetShape2D().Y + this.GetShape2D().Height > GameGlobals.WINDOW_DIMENSION.Height)
         {
-            this.GetSprite2D().Y = GameGlobals.WINDOW_DIMENSION.Height - this.GetSprite2D().Height;
+            this.GetShape2D().Y = GameGlobals.WINDOW_DIMENSION.Height - this.GetShape2D().Height;
             return;
         }
-        this.GetSprite2D().Y += GameGlobals.CalcDistanceMove(this.speed, (float)gameTime.ElapsedGameTime.TotalSeconds);
+        this.GetShape2D().Y += GameGlobals.CalcDistanceMove(this.speed, (float)gameTime.ElapsedGameTime.TotalSeconds);
     }
 
     public virtual void MoveToInitialPosition(GameTime gameTime)
     {
-        if (this.initialPosition.Y > this.GetSprite2D().Y)
+        if (this.initialPosition.Y > this.GetShape2D().Y)
         {
             this.MoveDown(gameTime);
         }
-        else if (this.initialPosition.Y > this.GetSprite2D().Y)
+        else if (this.initialPosition.Y > this.GetShape2D().Y)
         {
             this.MoveUp(gameTime);
         }
         else
         {
-            this.GetSprite2D().Y = this.initialPosition.Y;
+            this.GetShape2D().Y = this.initialPosition.Y;
         }
     }
 
-    public RectangleSprite2D GetSprite2D()
+    public RectangleShape2D GetShape2D()
     {
-        return this.GetSprite2D<RectangleSprite2D>();
+        return this.GetShape2D<RectangleShape2D>();
     }
 }

@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Core;
 using Library.Esliph.Global;
 
-namespace Library.Esliph.Sprite2Ds;
+namespace Library.Esliph.Shapes;
 
-public class CircleSprite2D : Sprite2D
+public class CircleShape2D : Shape2D
 {
     private Vector2 position;
     private float radius { get; set; }
@@ -46,7 +46,7 @@ public class CircleSprite2D : Sprite2D
         set { this.radius = value / 2; }
     }
 
-    public CircleSprite2D(Vector2 position = new(), float radius = 0, int? segments = null, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
+    public CircleShape2D(Vector2 position = new(), float radius = 0, int? segments = null, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
     {
         this.position = position;
         this.radius = radius;
@@ -60,7 +60,7 @@ public class CircleSprite2D : Sprite2D
         base.Draw(gameTime);
     }
 
-    public virtual bool Intersects(CircleSprite2D circle)
+    public virtual bool Intersects(CircleShape2D circle)
     {
         return Vector2.Distance(circle.position, this.position) < this.radius + circle.radius;
     }

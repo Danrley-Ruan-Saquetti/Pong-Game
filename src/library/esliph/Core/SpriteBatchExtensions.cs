@@ -7,20 +7,20 @@ namespace Library.Esliph.Core;
 
 public class SpriteBatchExtensions
 {
-    private static Sprite2DBatch spriteBatch;
+    private static SpriteBatch shapeBatch;
     private static readonly Pixel pixel = new();
 
     public SpriteBatchExtensions() { }
 
     public static void LoadContent(GraphicsDevice graphicsDevice)
     {
-        SpriteBatchExtensions.spriteBatch = new(graphicsDevice);
+        SpriteBatchExtensions.shapeBatch = new(graphicsDevice);
         SpriteBatchExtensions.pixel.LoadContent(graphicsDevice);
     }
 
     public static void DrawRectangleFilled(Rectangle rectangle, Color color)
     {
-        SpriteBatchExtensions.GetSprite2DBatch().Draw(SpriteBatchExtensions.pixel.GetTexture2D(), rectangle, color);
+        SpriteBatchExtensions.GetSpriteBatch().Draw(SpriteBatchExtensions.pixel.GetTexture2D(), rectangle, color);
     }
 
     public static void DrawRectangleOutline(Rectangle rectangle, Color color)
@@ -40,7 +40,7 @@ public class SpriteBatchExtensions
         for (int i = 0; i < lines.Length; i++)
         {
             SpriteBatchExtensions.DrawLine(new(lines[i].X, lines[i].Y), new(lines[i].Width, lines[i].Height), color, border);
-            // SpriteBatchExtensions.GetSprite2DBatch().Draw(SpriteBatchExtensions.pixel.GetTexture2D(), lines[i], color);
+            // SpriteBatchExtensions.GetSpriteBatch().Draw(SpriteBatchExtensions.pixel.GetTexture2D(), lines[i], color);
         }
     }
 
@@ -104,16 +104,16 @@ public class SpriteBatchExtensions
     {
         Vector2 edge = point2 - point1;
         float angle = (float)Math.Atan2(edge.Y, edge.X);
-        SpriteBatchExtensions.GetSprite2DBatch().Draw(SpriteBatchExtensions.pixel.GetTexture2D(), point1, null, color, angle, Vector2.Zero, new Vector2(edge.Length(), (int)border), Sprite2DEffects.None, 0);
+        SpriteBatchExtensions.GetSpriteBatch().Draw(SpriteBatchExtensions.pixel.GetTexture2D(), point1, null, color, angle, Vector2.Zero, new Vector2(edge.Length(), (int)border), SpriteEffects.None, 0);
     }
 
     public static void DrawTexture2D(Texture2D texture2D, Rectangle rectangle)
     {
-        SpriteBatchExtensions.GetSprite2DBatch().Draw(texture2D, rectangle, Color.White);
+        SpriteBatchExtensions.GetSpriteBatch().Draw(texture2D, rectangle, Color.White);
     }
 
-    public static Sprite2DBatch GetSprite2DBatch()
+    public static SpriteBatch GetSpriteBatch()
     {
-        return SpriteBatchExtensions.spriteBatch;
+        return SpriteBatchExtensions.shapeBatch;
     }
 }
