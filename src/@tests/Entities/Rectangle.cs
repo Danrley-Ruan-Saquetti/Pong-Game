@@ -12,8 +12,9 @@ public class RectangleTestCollision : GameObject
     {
         this.directionX = directionX;
         this.AddComponents(
-            new RectangleShape2D(new(x, 10 + directionX), new(50, 50))
+            new RectangleShape2D(new(x, 10 + (-directionX)), new(50 + (directionX * 5), 50 + (directionX * 5)))
         );
+
         this.GetShape2D().SetColor(Color.White);
     }
 

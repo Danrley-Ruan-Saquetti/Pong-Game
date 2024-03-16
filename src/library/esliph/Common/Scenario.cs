@@ -16,7 +16,7 @@ public interface IScenario
     public T GetGameObject<T>() where T : IGameObject;
     public IGameObject GetGameObject(Guid id);
     public T GetGameObject<T>(Guid id) where T : IGameObject;
-    public List<IGameObject> GetGameObjectsIsAlive();
+    public List<IGameObject> GetGameObjectsIsAlive(params Guid[] ignoreIds);
     public List<IGameObject> GetGameObjectsIsVisible();
     public List<IGameObject> GetGameObjectsToUpdate();
     public List<IGameObject> GetGameObjectsToDraw();
@@ -97,9 +97,9 @@ public class Scenario : IScenario
         return (T)this.gameObjects.Find(gameObject => gameObject.GetId() == id);
     }
 
-    public List<IGameObject> GetGameObjectsIsAlive()
+    public List<IGameObject> GetGameObjectsIsAlive(params Guid[] ignoreIds)
     {
-        return this.gameObjects.Where(gameObject => gameObject.IsAlive()).ToList();
+        return this.gameObjects.Where(gameObject => gameObject.IsAlive() && !ignoreIds.Contains(gameObject.GetId())).ToList();
     }
 
     public List<IGameObject> GetGameObjectsIsVisible()

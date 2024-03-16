@@ -22,24 +22,37 @@ public class RectangleCollider2DComponent : Component
             return;
         }
 
-        var gameObjects = this.gameController.GetGameObjectsAliveInAreaOfTheCurrentScenario(rectangleShape2D.center, rectangleShape2D.Width + rectangleShape2D.Height);
+        var gameObjects = this.gameController.GetGameObjectsAliveOfTheCurrentScenario(gameObject.GetId());
 
         foreach (var _gameObject in gameObjects)
         {
-            if (_gameObject.GetId() == gameObject.GetId())
-            {
-                continue;
-            }
-
             RectangleShape2D _rectangleShape2D = _gameObject.GetShape2D<RectangleShape2D>();
             if (_rectangleShape2D == null)
             {
                 continue;
             }
 
-            if (rectangleShape2D.GetRectangle().Intersects(_rectangleShape2D.GetRectangle()))
+            if (rectangleShape2D.IsBiggestThan(_rectangleShape2D))
             {
-                this.colliderComponentObject.OnCollision(_gameObject);
+                if (rectangleShape2D.GetRectangle().Contains(_rectangleShape2D.GetRectangle()))
+                {
+                    this.colliderComponentObject.OnContainsThisEnter(_gameObject);
+                }
+                else if (rectangleShape2D.GetRectangle().Intersects(_rectangleShape2D.GetRectangle()))
+                {
+                    this.colliderComponentObject.OnCollisionEnter(_gameObject);
+                }
+            }
+            else
+            {
+                if (_rectangleShape2D.GetRectangle().Contains(rectangleShape2D.GetRectangle()))
+                {
+                    this.colliderComponentObject.OnContainsEnter(_gameObject);
+                }
+                else if (rectangleShape2D.GetRectangle().Intersects(_rectangleShape2D.GetRectangle()))
+                {
+                    this.colliderComponentObject.OnCollisionEnter(_gameObject);
+                }
             }
         }
 

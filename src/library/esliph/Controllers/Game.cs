@@ -81,9 +81,9 @@ public class GameController
         return this.GetGameObjectsAliveOfTheCurrentScenario().Where(gameObject => gameObject.GetShape2D<Shape2D>().IsInsideArea(position, radius)).ToList();
     }
 
-    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario(params Guid[] ignoreIds)
     {
-        return this.GetCurrentScenario().GetGameObjectsIsAlive();
+        return this.GetCurrentScenario().GetGameObjectsIsAlive(ignoreIds);
     }
 
     public List<IGameObject> GetGameObjectsToUpdateOfTheCurrentScenario()

@@ -8,6 +8,7 @@ namespace Library.Esliph.Shapes;
 public interface IRectangleShape2D : IShape2D
 {
     public Rectangle GetRectangle();
+    public bool IsBiggestThan(IRectangleShape2D rectangleShape2D);
 }
 
 public class RectangleShape2D : Shape2D, IRectangleShape2D
@@ -81,5 +82,10 @@ public class RectangleShape2D : Shape2D, IRectangleShape2D
     public Rectangle GetRectangle()
     {
         return this.rectangle;
+    }
+
+    public bool IsBiggestThan(IRectangleShape2D rectangleShape2D)
+    {
+        return this.Width > rectangleShape2D.GetRectangle().Width && this.Height > rectangleShape2D.GetRectangle().Height;
     }
 }
