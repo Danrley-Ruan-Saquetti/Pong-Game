@@ -3,9 +3,9 @@ using Library.Esliph.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Library.Esliph.Sprites;
+namespace Library.Esliph.Sprite2Ds;
 
-public interface ISprite : IComponent
+public interface ISprite2D : IComponent
 {
     public void Draw(GameTime gameTime);
     public float GetRotation();
@@ -19,13 +19,13 @@ public interface ISprite : IComponent
     public Texture2D GetTexture2D();
 }
 
-public class Sprite : Component, ISprite
+public class Sprite2D : Component, ISprite2D
 {
     private Texture2D texture2D;
     private float rotation;
     private Color color;
 
-    public Sprite(Texture2D texture2D = null, float rotation = 0, Color color = new())
+    public Sprite2D(Texture2D texture2D = null, float rotation = 0, Color color = new())
     {
         this.texture2D = texture2D;
         this.rotation = rotation;

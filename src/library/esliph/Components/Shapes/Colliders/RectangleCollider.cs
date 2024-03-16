@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
-using Library.Esliph.Sprites;
+using Library.Esliph.Sprite2Ds;
 
 namespace Library.Esliph.Components;
 
@@ -15,9 +15,9 @@ public class RectangleColliderComponent : Component
 
     public override void Update(GameTime gameTime, IGameObject gameObject)
     {
-        RectangleSprite rectangleSprite = gameObject.GetComponentActive<RectangleSprite>();
+        RectangleSprite2D rectangleSprite2D = gameObject.GetComponentActive<RectangleSprite2D>();
 
-        if (rectangleSprite == null)
+        if (rectangleSprite2D == null)
         {
             return;
         }
@@ -31,13 +31,13 @@ public class RectangleColliderComponent : Component
                 continue;
             }
 
-            RectangleSprite _rectangleSprite = _gameObject.GetComponentActive<RectangleSprite>();
-            if (_rectangleSprite == null)
+            RectangleSprite2D _rectangleSprite2D = _gameObject.GetComponentActive<RectangleSprite2D>();
+            if (_rectangleSprite2D == null)
             {
                 continue;
             }
 
-            if (rectangleSprite.GetRectangle().Intersects(_rectangleSprite.GetRectangle()))
+            if (rectangleSprite2D.GetRectangle().Intersects(_rectangleSprite2D.GetRectangle()))
             {
                 this.colliderComponentObject.OnCollision(_gameObject);
             }

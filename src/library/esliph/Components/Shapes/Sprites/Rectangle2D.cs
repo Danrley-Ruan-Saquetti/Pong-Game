@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Utils;
 using Library.Esliph.Core;
 
-namespace Library.Esliph.Sprites;
+namespace Library.Esliph.Sprite2Ds;
 
-public interface IRectangleSprite : ISprite
+public interface IRectangleSprite2D : ISprite2D
 {
     public Rectangle GetRectangle();
 }
 
-public class RectangleSprite : Sprite, IRectangleSprite
+public class RectangleSprite2D : Sprite2D, IRectangleSprite2D
 {
     private Rectangle rectangle;
     public Vector2 position
@@ -52,7 +52,7 @@ public class RectangleSprite : Sprite, IRectangleSprite
         set { this.rectangle.Height = (int)value; }
     }
 
-    public RectangleSprite(Vector2 position = new(), Dimension dimension = default, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
+    public RectangleSprite2D(Vector2 position = new(), Dimension dimension = default, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base(texture2D, rotation, color)
     {
         this.rectangle = new((int)position.X, (int)position.Y, (int)dimension.Width, (int)dimension.Height);
     }

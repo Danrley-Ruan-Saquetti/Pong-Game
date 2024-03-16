@@ -28,12 +28,12 @@ public class PlayerCPU : Player
 
     public void MoveToBall(GameTime gameTime)
     {
-        int gap = (int)this.GetSprite().Height / 5;
-        if (this.ball.GetSprite().InitialY < this.GetSprite().Y + gap)
+        int gap = (int)this.GetSprite2D().Height / 5;
+        if (this.ball.GetSprite2D().InitialY < this.GetSprite2D().Y + gap)
         {
             this.MoveUp(gameTime);
         }
-        else if (this.ball.GetSprite().EndY > this.GetSprite().Y + this.GetSprite().Height - gap)
+        else if (this.ball.GetSprite2D().EndY > this.GetSprite2D().Y + this.GetSprite2D().Height - gap)
         {
             this.MoveDown(gameTime);
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Library.Esliph.Controller;
 using Library.Esliph.Components;
-using Library.Esliph.Sprites;
+using Library.Esliph.Sprite2Ds;
 
 namespace Library.Esliph.Common;
 
@@ -22,7 +22,7 @@ public interface IGameObject
     public void SetVisible(bool visible);
     public Guid GetId();
     public void AddComponents(params IComponent[] components);
-    public GISprite GetSprite<GISprite>() where GISprite : ISprite;
+    public GISprite2D GetSprite2D<GISprite2D>() where GISprite2D : ISprite2D;
     public List<IComponent> GetComponents();
     public List<IComponent> GetComponentsActive();
     public List<GIComponent> GetComponents<GIComponent>() where GIComponent : IComponent;
@@ -61,7 +61,7 @@ public class GameObject : IGameObject
 
     public virtual void Draw(GameTime gameTime)
     {
-        ISprite sprite = this.GetSprite<ISprite>();
+        ISprite2D sprite = this.GetSprite2D<ISprite2D>();
 
         if (sprite == null)
         {
@@ -121,9 +121,9 @@ public class GameObject : IGameObject
         }
     }
 
-    public GISprite GetSprite<GISprite>() where GISprite : ISprite
+    public GISprite2D GetSprite2D<GISprite2D>() where GISprite2D : ISprite2D
     {
-        return this.GetComponent<GISprite>();
+        return this.GetComponent<GISprite2D>();
     }
 
     public List<IComponent> GetComponents()
