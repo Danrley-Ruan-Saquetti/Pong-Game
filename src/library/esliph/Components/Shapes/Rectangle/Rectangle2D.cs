@@ -43,6 +43,16 @@ public class RectangleShape2D : Shape2D, IRectangleShape2D
         get { return this.rectangle.Y; }
         set { this.rectangle.Y = (int)value; }
     }
+    public float EndX
+    {
+        get { return this.X + this.Width; }
+        set { this.rectangle.X = (int)(value - this.Width); }
+    }
+    public float EndY
+    {
+        get { return this.Y + this.Height; }
+        set { this.rectangle.X = (int)(value - this.Height); }
+    }
     public Dimension dimension
     {
         get { return new(this.Width, this.Height); }

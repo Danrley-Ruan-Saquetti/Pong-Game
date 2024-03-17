@@ -28,6 +28,13 @@ public class ColliderComponent : Component
         this.EmitEventCollisionState(collisionState, gameObject);
     }
 
+    protected void VerifyCollisionBetweenCircles(CircleShape2D circleShape2D, CircleShape2D _circleShape2D, IGameObject gameObject)
+    {
+        CollisionState collisionState = ColliderComponent.ReadCollisionBetweenCircles(circleShape2D, _circleShape2D);
+
+        this.EmitEventCollisionState(collisionState, gameObject);
+    }
+
     protected void VerifyCollisionBetweenRectangleAndCircle(RectangleShape2D rectangleShape2D, CircleShape2D _circleShape2D, IGameObject gameObject)
     {
         CollisionState collisionState = ColliderComponent.ReadCollisionBetweenRectangleAndCircle(rectangleShape2D, _circleShape2D);
@@ -37,19 +44,13 @@ public class ColliderComponent : Component
 
     public static CollisionState ReadCollisionBetweenRectangles(RectangleShape2D rectangleShape2D, RectangleShape2D _rectangleShape2D)
     {
-        if (rectangleShape2D.IsBiggestThan(_rectangleShape2D))
+        if (rectangleShape2D.IsBiggestThan(_rectangleShape2D) && rectangleShape2D.GetRectangle().Contains(_rectangleShape2D.GetRectangle()))
         {
-            if (rectangleShape2D.GetRectangle().Contains(_rectangleShape2D.GetRectangle()))
-            {
-                return new(true, CollisionStateType.TRIGGER);
-            }
+            return new(true, CollisionStateType.TRIGGER);
         }
-        else
+        else if (_rectangleShape2D.GetRectangle().Contains(rectangleShape2D.GetRectangle()))
         {
-            if (_rectangleShape2D.GetRectangle().Contains(rectangleShape2D.GetRectangle()))
-            {
-                return new(true, CollisionStateType.CONTAINED);
-            }
+            return new(true, CollisionStateType.CONTAINED);
         }
         if (rectangleShape2D.GetRectangle().Intersects(_rectangleShape2D.GetRectangle()))
         {
@@ -59,33 +60,47 @@ public class ColliderComponent : Component
         return new(false, CollisionStateType.NONE);
     }
 
+    public static CollisionState ReadCollisionBetweenCircles(CircleShape2D circleShape2D, CircleShape2D _circleShape2D)
+    {
+        return new(false, CollisionStateType.NONE);
+    }
+
     protected static CollisionState ReadCollisionBetweenRectangleAndCircle(RectangleShape2D rectangleShape2D, CircleShape2D circleShape2D)
     {
-        float distX = Math.Abs(circleShape2D.X - (rectangleShape2D.X + rectangleShape2D.center.X));
-        float distY = Math.Abs(circleShape2D.Y - (rectangleShape2D.Y + rectangleShape2D.center.Y));
+        float distanceX = Math.Abs(circleShape2D.X - (rectangleShape2D.X + rectangleShape2D.center.X));
+        float distanceY = Math.Abs(circleShape2D.Y - (rectangleShape2D.Y + rectangleShape2D.center.Y));
 
-        if (distX >= circleShape2D.GetRadius() + rectangleShape2D.center.X || distY >= circleShape2D.GetRadius() + rectangleShape2D.center.Y)
+        if (distanceX >= circleShape2D.GetRadius() + rectangleShape2D.center.X || distanceY >= circleShape2D.GetRadius() + rectangleShape2D.center.Y)
         {
             return new(false, CollisionStateType.NONE);
         }
-        if (distX < rectangleShape2D.center.X && distY < rectangleShape2D.center.Y)
+
+        if (rectangleShape2D.IsBiggestThan(circleShape2D))
         {
-            if (rectangleShape2D.IsBiggestThan(circleShape2D))
+            if (rectangleShape2D.X <= circleShape2D.InitialX && rectangleShape2D.EndX >= circleShape2D.EndX && rectangleShape2D.Y <= circleShape2D.InitialY && rectangleShape2D.EndY >= circleShape2D.EndY)
             {
                 return new(true, CollisionStateType.TRIGGER);
             }
+        }
+        else
+        {
+            if (circleShape2D.InitialX <= rectangleShape2D.X && circleShape2D.EndX >= rectangleShape2D.EndX && circleShape2D.InitialY <= rectangleShape2D.Y && circleShape2D.EndY >= rectangleShape2D.EndY)
+            {
+                return new(true, CollisionStateType.TRIGGER);
+            }
+        }
+
+
+        if (distanceX < rectangleShape2D.center.X && distanceY < rectangleShape2D.center.Y)
+        {
             return new(true, CollisionStateType.INTERSECTION);
         }
 
-        distX -= rectangleShape2D.center.X;
-        distY -= rectangleShape2D.center.Y;
+        distanceX -= rectangleShape2D.center.X;
+        distanceY -= rectangleShape2D.center.Y;
 
-        if (distX * distX + distY * distY < circleShape2D.GetRadius() * circleShape2D.GetRadius())
+        if (distanceX * distanceX + distanceY * distanceY < circleShape2D.GetRadius() * circleShape2D.GetRadius())
         {
-            if (rectangleShape2D.IsBiggestThan(circleShape2D))
-            {
-                return new(true, CollisionStateType.TRIGGER);
-            }
             return new(true, CollisionStateType.INTERSECTION);
         }
 

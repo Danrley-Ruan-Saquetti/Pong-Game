@@ -9,6 +9,7 @@ public interface ICircleShape2D : IShape2D
 {
     public bool Intersects(CircleShape2D circle);
     public Vector2 GetPosition();
+    public void SetPosition(Vector2 position);
     public float GetRadius();
     public void SetRadius(float radius);
     public int GetSegments();
@@ -89,6 +90,11 @@ public class CircleShape2D : Shape2D, ICircleShape2D
     public Vector2 GetPosition()
     {
         return this.position;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        this.position = position;
     }
 
     public float GetRadius()

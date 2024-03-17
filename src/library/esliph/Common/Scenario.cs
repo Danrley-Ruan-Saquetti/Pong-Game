@@ -8,7 +8,7 @@ namespace Library.Esliph.Common;
 public interface IScenario
 {
     public void Initialize();
-    public void AddGameObject(IGameObject gameObject);
+    public void AddGameObjects(params IGameObject[] gameObjects);
     public void RemoveGameObjectById(Guid id);
     public void RemoveGameObject(int index);
     public List<IGameObject> GetGameObjects();
@@ -41,11 +41,14 @@ public class Scenario : IScenario
 
     public virtual void Initialize() { }
 
-    public void AddGameObject(IGameObject gameObject)
+    public void AddGameObjects(params IGameObject[] gameObjects)
     {
-        this.gameObjects.Add(gameObject);
+        foreach (var gameObject in gameObjects)
+        {
+            this.gameObjects.Add(gameObject);
 
-        gameObject.Start();
+            gameObject.Start();
+        }
     }
 
     public void RemoveGameObjectById(Guid id)

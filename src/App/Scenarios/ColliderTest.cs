@@ -10,8 +10,10 @@ public class ColliderTestScenario : Scenario
 
     public override void Initialize()
     {
-        this.AddGameObject(new RectangleTestCollision(10, 1));
-        this.AddGameObject(new RectangleTestCollision(200, -1));
+        this.AddGameObjects(
+            new RectangleTestCollision(10, 1),
+            new CircleTestCollision(200, -0.5f)
+        );
 
         base.Initialize();
     }
