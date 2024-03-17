@@ -5,7 +5,18 @@ using Library.Esliph.Global;
 
 namespace Library.Esliph.Shapes;
 
-public class CircleShape2D : Shape2D
+public interface ICircleShape2D : IShape2D
+{
+    public bool Intersects(CircleShape2D circle);
+    public Vector2 GetPosition();
+    public float GetRadius();
+    public void SetRadius(float radius);
+    public int GetSegments();
+    public float GetDiameter();
+    public void SetSegments(int segments);
+}
+
+public class CircleShape2D : Shape2D, ICircleShape2D
 {
     private Vector2 position;
     private float radius { get; set; }
@@ -65,6 +76,16 @@ public class CircleShape2D : Shape2D
         return Vector2.Distance(circle.position, this.position) < this.radius + circle.radius;
     }
 
+    public bool IsBiggestThan(IRectangleShape2D rectangleShape2D)
+    {
+        return this.diameter > rectangleShape2D.GetRectangle().Width && this.diameter > rectangleShape2D.GetRectangle().Height;
+    }
+
+    public bool IsBiggestThan(ICircleShape2D circleShape2D)
+    {
+        return this.diameter > circleShape2D.GetDiameter();
+    }
+
     public Vector2 GetPosition()
     {
         return this.position;
@@ -83,6 +104,11 @@ public class CircleShape2D : Shape2D
     public int GetSegments()
     {
         return this.segments;
+    }
+
+    public float GetDiameter()
+    {
+        return this.diameter;
     }
 
     public void SetSegments(int segments)

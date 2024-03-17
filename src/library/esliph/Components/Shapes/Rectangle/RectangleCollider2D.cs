@@ -4,14 +4,9 @@ using Library.Esliph.Shapes;
 
 namespace Library.Esliph.Components;
 
-public class RectangleCollider2DComponent : Component
+public class RectangleCollider2DComponent : ColliderComponent
 {
-    private IColliderComponentObject colliderComponentObject;
-
-    public RectangleCollider2DComponent(IColliderComponentObject colliderComponentObject)
-    {
-        this.colliderComponentObject = colliderComponentObject;
-    }
+    public RectangleCollider2DComponent(IColliderComponentObject colliderComponentObject) : base(colliderComponentObject) { }
 
     public override void Update(GameTime gameTime, IGameObject gameObject)
     {
@@ -26,33 +21,23 @@ public class RectangleCollider2DComponent : Component
 
         foreach (var _gameObject in gameObjects)
         {
-            RectangleShape2D _rectangleShape2D = _gameObject.GetShape2D<RectangleShape2D>();
-            if (_rectangleShape2D == null)
+            IShape2D shape = _gameObject.GetShape2D<Shape2D>();
+
+            if (shape == null)
             {
                 continue;
             }
 
-            if (rectangleShape2D.IsBiggestThan(_rectangleShape2D))
+            if (shape is RectangleShape2D)
             {
-                if (rectangleShape2D.GetRectangle().Contains(_rectangleShape2D.GetRectangle()))
-                {
-                    this.colliderComponentObject.OnContainsThisEnter(_gameObject);
-                }
-                else if (rectangleShape2D.GetRectangle().Intersects(_rectangleShape2D.GetRectangle()))
-                {
-                    this.colliderComponentObject.OnCollisionEnter(_gameObject);
-                }
+                this.VerifyCollisionBetweenRectangles(rectangleShape2D, (RectangleShape2D)shape, gameObject);
+                continue;
             }
-            else
+
+            if (shape is CircleShape2D)
             {
-                if (_rectangleShape2D.GetRectangle().Contains(rectangleShape2D.GetRectangle()))
-                {
-                    this.colliderComponentObject.OnContainsEnter(_gameObject);
-                }
-                else if (rectangleShape2D.GetRectangle().Intersects(_rectangleShape2D.GetRectangle()))
-                {
-                    this.colliderComponentObject.OnCollisionEnter(_gameObject);
-                }
+                this.VerifyCollisionBetweenRectangleAndCircle(rectangleShape2D, (CircleShape2D)shape, gameObject);
+                continue;
             }
         }
 

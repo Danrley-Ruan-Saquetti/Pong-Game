@@ -9,6 +9,7 @@ public interface IRectangleShape2D : IShape2D
 {
     public Rectangle GetRectangle();
     public bool IsBiggestThan(IRectangleShape2D rectangleShape2D);
+    public bool IsBiggestThan(ICircleShape2D rectangleShape2D);
 }
 
 public class RectangleShape2D : Shape2D, IRectangleShape2D
@@ -87,5 +88,10 @@ public class RectangleShape2D : Shape2D, IRectangleShape2D
     public bool IsBiggestThan(IRectangleShape2D rectangleShape2D)
     {
         return this.Width > rectangleShape2D.GetRectangle().Width && this.Height > rectangleShape2D.GetRectangle().Height;
+    }
+
+    public bool IsBiggestThan(ICircleShape2D circleShape2D)
+    {
+        return this.Width / 2 > circleShape2D.GetRadius() && this.Height / 2 > circleShape2D.GetRadius();
     }
 }
