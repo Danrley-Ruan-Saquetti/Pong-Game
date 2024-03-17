@@ -4,6 +4,7 @@ using Library.Esliph.Shapes;
 using Library.Esliph.Components;
 using System;
 using Library.Esliph.Global;
+using Pong.Global;
 
 namespace Test.Entities;
 
@@ -47,7 +48,7 @@ public class CircleTestCollision1 : GameObject, IColliderComponentObject
             new CircleCollider2DComponent(this)
         );
 
-        Origin = new(Globals.WINDOW_DIMENSION.Width / 2, Globals.WINDOW_DIMENSION.Height / 2);
+        Origin = new(GameGlobals.WINDOW_DIMENSION.Width / 2, GameGlobals.WINDOW_DIMENSION.Height / 2);
         Speed = 200;
         Direction = RandomDirection();
         ICircleShape2D circleShape2D = this.GetShape2D();
@@ -62,17 +63,14 @@ public class CircleTestCollision1 : GameObject, IColliderComponentObject
 
         circleShape2D.SetPosition(circleShape2D.GetPosition() + Direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
-        if (circleShape2D.InitialX < 0 || circleShape2D.InitialX > Globals.WINDOW_DIMENSION.Width)
+        if (circleShape2D.InitialX < 0 || circleShape2D.EndX > GameGlobals.WINDOW_DIMENSION.Width)
         {
             Direction.X *= -1;
         }
-        if (circleShape2D.InitialY < 0 || circleShape2D.InitialY > Globals.WINDOW_DIMENSION.Height)
+        if (circleShape2D.InitialY < 0 || circleShape2D.EndY > GameGlobals.WINDOW_DIMENSION.Height)
         {
             Direction.Y *= -1;
         }
-
-        circleShape2D.SetPosition(new(MathHelper.Clamp(circleShape2D.X, Origin.X, Globals.WINDOW_DIMENSION.Width - Origin.X),
-                       MathHelper.Clamp(circleShape2D.Y, Origin.Y, Globals.WINDOW_DIMENSION.Height - Origin.Y)));
 
         base.Update(gameTime);
     }
@@ -80,8 +78,8 @@ public class CircleTestCollision1 : GameObject, IColliderComponentObject
     private static Vector2 RandomPosition()
     {
         const int padding = 50;
-        var x = _r.Next(padding, (int)Globals.WINDOW_DIMENSION.Width - padding);
-        var y = _r.Next(padding, (int)Globals.WINDOW_DIMENSION.Height - padding);
+        var x = _r.Next(padding, (int)GameGlobals.WINDOW_DIMENSION.Width - padding);
+        var y = _r.Next(padding, (int)GameGlobals.WINDOW_DIMENSION.Height - padding);
         return new(x, y);
     }
 
@@ -96,7 +94,23 @@ public class CircleTestCollision1 : GameObject, IColliderComponentObject
         return this.GetShape2D<CircleShape2D>();
     }
 
-    public void OnCollisionEnter(IGameObject gameObject) { }
-    public void OnContainsEnter(IGameObject gameObject) { }
-    public void OnContainsThisEnter(IGameObject gameObject) { }
+    public void OnCollisionEnter(IGameObject gameObject)
+    {
+        var shape1 = this.GetShape2D();
+        var shape2 = gameObject.GetShape2D<CircleShape2D>();
+
+        var pos1 = shape1.GetPosition();
+        var pos2 = shape2.GetPosition();
+
+        var newDirection = pos1 - pos2;
+
+        if (newDirection.X == 0 && newDirection.Y == 0)
+        {
+            return;
+        }
+
+        newDirection = Vector2.Normalize(newDirection);
+
+        this.Direction = newDirection;
+    }
 }

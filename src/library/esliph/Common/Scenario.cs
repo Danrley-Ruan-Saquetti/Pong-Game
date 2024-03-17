@@ -7,7 +7,7 @@ namespace Library.Esliph.Common;
 
 public interface IScenario
 {
-    public void Initialize();
+    public void Initialize() { }
     public void AddGameObjects(params IGameObject[] gameObjects);
     public void RemoveGameObjectById(Guid id);
     public void RemoveGameObject(int index);

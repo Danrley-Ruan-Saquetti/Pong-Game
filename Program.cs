@@ -7,6 +7,9 @@ public class Program
 {
     private static App game;
 
+    /// <summary>
+    /// The main entry point for the application
+    /// </summary>
     [STAThread]
     public static void Main(string[] args)
     {

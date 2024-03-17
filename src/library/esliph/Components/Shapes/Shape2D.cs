@@ -7,7 +7,7 @@ namespace Library.Esliph.Shapes;
 
 public interface IShape2D : IComponent
 {
-    public void Draw(GameTime gameTime);
+    public void Draw(GameTime gameTime) { }
     public float GetRotation();
     public void Rotate(float degrees);
     public void RotateToLeft(float degrees);

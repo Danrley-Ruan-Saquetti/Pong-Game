@@ -28,15 +28,15 @@ public class RectangleCollider2DComponent : ColliderComponent
                 continue;
             }
 
-            if (shape is RectangleShape2D)
+            if (shape is RectangleShape2D rectangleShape)
             {
-                this.VerifyCollisionBetweenRectangles(rectangleShape2D, (RectangleShape2D)shape, gameObject);
+                this.ResolveCollisionBetweenRectangles(rectangleShape2D, rectangleShape, _gameObject);
                 continue;
             }
 
-            if (shape is CircleShape2D)
+            if (shape is CircleShape2D circleShape)
             {
-                this.VerifyCollisionBetweenRectangleAndCircle(rectangleShape2D, (CircleShape2D)shape, gameObject);
+                this.ResolveCollisionBetweenRectangleAndCircle(rectangleShape2D, circleShape, _gameObject);
                 continue;
             }
         }

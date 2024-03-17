@@ -2,14 +2,15 @@ using System;
 using Library.Esliph.Common;
 using Library.Esliph.Common.Estates;
 using Library.Esliph.Shapes;
+using Microsoft.Xna.Framework;
 
 namespace Library.Esliph.Components;
 
 public interface IColliderComponentObject
 {
-    public void OnCollisionEnter(IGameObject gameObject);
-    public void OnContainsEnter(IGameObject gameObject);
-    public void OnContainsThisEnter(IGameObject gameObject);
+    public void OnCollisionEnter(IGameObject gameObject) { }
+    public void OnContainsEnter(IGameObject gameObject) { }
+    public void OnContainsThisEnter(IGameObject gameObject) { }
 }
 
 public class ColliderComponent : Component
@@ -21,21 +22,21 @@ public class ColliderComponent : Component
         this.colliderComponentObject = colliderComponentObject;
     }
 
-    protected void VerifyCollisionBetweenRectangles(RectangleShape2D rectangleShape2D, RectangleShape2D _rectangleShape2D, IGameObject gameObject)
+    protected void ResolveCollisionBetweenRectangles(RectangleShape2D rectangleShape2D, RectangleShape2D _rectangleShape2D, IGameObject gameObject)
     {
         CollisionState collisionState = ColliderComponent.ReadCollisionBetweenRectangles(rectangleShape2D, _rectangleShape2D);
 
         this.EmitEventCollisionState(collisionState, gameObject);
     }
 
-    protected void VerifyCollisionBetweenCircles(CircleShape2D circleShape2D, CircleShape2D _circleShape2D, IGameObject gameObject)
+    protected void ResolveCollisionBetweenCircles(CircleShape2D circleShape2D, CircleShape2D _circleShape2D, IGameObject gameObject)
     {
         CollisionState collisionState = ColliderComponent.ReadCollisionBetweenCircles(circleShape2D, _circleShape2D);
 
         this.EmitEventCollisionState(collisionState, gameObject);
     }
 
-    protected void VerifyCollisionBetweenRectangleAndCircle(RectangleShape2D rectangleShape2D, CircleShape2D _circleShape2D, IGameObject gameObject)
+    protected void ResolveCollisionBetweenRectangleAndCircle(RectangleShape2D rectangleShape2D, CircleShape2D _circleShape2D, IGameObject gameObject)
     {
         CollisionState collisionState = ColliderComponent.ReadCollisionBetweenRectangleAndCircle(rectangleShape2D, _circleShape2D);
 
@@ -62,6 +63,15 @@ public class ColliderComponent : Component
 
     public static CollisionState ReadCollisionBetweenCircles(CircleShape2D circleShape2D, CircleShape2D _circleShape2D)
     {
+        if (Vector2.Distance(circleShape2D.GetPosition(), _circleShape2D.GetPosition()) <= circleShape2D.GetRadius() + _circleShape2D.GetRadius())
+        {
+            if (circleShape2D.IsInsideArea(_circleShape2D.GetPosition(), _circleShape2D.GetRadius()))
+            {
+                return new(true, CollisionStateType.TRIGGER);
+            }
+            return new(true, CollisionStateType.INTERSECTION);
+        }
+
         return new(false, CollisionStateType.NONE);
     }
 

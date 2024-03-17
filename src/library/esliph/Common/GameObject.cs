@@ -10,9 +10,9 @@ namespace Library.Esliph.Common;
 
 public interface IGameObject
 {
-    public void Start();
-    public void Update(GameTime gameTime);
-    public void Draw(GameTime gameTime);
+    public void Start() { }
+    public void Update(GameTime gameTime) { }
+    public void Draw(GameTime gameTime) { }
     public void AddTags(params string[] tags);
     public bool CompareTo(string tagName);
     public List<string> GetTags();
