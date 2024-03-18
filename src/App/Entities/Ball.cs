@@ -2,10 +2,11 @@ using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Pong.Global;
 using Library.Esliph.Shapes;
+using Library.Esliph.Components;
 
 namespace Pong.Entities;
 
-public class Ball : GameObject
+public class Ball : GameObject, IColliderComponentObject
 {
     private float speed { get; set; }
     private Vector2 direction;
@@ -17,7 +18,8 @@ public class Ball : GameObject
         this.AddTags("Entity", "Ball");
         this.AddComponents(
             new CircleShape2D(new(GameGlobals.WINDOW_DIMENSION.Width / 2, GameGlobals.WINDOW_DIMENSION.Height / 2),
-            GameGlobals.BALL_RADIUS, null, 0, null, Color.White)
+            GameGlobals.BALL_RADIUS, null, 0, null, Color.White),
+            new CircleCollider2DComponent(this)
         );
 
         this.GetShape2D().SetColor(Color.White);
@@ -25,10 +27,6 @@ public class Ball : GameObject
 
     public override void Update(GameTime gameTime)
     {
-        if (this.IsCollisionInBoard())
-        {
-            this.ToggleDirectionY();
-        }
         this.MoveBall(gameTime);
         base.Update(gameTime);
     }
@@ -41,14 +39,19 @@ public class Ball : GameObject
         this.GetShape2D().Y += (int)(this.direction.Y * deltaSpeed);
     }
 
-    public bool IsCollisionInBoard()
+    public void OnCollisionEnter(IGameObject gameObject)
     {
-        return this.GetShape2D().InitialY < 0 || this.GetShape2D().EndY > GameGlobals.WINDOW_DIMENSION.Height;
-    }
-
-    public void ToggleDirectionY()
-    {
-        this.direction.Y *= -1;
+        if (gameObject.CompareTo("_MAP"))
+        {
+            if (this.GetShape2D().InitialY <= 0 || this.GetShape2D().EndY >= gameObject.GetComponent<RectangleShape2D>().Height)
+            {
+                this.direction.Y *= -1;
+            }
+            if (this.GetShape2D().InitialX <= 0 || this.GetShape2D().EndX >= gameObject.GetComponent<RectangleShape2D>().Width)
+            {
+                this.direction.X *= -1;
+            }
+        }
     }
 
     public Vector2 GetDirection()

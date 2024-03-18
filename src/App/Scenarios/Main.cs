@@ -17,6 +17,7 @@ public class MainScenario : Scenario
 
         this.AddGameObjects(
             ball,
+            new Floor(),
             new PlayerUser(PlayerSide.LEFT, gap),
             new PlayerCPU(PlayerSide.RIGHT, GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap, ball)
         );

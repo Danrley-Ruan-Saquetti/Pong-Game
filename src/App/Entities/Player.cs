@@ -71,7 +71,7 @@ public class Player : GameObject
         {
             this.MoveDown(gameTime);
         }
-        else if (this.initialPosition.Y > this.GetShape2D().Y)
+        else if (this.initialPosition.Y < this.GetShape2D().Y)
         {
             this.MoveUp(gameTime);
         }
