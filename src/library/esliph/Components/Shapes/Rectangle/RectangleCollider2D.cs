@@ -7,7 +7,7 @@ public class RectangleCollider2DComponent : ColliderComponent
 {
     public RectangleCollider2DComponent(IColliderComponentObject colliderComponentObject) : base(colliderComponentObject) { }
 
-    public override void Update(IGameObject gameObject)
+    public void Update(IGameObject gameObject)
     {
         RectangleShape2D rectangleShape2D = gameObject.GetShape2D<RectangleShape2D>();
 
@@ -39,7 +39,5 @@ public class RectangleCollider2DComponent : ColliderComponent
                 continue;
             }
         }
-
-        base.Update(gameObject);
     }
 }

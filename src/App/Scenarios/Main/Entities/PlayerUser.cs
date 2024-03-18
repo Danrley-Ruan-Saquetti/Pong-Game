@@ -1,7 +1,7 @@
 using Library.Esliph.Components;
 using Microsoft.Xna.Framework.Input;
 
-namespace Pong.Entities;
+namespace Pong.Scenarios.Main.Entities;
 
 public class PlayerUser : Player, IKeyEventComponentObject
 {

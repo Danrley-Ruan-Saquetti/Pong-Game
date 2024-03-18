@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Utils;
 using Library.Esliph.Global;
 using Library.Esliph.Controller;
+using System.Linq;
 
 namespace Library.Esliph.Core;
 
@@ -52,7 +53,7 @@ public class AppGame : Game
     {
         this.gameController.SetGameTime(gameTime);
 
-        var gameObjects = this.gameController.GetGameObjectsToUpdateOfTheCurrentScenario();
+        var gameObjects = this.gameController.GetGlobalGameObjectsIsAlive().Concat(this.gameController.GetGameObjectsToUpdateOfTheCurrentScenario()).ToList();
 
         foreach (var gameObject in gameObjects)
         {

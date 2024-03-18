@@ -6,8 +6,8 @@ namespace Library.Esliph.Components;
 
 public interface IKeyEventComponentObject : IGameObject
 {
-    public void OnKeyDown(KeyEvent keyEvent);
-    public void OnKeyUp(KeyEvent keyEvent);
+    public void OnKeyDown(KeyEvent keyEvent) { }
+    public void OnKeyUp(KeyEvent keyEvent) { }
 }
 
 public class KeyEventComponent : Component
@@ -19,7 +19,7 @@ public class KeyEventComponent : Component
         this.keyEventComponentObject = keyEventComponentObject;
     }
 
-    public override void Update(IGameObject gameObject)
+    public void Update(IGameObject gameObject)
     {
         KeyEvent keyEvent = KeyEventComponent.ReadKeyboardState();
 

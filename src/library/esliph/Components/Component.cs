@@ -5,8 +5,8 @@ namespace Library.Esliph.Components;
 
 public interface IComponent
 {
-    public void Start();
-    public void Update(IGameObject gameObject);
+    public void Start() { }
+    public void Update(IGameObject gameObject) { }
     public bool IsActive();
     public void SetActive(bool active);
 }
@@ -20,9 +20,6 @@ public class Component : IComponent
     {
         this.active = active;
     }
-
-    public virtual void Start() { }
-    public virtual void Update(IGameObject gameObject) { }
 
     public bool IsActive()
     {

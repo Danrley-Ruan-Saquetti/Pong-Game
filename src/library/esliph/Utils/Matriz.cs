@@ -26,12 +26,12 @@ public class Matriz<T>
     {
         if (positionInitial.X < 0 || positionInitial.X > this.rows - 1)
         {
-            string msg = "Position initial \"Y\" - " + positionInitial.Y + " - must be less than limite rows of the matriz and greater than zero";
+            string msg = $"Position initial \"Y\" - {positionInitial.Y} - must be less than limite rows of the matriz and greater than zero";
             throw new Exception(msg);
         }
         if (positionInitial.Y < 0 || positionInitial.Y > this.columns - 1)
         {
-            string msg = "Position initial \"Y\" - " + positionInitial.Y + " - must be less than limite columns of the matriz and greater than zero";
+            string msg = $"Position initial \"Y\" - {positionInitial.Y} - must be less than limite columns of the matriz and greater than zero";
             throw new Exception(msg);
         }
 

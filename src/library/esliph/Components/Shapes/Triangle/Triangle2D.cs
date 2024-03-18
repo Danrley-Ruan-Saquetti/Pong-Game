@@ -42,7 +42,7 @@ public class TriangleShape2D : Shape2D
     {
         if (index < 0 || index > this.positions.Length - 1)
         {
-            throw new Exception("Index position triangle \"" + index + "\" must be greater than zero and less than \"" + this.positions.Length + "\"");
+            throw new Exception($"Index position triangle \"{index}\" must be greater than zero and less than \"{this.positions.Length}\"");
         }
 
         return this.positions[index];

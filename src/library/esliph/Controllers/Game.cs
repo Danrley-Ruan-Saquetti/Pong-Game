@@ -1,17 +1,18 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Shapes;
-using Microsoft.Xna.Framework;
 
 namespace Library.Esliph.Controller;
 
 public class GameController
 {
     private readonly static GameController instance = new();
-    private GameTime gameTime = new();
     private readonly List<IScenario> scenarios;
+    private readonly GameObjectsController globalGameObjectsController;
+    private GameTime gameTime = new();
     private int currentScenarioIndex { get; set; }
     private IScenario currentScenario
     {
@@ -26,9 +27,10 @@ public class GameController
         return GameController.instance;
     }
 
-    private GameController()
+    public GameController()
     {
         this.scenarios = new();
+        this.globalGameObjectsController = new();
         this.currentScenarioIndex = 0;
     }
 
@@ -42,6 +44,7 @@ public class GameController
     private void AddScenario(IScenario scenario)
     {
         this.scenarios.Add(scenario);
+        scenario.Initialize();
     }
 
     public void ToggleScenario(string nameScenario)
@@ -50,7 +53,7 @@ public class GameController
 
         if (scenarioIndex < 0)
         {
-            throw new Exception("Scenario \"" + nameScenario + "\" not found");
+            throw new Exception($"Scenario \"{nameScenario}\" not found");
         }
 
         this.ToggleScenario(scenarioIndex);
@@ -59,7 +62,6 @@ public class GameController
     public void ToggleScenario(int scenarioIndex)
     {
         this.currentScenarioIndex = scenarioIndex;
-        this.GetScenario(scenarioIndex).Initialize();
     }
 
     public List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
@@ -95,6 +97,16 @@ public class GameController
     public List<IGameObject> GetGameObjectsToDrawOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsToDraw();
+    }
+
+    public void AddGlobalGameObjects(params IGameObject[] gameObjects)
+    {
+        this.globalGameObjectsController.AddGameObjects(gameObjects);
+    }
+
+    public List<IGameObject> GetGlobalGameObjectsIsAlive(params Guid[] ignoreIds)
+    {
+        return this.globalGameObjectsController.GetGameObjectsIsAlive(ignoreIds);
     }
 
     public void SetGameTime(GameTime gameTime)

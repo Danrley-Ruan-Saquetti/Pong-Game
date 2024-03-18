@@ -3,7 +3,7 @@ using Library.Esliph.Common;
 using Library.Esliph.Shapes;
 using Pong.Global;
 
-namespace Pong.Entities;
+namespace Pong.Scenarios.Main.Entities;
 
 public enum PlayerSide
 {

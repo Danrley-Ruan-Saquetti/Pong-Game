@@ -1,7 +1,7 @@
 using Library.Esliph.Components.GameObjects;
 using Pong.Global;
 
-namespace Pong.Entities;
+namespace Pong.Scenarios.Main.Entities;
 
 public class Floor : MapGameObject
 {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace Pong.Entities;
+namespace Pong.Scenarios.Main.Entities;
 
 public class PlayerCPU : Player
 {

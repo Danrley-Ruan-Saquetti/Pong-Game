@@ -4,6 +4,7 @@ public class AbstractObject : GameObject
 {
     public AbstractObject() : base()
     {
+        this.AddTags("_AbstractObject");
         this.SetVisible(false);
     }
 
