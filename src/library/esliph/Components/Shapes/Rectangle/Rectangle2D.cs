@@ -78,11 +78,11 @@ public class RectangleShape2D : Shape2D, IRectangleShape2D
         this.rectangle = new((int)position.X, (int)position.Y, (int)dimension.Width, (int)dimension.Height);
     }
 
-    public override void Draw(GameTime gameTime)
+    public override void Draw()
     {
         SpriteBatchExtensions.DrawRectangleFilled(this.GetRectangle(), this.GetColor());
 
-        base.Draw(gameTime);
+        base.Draw();
     }
 
     public override bool IsInsideArea(Vector2 position, float radius)

@@ -8,7 +8,7 @@ public class CircleCollider2DComponent : ColliderComponent
 {
     public CircleCollider2DComponent(IColliderComponentObject colliderComponentObject) : base(colliderComponentObject) { }
 
-    public override void Update(GameTime gameTime, IGameObject gameObject)
+    public override void Update(IGameObject gameObject)
     {
         CircleShape2D circleShape2D = gameObject.GetShape2D<CircleShape2D>();
 
@@ -41,6 +41,6 @@ public class CircleCollider2DComponent : ColliderComponent
             }
         }
 
-        base.Update(gameTime, gameObject);
+        base.Update(gameObject);
     }
 }

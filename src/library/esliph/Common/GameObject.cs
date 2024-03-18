@@ -11,8 +11,8 @@ namespace Library.Esliph.Common;
 public interface IGameObject
 {
     public void Start() { }
-    public void Update(GameTime gameTime) { }
-    public void Draw(GameTime gameTime) { }
+    public void Update() { }
+    public void Draw() { }
     public void AddTags(params string[] tags);
     public bool CompareTo(string tagName);
     public List<string> GetTags();
@@ -50,17 +50,17 @@ public class GameObject : IGameObject
 
     public virtual void Start() { }
 
-    public virtual void Update(GameTime gameTime)
+    public virtual void Update()
     {
         var componentsActive = this.GetComponentsActive();
 
         foreach (var component in componentsActive)
         {
-            component.Update(gameTime, this);
+            component.Update(this);
         }
     }
 
-    public virtual void Draw(GameTime gameTime)
+    public virtual void Draw()
     {
         IShape2D shape = this.GetShape2D<IShape2D>();
 
@@ -69,7 +69,7 @@ public class GameObject : IGameObject
             return;
         }
 
-        shape.Draw(gameTime);
+        shape.Draw();
     }
 
     public void AddTags(params string[] tags)

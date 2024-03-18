@@ -5,5 +5,5 @@ namespace Pong.Entities;
 
 public class Floor : MapGameObject
 {
-    public Floor() : base(GameGlobals.WINDOW_DIMENSION, new()) { }
+    public Floor() : base(GlobalGame.WINDOW_DIMENSION, new()) { }
 }

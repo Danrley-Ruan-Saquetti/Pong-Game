@@ -21,12 +21,12 @@ public class Player : GameObject
     public Player(PlayerSide side, float x = 0) : this(side, (int)x) { }
     public Player(PlayerSide side, int x) : base()
     {
-        this.speed = GameGlobals.PLAYER_SPEED;
+        this.speed = GlobalGame.PLAYER_SPEED;
         this.side = side;
-        this.initialPosition = new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2);
+        this.initialPosition = new(x, (GlobalGame.WINDOW_DIMENSION.Height - GlobalGame.PLAYER_DIMENSION.Height) / 2);
         this.AddTags("Entity", "Player");
         this.AddComponents(
-            new RectangleShape2D(new(x, (GameGlobals.WINDOW_DIMENSION.Height - GameGlobals.PLAYER_DIMENSION.Height) / 2), GameGlobals.PLAYER_DIMENSION, 0, null, Color.White)
+            new RectangleShape2D(new(x, (GlobalGame.WINDOW_DIMENSION.Height - GlobalGame.PLAYER_DIMENSION.Height) / 2), GlobalGame.PLAYER_DIMENSION, 0, null, Color.White)
         );
     }
 
@@ -37,43 +37,43 @@ public class Player : GameObject
         base.Start();
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Update()
     {
-        this.MovePlayer(gameTime);
-        base.Update(gameTime);
+        this.MovePlayer();
+        base.Update();
     }
 
-    public virtual void MovePlayer(GameTime gameTime) { }
+    public virtual void MovePlayer() { }
 
-    public void MoveUp(GameTime gameTime)
+    public void MoveUp()
     {
         if (this.GetShape2D().Y < 0)
         {
             this.GetShape2D().Y = 0;
             return;
         }
-        this.GetShape2D().Y -= GameGlobals.CalcDistanceMove(this.speed, (float)gameTime.ElapsedGameTime.TotalSeconds);
+        this.GetShape2D().Y -= GlobalGame.CalcDistanceMove(this.speed, (float)this.gameController.GetGameTime().ElapsedGameTime.TotalSeconds);
     }
 
-    public void MoveDown(GameTime gameTime)
+    public void MoveDown()
     {
-        if (this.GetShape2D().Y + this.GetShape2D().Height > GameGlobals.WINDOW_DIMENSION.Height)
+        if (this.GetShape2D().Y + this.GetShape2D().Height > GlobalGame.WINDOW_DIMENSION.Height)
         {
-            this.GetShape2D().Y = GameGlobals.WINDOW_DIMENSION.Height - this.GetShape2D().Height;
+            this.GetShape2D().Y = GlobalGame.WINDOW_DIMENSION.Height - this.GetShape2D().Height;
             return;
         }
-        this.GetShape2D().Y += GameGlobals.CalcDistanceMove(this.speed, (float)gameTime.ElapsedGameTime.TotalSeconds);
+        this.GetShape2D().Y += GlobalGame.CalcDistanceMove(this.speed, (float)this.gameController.GetGameTime().ElapsedGameTime.TotalSeconds);
     }
 
-    public virtual void MoveToInitialPosition(GameTime gameTime)
+    public virtual void MoveToInitialPosition()
     {
         if (this.initialPosition.Y > this.GetShape2D().Y)
         {
-            this.MoveDown(gameTime);
+            this.MoveDown();
         }
         else if (this.initialPosition.Y < this.GetShape2D().Y)
         {
-            this.MoveUp(gameTime);
+            this.MoveUp();
         }
         else
         {

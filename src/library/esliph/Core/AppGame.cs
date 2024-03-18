@@ -15,7 +15,7 @@ public class AppGame : Game
     {
         if (windowDimension == null)
         {
-            windowDimension = Globals.WINDOW_DIMENSION;
+            windowDimension = GlobalCore.WINDOW_DIMENSION;
         }
         this._graphics = new GraphicsDeviceManager(this)
         {
@@ -50,11 +50,13 @@ public class AppGame : Game
 
     protected override void Update(GameTime gameTime)
     {
+        this.gameController.SetGameTime(gameTime);
+
         var gameObjects = this.gameController.GetGameObjectsToUpdateOfTheCurrentScenario();
 
         foreach (var gameObject in gameObjects)
         {
-            gameObject.Update(gameTime);
+            gameObject.Update();
         }
     }
 
@@ -68,7 +70,7 @@ public class AppGame : Game
 
         foreach (var gameObject in gameObjects)
         {
-            gameObject.Draw(gameTime);
+            gameObject.Draw();
         }
 
         SpriteBatchExtensions.GetSpriteBatch().End();

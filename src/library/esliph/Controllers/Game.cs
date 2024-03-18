@@ -10,6 +10,7 @@ namespace Library.Esliph.Controller;
 public class GameController
 {
     private readonly static GameController instance = new();
+    private GameTime gameTime = new();
     private readonly List<IScenario> scenarios;
     private int currentScenarioIndex { get; set; }
     private IScenario currentScenario
@@ -94,6 +95,16 @@ public class GameController
     public List<IGameObject> GetGameObjectsToDrawOfTheCurrentScenario()
     {
         return this.GetCurrentScenario().GetGameObjectsToDraw();
+    }
+
+    public void SetGameTime(GameTime gameTime)
+    {
+        this.gameTime = gameTime;
+    }
+
+    public GameTime GetGameTime()
+    {
+        return this.gameTime;
     }
 
     public List<IScenario> GetScenarios()

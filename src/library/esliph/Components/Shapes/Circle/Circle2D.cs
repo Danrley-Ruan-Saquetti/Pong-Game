@@ -62,14 +62,14 @@ public class CircleShape2D : Shape2D, ICircleShape2D
     {
         this.position = position;
         this.radius = radius;
-        this.segments = segments ?? Globals.SEGMENTS_CIRCLE_DEFAULT;
+        this.segments = segments ?? GlobalCore.SEGMENTS_CIRCLE_DEFAULT;
     }
 
-    public override void Draw(GameTime gameTime)
+    public override void Draw()
     {
         SpriteBatchExtensions.DrawCircleOutline(this.GetPosition(), this.GetRadius(), this.GetSegments(), this.GetColor());
 
-        base.Draw(gameTime);
+        base.Draw();
     }
 
     public virtual bool Intersects(CircleShape2D circle)

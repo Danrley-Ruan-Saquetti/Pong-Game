@@ -33,7 +33,7 @@ public class TriangleShape2D : Shape2D
         this.positions[2] = position3;
     }
 
-    public override void Draw(GameTime gameTime)
+    public override void Draw()
     {
         SpriteBatchExtensions.DrawTriangle(this.GetPosition(0), this.GetPosition(1), this.GetPosition(2), this.GetColor());
     }

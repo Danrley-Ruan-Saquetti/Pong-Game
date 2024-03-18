@@ -19,7 +19,7 @@ public class MainScenario : Scenario
             ball,
             new Floor(),
             new PlayerUser(PlayerSide.LEFT, gap),
-            new PlayerCPU(PlayerSide.RIGHT, GameGlobals.WINDOW_DIMENSION.Width - GameGlobals.PLAYER_DIMENSION.Width - gap, ball)
+            new PlayerCPU(PlayerSide.RIGHT, GlobalGame.WINDOW_DIMENSION.Width - GlobalGame.PLAYER_DIMENSION.Width - gap, ball)
         );
 
         base.Initialize();

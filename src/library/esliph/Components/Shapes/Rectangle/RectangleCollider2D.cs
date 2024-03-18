@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Shapes;
 
@@ -8,7 +7,7 @@ public class RectangleCollider2DComponent : ColliderComponent
 {
     public RectangleCollider2DComponent(IColliderComponentObject colliderComponentObject) : base(colliderComponentObject) { }
 
-    public override void Update(GameTime gameTime, IGameObject gameObject)
+    public override void Update(IGameObject gameObject)
     {
         RectangleShape2D rectangleShape2D = gameObject.GetShape2D<RectangleShape2D>();
 
@@ -41,6 +40,6 @@ public class RectangleCollider2DComponent : ColliderComponent
             }
         }
 
-        base.Update(gameTime, gameObject);
+        base.Update(gameObject);
     }
 }

@@ -5,8 +5,8 @@ namespace Library.Esliph.Components;
 
 public interface IScriptMouseEvent
 {
-    public void OnMouseDown(GameTime gameTime, MouseEvent keyEvent);
-    public void OnMouseUp(GameTime gameTime, MouseEvent keyEvent);
+    public void OnMouseDown(MouseEvent keyEvent);
+    public void OnMouseUp(MouseEvent keyEvent);
 }
 
 public class MouseEventController

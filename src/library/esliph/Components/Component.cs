@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Controller;
 
@@ -7,7 +6,7 @@ namespace Library.Esliph.Components;
 public interface IComponent
 {
     public void Start();
-    public void Update(GameTime gameTime, IGameObject gameObject);
+    public void Update(IGameObject gameObject);
     public bool IsActive();
     public void SetActive(bool active);
 }
@@ -23,7 +22,7 @@ public class Component : IComponent
     }
 
     public virtual void Start() { }
-    public virtual void Update(GameTime gameTime, IGameObject gameObject) { }
+    public virtual void Update(IGameObject gameObject) { }
 
     public bool IsActive()
     {

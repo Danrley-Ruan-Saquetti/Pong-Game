@@ -14,26 +14,26 @@ public class Ball : GameObject, IColliderComponentObject
     public Ball() : base()
     {
         this.direction = new(1, 1);
-        this.speed = GameGlobals.BALL_SPEED;
+        this.speed = GlobalGame.BALL_SPEED;
         this.AddTags("Entity", "Ball");
         this.AddComponents(
-            new CircleShape2D(new(GameGlobals.WINDOW_DIMENSION.Width / 2, GameGlobals.WINDOW_DIMENSION.Height / 2),
-            GameGlobals.BALL_RADIUS, null, 0, null, Color.White),
+            new CircleShape2D(new(GlobalGame.WINDOW_DIMENSION.Width / 2, GlobalGame.WINDOW_DIMENSION.Height / 2),
+            GlobalGame.BALL_RADIUS, null, 0, null, Color.White),
             new CircleCollider2DComponent(this)
         );
 
         this.GetShape2D().SetColor(Color.White);
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Update()
     {
-        this.MoveBall(gameTime);
-        base.Update(gameTime);
+        this.MoveBall();
+        base.Update();
     }
 
-    public void MoveBall(GameTime gameTime)
+    public void MoveBall()
     {
-        float deltaSpeed = this.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        float deltaSpeed = this.speed * (float)this.gameController.GetGameTime().ElapsedGameTime.TotalSeconds;
 
         this.GetShape2D().X += (int)(this.direction.X * deltaSpeed);
         this.GetShape2D().Y += (int)(this.direction.Y * deltaSpeed);

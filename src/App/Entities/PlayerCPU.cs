@@ -14,28 +14,28 @@ public class PlayerCPU : Player
         this.AddTags("CPU");
     }
 
-    public override void MovePlayer(GameTime gameTime)
+    public override void MovePlayer()
     {
         if (this.IsTargetBallInThisPlayer())
         {
-            this.MoveToBall(gameTime);
+            this.MoveToBall();
         }
         else
         {
-            this.MoveToInitialPosition(gameTime);
+            this.MoveToInitialPosition();
         }
     }
 
-    public void MoveToBall(GameTime gameTime)
+    public void MoveToBall()
     {
         int gap = (int)this.GetShape2D().Height / 5;
         if (this.ball.GetShape2D().InitialY < this.GetShape2D().Y + gap)
         {
-            this.MoveUp(gameTime);
+            this.MoveUp();
         }
         else if (this.ball.GetShape2D().EndY > this.GetShape2D().Y + this.GetShape2D().Height - gap)
         {
-            this.MoveDown(gameTime);
+            this.MoveDown();
         }
     }
 

@@ -8,7 +8,7 @@ namespace Pong;
 
 public class App : AppGame
 {
-    public App() : base(GameGlobals.WINDOW_DIMENSION)
+    public App() : base(GlobalGame.WINDOW_DIMENSION)
     {
         this.Content.RootDirectory = "Content";
     }

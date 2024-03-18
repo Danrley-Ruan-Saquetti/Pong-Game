@@ -25,7 +25,7 @@ public class SpriteBatchExtensions
 
     public static void DrawRectangleOutline(Rectangle rectangle, Color color)
     {
-        SpriteBatchExtensions.DrawRectangleOutline(rectangle, color, Globals.SIZE_OUTLINE_BOARD_DEFAULT);
+        SpriteBatchExtensions.DrawRectangleOutline(rectangle, color, GlobalCore.SIZE_OUTLINE_BOARD_DEFAULT);
     }
 
     public static void DrawRectangleOutline(Rectangle rectangle, Color color, float border)
@@ -81,7 +81,7 @@ public class SpriteBatchExtensions
         {
             Vector2 p1 = points[i];
             Vector2 p2 = points[(i + 1) % points.Length];
-            SpriteBatchExtensions.DrawLine(p1, p2, color, Globals.SIZE_OUTLINE_BOARD_DEFAULT);
+            SpriteBatchExtensions.DrawLine(p1, p2, color, GlobalCore.SIZE_OUTLINE_BOARD_DEFAULT);
         }
     }
 
@@ -97,7 +97,7 @@ public class SpriteBatchExtensions
 
     public static void DrawLine(Vector2 point1, Vector2 point2, Color color)
     {
-        SpriteBatchExtensions.DrawLine(point1, point2, color, Globals.SIZE_OUTLINE_BOARD_DEFAULT);
+        SpriteBatchExtensions.DrawLine(point1, point2, color, GlobalCore.SIZE_OUTLINE_BOARD_DEFAULT);
     }
 
     public static void DrawLine(Vector2 point1, Vector2 point2, Color color, float border)

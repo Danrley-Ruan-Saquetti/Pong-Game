@@ -1,5 +1,4 @@
 using Library.Esliph.Components;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Pong.Entities;
@@ -14,17 +13,17 @@ public class PlayerUser : Player, IKeyEventComponentObject
         this.AddComponents(new KeyEventComponent(this));
     }
 
-    public void OnKeyDown(GameTime gameTime, KeyEvent keyEvent)
+    public void OnKeyDown(KeyEvent keyEvent)
     {
         if (keyEvent.IsEquals(Keys.W))
         {
-            this.MoveUp(gameTime);
+            this.MoveUp();
         }
         else if (keyEvent.IsEquals(Keys.S))
         {
-            this.MoveDown(gameTime);
+            this.MoveDown();
         }
     }
 
-    public void OnKeyUp(GameTime gameTime, KeyEvent keyEvent) { }
+    public void OnKeyUp(KeyEvent keyEvent) { }
 }
