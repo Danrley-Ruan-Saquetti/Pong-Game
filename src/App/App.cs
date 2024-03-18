@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Core;
 using Pong.Global;
 using Pong.Scenarios;
+using System;
 
 namespace Pong;
 
@@ -18,6 +19,11 @@ public class App : AppGame
         this.gameController.CreateScenario<MainScenario>();
 
         this.gameController.ToggleScenario("Main");
+
+        this.graphics.IsFullScreen = true;
+        this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
+        this.IsFixedTimeStep = true;
+        graphics.SynchronizeWithVerticalRetrace = false;
 
         base.Initialize();
     }

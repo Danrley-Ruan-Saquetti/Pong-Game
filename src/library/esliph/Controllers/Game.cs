@@ -107,6 +107,11 @@ public class GameController
         return this.gameTime;
     }
 
+    public float GetCountFPS()
+    {
+        return 1f / (float)this.gameTime.ElapsedGameTime.TotalSeconds;
+    }
+
     public List<IScenario> GetScenarios()
     {
         return this.scenarios;

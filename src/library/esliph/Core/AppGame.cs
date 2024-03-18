@@ -8,21 +8,20 @@ namespace Library.Esliph.Core;
 
 public class AppGame : Game
 {
-    private readonly GraphicsDeviceManager _graphics;
+    protected readonly GraphicsDeviceManager graphics;
     protected readonly GameController gameController;
 
-    public AppGame(Dimension windowDimension = null)
+    public AppGame(Dimension windowDimension = null, int FSP = 60)
     {
         if (windowDimension == null)
         {
             windowDimension = GlobalCore.WINDOW_DIMENSION;
         }
-        this._graphics = new GraphicsDeviceManager(this)
+        this.graphics = new GraphicsDeviceManager(this)
         {
             PreferredBackBufferWidth = (int)windowDimension.Width,
             PreferredBackBufferHeight = (int)windowDimension.Height
         };
-        this.IsMouseVisible = true;
         this.gameController = GameController.GetInstance();
     }
 
@@ -34,10 +33,11 @@ public class AppGame : Game
     protected override void Initialize()
     {
         if (this.gameController.GetScenarios().Count == 0)
-        {
             this.gameController.CreateScenario<BaseScenario>();
-        }
 
+        this.IsMouseVisible = true;
+
+        graphics.ApplyChanges();
         base.Initialize();
     }
 
