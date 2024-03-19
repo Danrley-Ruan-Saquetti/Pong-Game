@@ -1,4 +1,5 @@
 using Library.Esliph.Common.Stats;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Library.Esliph.Controller;
@@ -7,7 +8,7 @@ public class MouseController
 {
     private readonly static MouseController instance = new();
     private MouseEvent state = new();
-    private bool isStoppedMove = true;
+    private bool isStoppedMove = true, isStoppedScroll = true;
     private bool[] buttonsPressed = { true, true, true };
 
     public MouseController() { }
@@ -30,8 +31,8 @@ public class MouseController
             mouseState.Position.ToVector2(),
             this.state.GetPosition(),
             mouseState.ScrollWheelValue,
-            this.state.GetLastScrollValue(),
-            this.GetMouseEventState(mouseState),
+            this.GetMouseEventScrollState(mouseState.ScrollWheelValue),
+            this.GetMouseEventState(mouseState.Position.ToVector2()),
             this.GetMouseEventButtonState(mouseState.LeftButton, 0),
             this.GetMouseEventButtonState(mouseState.MiddleButton, 1),
             this.GetMouseEventButtonState(mouseState.RightButton, 2),
@@ -39,11 +40,16 @@ public class MouseController
             this.state.GetClickMiddle(),
             this.state.GetClickRight()
         );
+
+        if (state.IsScrolled())
+        {
+
+        }
     }
 
-    private MouseEventState GetMouseEventState(MouseState mouseState)
+    private MouseEventState GetMouseEventState(Vector2 position)
     {
-        if (this.state.GetPosition() != mouseState.Position.ToVector2())
+        if (this.state.GetPosition() != position)
         {
             this.isStoppedMove = false;
             return MouseEventState.Move;
@@ -71,6 +77,22 @@ public class MouseController
         }
 
         return MouseEventButtonState.None;
+    }
+
+    private MouseEventScrollState GetMouseEventScrollState(int scrollValue)
+    {
+        if (scrollValue != 0)
+        {
+            this.isStoppedScroll = false;
+            return MouseEventScrollState.Scroll;
+        }
+        if (!this.isStoppedScroll)
+        {
+            this.isStoppedScroll = true;
+            return MouseEventScrollState.Stop;
+        }
+
+        return MouseEventScrollState.None;
     }
 
     public MouseEvent GetState()

@@ -2,13 +2,6 @@ using Microsoft.Xna.Framework;
 
 namespace Library.Esliph.Common.Stats;
 
-public enum MouseEventButtonState
-{
-    Released,
-    Pressed,
-    None
-}
-
 public enum MouseEventState
 {
     None,
@@ -16,52 +9,91 @@ public enum MouseEventState
     Stop
 }
 
+public enum MouseEventScrollState
+{
+    None,
+    Scroll,
+    Stop
+}
+
+public enum MouseEventButtonState
+{
+    Released,
+    Pressed,
+    None
+}
+
 public interface IMouseEvent
 {
-
+    public bool IsMove();
+    public bool IsMoveStopped();
+    public MouseEventState GetMouseState();
+    public Vector2 DiferencePosition();
+    public Vector2 GetPosition();
+    public Vector2 GetLastPosition();
+    public bool HasClickDown();
+    public bool IsClickDownLeft();
+    public bool IsClickDownRight();
+    public bool IsClickDownMiddle();
+    public bool HasClickUp();
+    public bool IsClickUpLeft();
+    public bool IsClickUpRight();
+    public bool IsClickUpMiddle();
+    public MouseEventButtonState GetClickLeft();
+    public MouseEventButtonState GetClickRight();
+    public MouseEventButtonState GetClickMiddle();
+    public MouseEventButtonState GetLastClickLeft();
+    public MouseEventButtonState GetLastClickRight();
+    public MouseEventButtonState GetClick(int index);
+    public MouseEventButtonState GetLastClick(int index);
+    public MouseEventButtonState GetLastClickMiddle();
+    public bool IsScrolled();
+    public bool IsScrolledStop();
+    public int GetScrollValue();
 }
 
 public class MouseEvent : IMouseEvent
 {
     private readonly MouseEventButtonState[] buttons, lastButtons;
     private readonly Vector2 position, previousPosition;
-    private readonly int previousScrollWheelValue, scrollWheelValue;
+    private readonly int scrollWheelValue;
     private readonly MouseEventState mouseState;
+    private readonly MouseEventScrollState scrollState;
+    private MouseEventButtonState leftButtonState { get { return this.buttons[0]; } }
+    private MouseEventButtonState middleButtonState { get { return this.buttons[1]; } }
+    private MouseEventButtonState rightButtonState { get { return this.buttons[2]; } }
+    private MouseEventButtonState lastLeftButtonState { get { return this.lastButtons[0]; } }
+    private MouseEventButtonState lastMiddleButtonState { get { return this.lastButtons[1]; } }
+    private MouseEventButtonState lastRightButtonState { get { return this.lastButtons[2]; } }
     private float X { get { return this.position.X; } }
     private float Y { get { return this.position.Y; } }
-    private MouseEventButtonState leftButton { get { return this.buttons[0]; } }
-    private MouseEventButtonState middleButton { get { return this.buttons[1]; } }
-    private MouseEventButtonState rightButton { get { return this.buttons[2]; } }
-    private MouseEventButtonState lastLeftButton { get { return this.lastButtons[0]; } }
-    private MouseEventButtonState lastMiddleButton { get { return this.lastButtons[1]; } }
-    private MouseEventButtonState lastRightButton { get { return this.lastButtons[2]; } }
 
     public MouseEvent(
         Vector2 position = new(),
         Vector2 previousPosition = new(),
         int scrollWheelValue = 0,
-        int previousScrollWheelValue = 0,
+        MouseEventScrollState scrollState = MouseEventScrollState.None,
         MouseEventState mouseState = MouseEventState.None,
-        MouseEventButtonState leftButton = MouseEventButtonState.Released,
-        MouseEventButtonState middleButton = MouseEventButtonState.Released,
-        MouseEventButtonState rightButton = MouseEventButtonState.Released,
+        MouseEventButtonState leftButtonState = MouseEventButtonState.Released,
+        MouseEventButtonState middleButtonState = MouseEventButtonState.Released,
+        MouseEventButtonState rightButtonState = MouseEventButtonState.Released,
         MouseEventButtonState LastLeftButton = MouseEventButtonState.Released,
-        MouseEventButtonState LastMiddleButton = MouseEventButtonState.Released,
+        MouseEventButtonState LastMiddleButtonState = MouseEventButtonState.Released,
         MouseEventButtonState LastRightButton = MouseEventButtonState.Released
     )
     {
         this.position = position;
         this.mouseState = position != previousPosition ? MouseEventState.Move : mouseState;
+        this.scrollState = scrollState;
         this.scrollWheelValue = scrollWheelValue;
         this.previousPosition = previousPosition;
-        this.previousScrollWheelValue = previousScrollWheelValue;
         this.buttons = new MouseEventButtonState[3];
         this.lastButtons = new MouseEventButtonState[3];
-        this.buttons[0] = leftButton;
-        this.buttons[1] = middleButton;
-        this.buttons[2] = rightButton;
+        this.buttons[0] = leftButtonState;
+        this.buttons[1] = middleButtonState;
+        this.buttons[2] = rightButtonState;
         this.lastButtons[0] = LastLeftButton;
-        this.lastButtons[1] = LastMiddleButton;
+        this.lastButtons[1] = LastMiddleButtonState;
         this.lastButtons[2] = LastRightButton;
     }
 
@@ -70,7 +102,7 @@ public class MouseEvent : IMouseEvent
         return this.mouseState == MouseEventState.Move;
     }
 
-    public bool IsStopped()
+    public bool IsMoveStopped()
     {
         return this.mouseState == MouseEventState.Stop;
     }
@@ -102,17 +134,17 @@ public class MouseEvent : IMouseEvent
 
     public bool IsClickDownLeft()
     {
-        return this.leftButton == MouseEventButtonState.Pressed;
+        return this.leftButtonState == MouseEventButtonState.Pressed;
     }
 
     public bool IsClickDownRight()
     {
-        return this.rightButton == MouseEventButtonState.Pressed;
+        return this.rightButtonState == MouseEventButtonState.Pressed;
     }
 
     public bool IsClickDownMiddle()
     {
-        return this.middleButton == MouseEventButtonState.Pressed;
+        return this.middleButtonState == MouseEventButtonState.Pressed;
     }
 
     public bool HasClickUp()
@@ -122,42 +154,42 @@ public class MouseEvent : IMouseEvent
 
     public bool IsClickUpLeft()
     {
-        return this.leftButton == MouseEventButtonState.Released;
+        return this.leftButtonState == MouseEventButtonState.Released;
     }
 
     public bool IsClickUpRight()
     {
-        return this.rightButton == MouseEventButtonState.Released;
+        return this.rightButtonState == MouseEventButtonState.Released;
     }
 
     public bool IsClickUpMiddle()
     {
-        return this.middleButton == MouseEventButtonState.Released;
+        return this.middleButtonState == MouseEventButtonState.Released;
     }
 
     public MouseEventButtonState GetClickLeft()
     {
-        return this.leftButton;
+        return this.leftButtonState;
     }
 
     public MouseEventButtonState GetClickRight()
     {
-        return this.rightButton;
+        return this.rightButtonState;
     }
 
     public MouseEventButtonState GetClickMiddle()
     {
-        return this.middleButton;
+        return this.middleButtonState;
     }
 
     public MouseEventButtonState GetLastClickLeft()
     {
-        return this.lastLeftButton;
+        return this.lastLeftButtonState;
     }
 
     public MouseEventButtonState GetLastClickRight()
     {
-        return this.lastRightButton;
+        return this.lastRightButtonState;
     }
 
     public MouseEventButtonState GetClick(int index)
@@ -172,26 +204,20 @@ public class MouseEvent : IMouseEvent
 
     public MouseEventButtonState GetLastClickMiddle()
     {
-        return this.lastMiddleButton;
+        return this.lastMiddleButtonState;
     }
 
     public bool IsScrolled()
     {
-        return this.DiferenceScrollValue() != 0;
+        return this.scrollState == MouseEventScrollState.Scroll;
     }
 
-    public int DiferenceScrollValue()
+    public bool IsScrolledStop()
     {
-        return this.previousScrollWheelValue - this.scrollWheelValue;
+        return this.scrollState == MouseEventScrollState.Stop;
     }
-
     public int GetScrollValue()
     {
         return this.scrollWheelValue;
-    }
-
-    public int GetLastScrollValue()
-    {
-        return this.previousScrollWheelValue;
     }
 }

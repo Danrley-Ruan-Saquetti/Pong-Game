@@ -9,6 +9,7 @@ public interface IScriptMouseEvent : IGameObject
     public void OnMouseMove(MouseEvent keyEvent) { }
     public void OnMouseStop(MouseEvent keyEvent) { }
     public void OnMouseScroll(MouseEvent keyEvent) { }
+    public void OnMouseScrollStop(MouseEvent keyEvent) { }
     public void OnMouseClickDown(MouseEvent keyEvent) { }
     public void OnMouseClickUp(MouseEvent keyEvent) { }
 }
@@ -38,13 +39,9 @@ public class MouseEventComponent : Component
         {
             this.script.OnMouseMove(mouseEvent);
         }
-        if (mouseEvent.IsStopped())
+        if (mouseEvent.IsMoveStopped())
         {
             this.script.OnMouseStop(mouseEvent);
-        }
-        if (mouseEvent.IsScrolled())
-        {
-            this.script.OnMouseScroll(mouseEvent);
         }
         if (mouseEvent.HasClickDown())
         {
@@ -53,6 +50,14 @@ public class MouseEventComponent : Component
         if (mouseEvent.HasClickUp())
         {
             this.script.OnMouseClickUp(mouseEvent);
+        }
+        if (mouseEvent.IsScrolled())
+        {
+            this.script.OnMouseScroll(mouseEvent);
+        }
+        if (mouseEvent.IsScrolledStop())
+        {
+            this.script.OnMouseScrollStop(mouseEvent);
         }
     }
 }
