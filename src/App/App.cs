@@ -19,7 +19,8 @@ public class App : AppGame
     protected override void Initialize()
     {
         this.gameController.AddGlobalGameObjects(
-        new ToggleScenarioScript()
+            new MouseTest(),
+            new ToggleScenarioScript()
         );
         this.gameController.CreateScenario<MainScenario>();
         this.gameController.CreateScenario<RotationScenario>();

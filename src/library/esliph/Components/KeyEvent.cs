@@ -1,7 +1,6 @@
-using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Common;
 using Library.Esliph.Common.Stats;
-using System.Collections.Generic;
+using Library.Esliph.Controller;
 
 namespace Library.Esliph.Components;
 
@@ -14,15 +13,23 @@ public interface IKeyEventComponentObject : IGameObject
 public class KeyEventComponent : Component
 {
     private IKeyEventComponentObject keyEventComponentObject;
+    private KeyboardController keyboardController;
 
     public KeyEventComponent(IKeyEventComponentObject keyEventComponentObject, bool active = true) : base(active)
     {
         this.keyEventComponentObject = keyEventComponentObject;
+        this.keyboardController = KeyboardController.GetInstance();
     }
 
     public override void Update(IGameObject gameObject)
     {
-        KeyEvent keyEvent = KeyEventComponent.ReadKeyboardState();
+        this.ResolveKeyEvent();
+        base.Update(gameObject);
+    }
+
+    public void ResolveKeyEvent()
+    {
+        KeyEvent keyEvent = this.keyboardController.GetState();
 
         if (!keyEvent.IsActive())
         {
@@ -37,26 +44,5 @@ public class KeyEventComponent : Component
         {
             this.keyEventComponentObject.OnKeyUp(keyEvent);
         }
-
-        base.Update(gameObject);
-    }
-
-    public static KeyEvent ReadKeyboardState()
-    {
-        KeyboardState keyboardState = Keyboard.GetState();
-
-        List<KeyPressed> pressedKeys = new();
-        var _pressedKeys = keyboardState.GetPressedKeys();
-
-        foreach (var _keyPressed in _pressedKeys)
-        {
-            var type = keyboardState.IsKeyDown(_keyPressed) ? KeyEventType.KEY_DOWN : keyboardState.IsKeyUp(_keyPressed) ? KeyEventType.KEY_UP : KeyEventType.NONE;
-
-            KeyPressed keyPressed = new(_keyPressed, type);
-
-            pressedKeys.Add(keyPressed);
-        }
-
-        return new(pressedKeys);
     }
 }

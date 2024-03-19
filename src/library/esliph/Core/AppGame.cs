@@ -11,6 +11,8 @@ public class AppGame : Game
 {
     protected readonly GraphicsDeviceManager graphics;
     protected readonly GameController gameController;
+    protected readonly MouseController mouseController;
+    protected readonly KeyboardController keyboardController;
 
     public AppGame(Dimension windowDimension = null, int FSP = 60)
     {
@@ -24,6 +26,8 @@ public class AppGame : Game
             PreferredBackBufferHeight = (int)windowDimension.Height
         };
         this.gameController = GameController.GetInstance();
+        this.mouseController = MouseController.GetInstance();
+        this.keyboardController = KeyboardController.GetInstance();
     }
 
     public void Setup()
@@ -52,6 +56,8 @@ public class AppGame : Game
     protected override void Update(GameTime gameTime)
     {
         this.gameController.SetGameTime(gameTime);
+        this.keyboardController.Update();
+        this.mouseController.Update();
 
         var gameObjects = this.gameController.GetGlobalGameObjectsIsAlive().Concat(this.gameController.GetGameObjectsToUpdateOfTheCurrentScenario()).ToList();
 
