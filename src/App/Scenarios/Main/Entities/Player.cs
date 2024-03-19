@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Shapes;
 using Pong.Global;
+using Library.Esliph.Components.GameObjects;
 
 namespace Pong.Scenarios.Main.Entities;
 
@@ -11,7 +12,7 @@ public enum PlayerSide
     RIGHT = 1
 }
 
-public class Player : GameObject
+public class Player : RectangleGameObject
 {
     public float speed { get; set; }
     public int score;
@@ -19,15 +20,12 @@ public class Player : GameObject
     public Vector2 initialPosition;
 
     public Player(PlayerSide side, float x = 0) : this(side, (int)x) { }
-    public Player(PlayerSide side, int x) : base()
+    public Player(PlayerSide side, int x) : base(new(x, (GlobalGame.WINDOW_DIMENSION.Height - GlobalGame.PLAYER_DIMENSION.Height) / 2), GlobalGame.PLAYER_DIMENSION, 0, null, Color.White)
     {
         this.speed = GlobalGame.PLAYER_SPEED;
         this.side = side;
         this.initialPosition = new(x, (GlobalGame.WINDOW_DIMENSION.Height - GlobalGame.PLAYER_DIMENSION.Height) / 2);
         this.AddTags("Entity", "Player");
-        this.AddComponents(
-            new RectangleShape2D(new(x, (GlobalGame.WINDOW_DIMENSION.Height - GlobalGame.PLAYER_DIMENSION.Height) / 2), GlobalGame.PLAYER_DIMENSION, 0, null, Color.White)
-        );
     }
 
     public override void Start()
@@ -79,10 +77,5 @@ public class Player : GameObject
         {
             this.GetShape2D().Y = this.initialPosition.Y;
         }
-    }
-
-    public RectangleShape2D GetShape2D()
-    {
-        return this.GetShape2D<RectangleShape2D>();
     }
 }
