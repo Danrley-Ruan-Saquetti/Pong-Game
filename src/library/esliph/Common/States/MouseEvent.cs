@@ -216,6 +216,7 @@ public class MouseEvent : IMouseEvent
     {
         return this.scrollState == MouseEventScrollState.Stop;
     }
+
     public int GetScrollValue()
     {
         return this.scrollWheelValue;

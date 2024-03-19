@@ -7,7 +7,7 @@ namespace Library.Esliph.Controller;
 public class MouseController
 {
     private readonly static MouseController instance = new();
-    private MouseEvent state = new();
+    private IMouseEvent state = new MouseEvent();
     private bool isStoppedMove = true, isStoppedScroll = true;
     private bool[] buttonsPressed = { true, true, true };
 
@@ -27,7 +27,7 @@ public class MouseController
     {
         MouseState mouseState = Mouse.GetState();
 
-        this.state = new(
+        this.state = new MouseEvent(
             mouseState.Position.ToVector2(),
             this.state.GetPosition(),
             mouseState.ScrollWheelValue,
@@ -40,11 +40,6 @@ public class MouseController
             this.state.GetClickMiddle(),
             this.state.GetClickRight()
         );
-
-        if (state.IsScrolled())
-        {
-
-        }
     }
 
     private MouseEventState GetMouseEventState(Vector2 position)
@@ -81,7 +76,7 @@ public class MouseController
 
     private MouseEventScrollState GetMouseEventScrollState(int scrollValue)
     {
-        if (scrollValue != 0)
+        if (scrollValue != this.state.GetScrollValue())
         {
             this.isStoppedScroll = false;
             return MouseEventScrollState.Scroll;
@@ -95,7 +90,7 @@ public class MouseController
         return MouseEventScrollState.None;
     }
 
-    public MouseEvent GetState()
+    public IMouseEvent GetState()
     {
         return this.state;
     }

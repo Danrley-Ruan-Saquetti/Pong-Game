@@ -6,12 +6,12 @@ namespace Library.Esliph.Components;
 
 public interface IScriptMouseEvent : IGameObject
 {
-    public void OnMouseMove(MouseEvent keyEvent) { }
-    public void OnMouseStop(MouseEvent keyEvent) { }
-    public void OnMouseScroll(MouseEvent keyEvent) { }
-    public void OnMouseScrollStop(MouseEvent keyEvent) { }
-    public void OnMouseClickDown(MouseEvent keyEvent) { }
-    public void OnMouseClickUp(MouseEvent keyEvent) { }
+    public void OnMouseMove(IMouseEvent keyEvent) { }
+    public void OnMouseStop(IMouseEvent keyEvent) { }
+    public void OnMouseScroll(IMouseEvent keyEvent) { }
+    public void OnMouseScrollStop(IMouseEvent keyEvent) { }
+    public void OnMouseClickDown(IMouseEvent keyEvent) { }
+    public void OnMouseClickUp(IMouseEvent keyEvent) { }
 }
 
 public class MouseEventComponent : Component
@@ -33,12 +33,13 @@ public class MouseEventComponent : Component
 
     public void ResolveMouseEvent()
     {
-        MouseEvent mouseEvent = this.mouseController.GetState();
+        IMouseEvent mouseEvent = this.mouseController.GetState();
 
         if (mouseEvent.IsMove())
         {
             this.script.OnMouseMove(mouseEvent);
         }
+        else
         if (mouseEvent.IsMoveStopped())
         {
             this.script.OnMouseStop(mouseEvent);
@@ -55,6 +56,7 @@ public class MouseEventComponent : Component
         {
             this.script.OnMouseScroll(mouseEvent);
         }
+        else
         if (mouseEvent.IsScrolledStop())
         {
             this.script.OnMouseScrollStop(mouseEvent);
