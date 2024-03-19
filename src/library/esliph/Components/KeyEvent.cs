@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Common;
+using Library.Esliph.Common.Stats;
+using System.Collections.Generic;
 
 namespace Library.Esliph.Components;
 
@@ -18,7 +20,7 @@ public class KeyEventComponent : Component
         this.keyEventComponentObject = keyEventComponentObject;
     }
 
-    public void Update(IGameObject gameObject)
+    public override void Update(IGameObject gameObject)
     {
         KeyEvent keyEvent = KeyEventComponent.ReadKeyboardState();
 
@@ -27,107 +29,34 @@ public class KeyEventComponent : Component
             return;
         }
 
-        if (keyEvent.IsKeyDown())
+        if (keyEvent.GetKeyDownPressed().Count > 0)
         {
             this.keyEventComponentObject.OnKeyDown(keyEvent);
         }
-        if (keyEvent.IsKeyUp())
+        if (keyEvent.GetKeyUpPressed().Count > 0)
         {
             this.keyEventComponentObject.OnKeyUp(keyEvent);
         }
+
+        base.Update(gameObject);
     }
 
     public static KeyEvent ReadKeyboardState()
     {
         KeyboardState keyboardState = Keyboard.GetState();
 
-        if (keyboardState.GetPressedKeys().Length > 0)
+        List<KeyPressed> pressedKeys = new();
+        var _pressedKeys = keyboardState.GetPressedKeys();
+
+        foreach (var _keyPressed in _pressedKeys)
         {
-            Keys lastKeyPressed = keyboardState.GetPressedKeys()[0];
+            var type = keyboardState.IsKeyDown(_keyPressed) ? KeyEventType.KEY_DOWN : keyboardState.IsKeyUp(_keyPressed) ? KeyEventType.KEY_UP : KeyEventType.NONE;
 
-            if (keyboardState.IsKeyDown(lastKeyPressed))
-            {
-                return KeyEvent.KeyDown(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift));
-            }
+            KeyPressed keyPressed = new(_keyPressed, type);
 
-            if (keyboardState.IsKeyUp(lastKeyPressed))
-            {
-                return KeyEvent.KeyUp(lastKeyPressed, keyboardState.CapsLock, keyboardState.IsKeyUp(Keys.LeftShift) || keyboardState.IsKeyUp(Keys.RightShift));
-            }
+            pressedKeys.Add(keyPressed);
         }
 
-        return new();
-    }
-}
-
-public enum KeyEventType
-{
-    NONE = 0,
-    KEY_DOWN = 1,
-    KEY_UP = 2,
-}
-
-public class KeyEvent
-{
-    private readonly Keys key;
-    private readonly bool capsLock, shiftPress;
-    private readonly KeyEventType keyEventType;
-
-    public KeyEvent(Keys key = Keys.None, KeyEventType keyEventType = KeyEventType.NONE, bool capsLock = false, bool shiftPress = false)
-    {
-        this.key = key;
-        this.keyEventType = keyEventType;
-        this.capsLock = capsLock;
-        this.shiftPress = shiftPress;
-    }
-
-    public static KeyEvent KeyDown(Keys key, bool capsLock = false, bool shiftPress = false)
-    {
-        return new(key, KeyEventType.KEY_DOWN, capsLock, shiftPress);
-    }
-
-    public static KeyEvent KeyUp(Keys key, bool capsLock = false, bool shiftPress = false)
-    {
-        return new(key, KeyEventType.KEY_UP, capsLock, shiftPress);
-    }
-
-    public bool IsEquals(Keys key)
-    {
-        return this.GetKey() == key;
-    }
-
-    public bool IsKeyDown()
-    {
-        return this.GetKeyEventType() == KeyEventType.KEY_DOWN;
-    }
-
-    public bool IsKeyUp()
-    {
-        return this.GetKeyEventType() == KeyEventType.KEY_UP;
-    }
-
-    public bool IsActive()
-    {
-        return this.GetKeyEventType() != KeyEventType.NONE;
-    }
-
-    public Keys GetKey()
-    {
-        return this.key;
-    }
-
-    public bool IsShiftPressed()
-    {
-        return this.shiftPress;
-    }
-
-    public bool IsCapsLock()
-    {
-        return this.capsLock;
-    }
-
-    public KeyEventType GetKeyEventType()
-    {
-        return this.keyEventType;
+        return new(pressedKeys);
     }
 }

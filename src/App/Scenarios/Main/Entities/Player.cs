@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
-using Library.Esliph.Common;
-using Library.Esliph.Shapes;
-using Pong.Global;
 using Library.Esliph.Components.GameObjects;
+using Pong.Global;
 
 namespace Pong.Scenarios.Main.Entities;
 

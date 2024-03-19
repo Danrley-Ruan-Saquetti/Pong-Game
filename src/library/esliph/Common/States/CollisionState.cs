@@ -1,4 +1,4 @@
-namespace Library.Esliph.Common.Estates;
+namespace Library.Esliph.Common.Stats;
 
 public enum CollisionStateType
 {

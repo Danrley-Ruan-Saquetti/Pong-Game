@@ -1,6 +1,6 @@
 using System;
 using Library.Esliph.Common;
-using Library.Esliph.Common.Estates;
+using Library.Esliph.Common.Stats;
 using Library.Esliph.Shapes;
 using Microsoft.Xna.Framework;
 

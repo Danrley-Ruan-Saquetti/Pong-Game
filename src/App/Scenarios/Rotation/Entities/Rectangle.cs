@@ -4,6 +4,7 @@ using Library.Esliph.Common;
 using Library.Esliph.Shapes;
 using Library.Esliph.Components;
 using Pong.Global;
+using Library.Esliph.Common.Stats;
 
 namespace Pong.Scenarios.Rotation.Entities;
 
@@ -37,13 +38,13 @@ public class RectangleRotation : GameObject, IKeyEventComponentObject
 
     public void OnKeyDown(KeyEvent keyEvent)
     {
-        if (keyEvent.GetKey() == Keys.W)
+        if (keyEvent.IsKeyDown(Keys.W))
             this.MoveUp();
-        else if (keyEvent.GetKey() == Keys.S)
+        else if (keyEvent.IsKeyDown(Keys.S))
             this.MoveDown();
-        if (keyEvent.GetKey() == Keys.A)
+        if (keyEvent.IsKeyDown(Keys.A))
             this.MoveLeft();
-        else if (keyEvent.GetKey() == Keys.D)
+        else if (keyEvent.IsKeyDown(Keys.D))
             this.MoveRight();
     }
 

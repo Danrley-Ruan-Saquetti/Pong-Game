@@ -21,6 +21,8 @@ public class Component : IComponent
         this.active = active;
     }
 
+    public virtual void Update(IGameObject gameObject) { }
+
     public bool IsActive()
     {
         return this.active;
