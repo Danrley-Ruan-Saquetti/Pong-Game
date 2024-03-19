@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 namespace Library.Esliph.Common.Stats;
@@ -11,7 +11,19 @@ public enum KeyEventType
     KEY_UP = 2,
 }
 
-public class KeyEvent
+public interface IKeyEvent
+{
+    public bool IsActive();
+    public bool IsKeyUp(params Keys[] keys);
+    public bool IsKeyDown(params Keys[] keys);
+    public bool HasKey(Keys key);
+    public KeyPressed GetKeyPressed(Keys key);
+    public List<KeyPressed> GetKeyDownPressed();
+    public List<KeyPressed> GetKeyUpPressed();
+    public List<KeyPressed> GetPressedKeys();
+}
+
+public class KeyEvent : IKeyEvent
 {
     private readonly List<KeyPressed> pressedKeys;
 
@@ -75,7 +87,15 @@ public class KeyEvent
     }
 }
 
-public class KeyPressed
+public interface IKeyPressed
+{
+    public Keys GetKey();
+    public KeyEventType GetKeyEventType();
+    public bool IsKeyDown();
+    public bool IsKeyUp();
+}
+
+public class KeyPressed : IKeyPressed
 {
     private readonly Keys key;
     private readonly KeyEventType keyEventType;

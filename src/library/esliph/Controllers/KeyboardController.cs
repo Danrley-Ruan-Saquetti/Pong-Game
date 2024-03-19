@@ -1,7 +1,6 @@
-
 using System.Collections.Generic;
-using Library.Esliph.Common.Stats;
 using Microsoft.Xna.Framework.Input;
+using Library.Esliph.Common.Stats;
 
 namespace Library.Esliph.Controller;
 

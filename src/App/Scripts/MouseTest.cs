@@ -12,11 +12,23 @@ public class MouseTest : GeneralScript, IScriptMouseEvent
         );
     }
 
-    public void OnMouseStop(MouseEvent keyEvent)
+    public void OnMouseMove(MouseEvent mouseEvent)
+    {
+        WriteLine("OnMouseMove");
+    }
+    public void OnMouseStop(MouseEvent mouseEvent)
     {
         WriteLine("OnMouseStop");
     }
-    public void OnMouseClickUp(MouseEvent keyEvent)
+    public void OnMouseScroll(MouseEvent mouseEvent)
+    {
+        WriteLine("OnMouseScroll");
+    }
+    public void OnMouseClickDown(MouseEvent mouseEvent)
+    {
+        WriteLine("OnMouseClickDown");
+    }
+    public void OnMouseClickUp(MouseEvent mouseEvent)
     {
         WriteLine("OnMouseClickUp");
     }

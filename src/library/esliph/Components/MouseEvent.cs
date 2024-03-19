@@ -38,13 +38,21 @@ public class MouseEventComponent : Component
         {
             this.script.OnMouseMove(mouseEvent);
         }
+        if (mouseEvent.IsStopped())
+        {
+            this.script.OnMouseStop(mouseEvent);
+        }
         if (mouseEvent.IsScrolled())
         {
             this.script.OnMouseScroll(mouseEvent);
         }
-        if (mouseEvent.IsClickLeft() || mouseEvent.IsClickMiddle() || mouseEvent.IsClickRight())
+        if (mouseEvent.HasClickDown())
         {
             this.script.OnMouseClickDown(mouseEvent);
+        }
+        if (mouseEvent.HasClickUp())
+        {
+            this.script.OnMouseClickUp(mouseEvent);
         }
     }
 }
