@@ -16,7 +16,7 @@ public class RectangleCollider2DComponent : ColliderComponent
             return;
         }
 
-        var gameObjects = this.gameController.GetGameObjectsAliveOfTheCurrentScenario(gameObject.GetId());
+        var gameObjects = this.gameController.GetGameObjectsAliveOfTheCurrentScene(gameObject.GetId());
 
         foreach (var _gameObject in gameObjects)
         {

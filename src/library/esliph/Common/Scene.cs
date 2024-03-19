@@ -3,7 +3,7 @@ using Library.Esliph.Controller;
 
 namespace Library.Esliph.Common;
 
-public interface IScenario : IGameObjectsController
+public interface IScene : IGameObjectsController
 {
     public void Initialize();
     public Color GetBackgroundColor();
@@ -12,12 +12,12 @@ public interface IScenario : IGameObjectsController
     public void SetName(string name);
 }
 
-public class Scenario : GameObjectsController, IScenario
+public class Scene : GameObjectsController, IScene
 {
     private string name { get; set; }
     private Color backgroundColor;
 
-    public Scenario(string name, Color backgroundColor = new()) : base()
+    public Scene(string name, Color backgroundColor = new()) : base()
     {
         this.name = name;
         this.backgroundColor = backgroundColor;

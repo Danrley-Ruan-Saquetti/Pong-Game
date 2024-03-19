@@ -4,9 +4,9 @@ using Library.Esliph.Common.Stats;
 
 namespace Pong.Scripts;
 
-public class ToggleScenarioScript : GeneralScript, IKeyEventComponentObject
+public class ToggleSceneScript : GeneralScript, IKeyEventComponentObject
 {
-    public ToggleScenarioScript() : base()
+    public ToggleSceneScript() : base()
     {
         this.AddComponents(
             new KeyEventComponent(this)
@@ -16,8 +16,8 @@ public class ToggleScenarioScript : GeneralScript, IKeyEventComponentObject
     public void OnKeyDown(KeyEvent keyEvent)
     {
         if (keyEvent.IsKeyDown(Keys.LeftShift, Keys.D1))
-            this.gameController.ToggleScenario("Main");
+            this.gameController.ToggleScene("Main");
         else if (keyEvent.IsKeyDown(Keys.D2))
-            this.gameController.ToggleScenario("Rotation");
+            this.gameController.ToggleScene("Rotation");
     }
 }

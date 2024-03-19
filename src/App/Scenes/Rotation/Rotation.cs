@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
-using Pong.Scenarios.Rotation.Entities;
+using Pong.Scenes.Rotation.Entities;
 
-namespace Test.Scenarios;
+namespace Test.Scenes;
 
-public class RotationScenario : Scenario
+public class RotationScene : Scene
 {
-    public RotationScenario() : base("Rotation", Color.Black) { }
+    public RotationScene() : base("Rotation", Color.Black) { }
 
     public override void Initialize()
     {

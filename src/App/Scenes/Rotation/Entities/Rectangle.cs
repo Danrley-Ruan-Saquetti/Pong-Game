@@ -6,7 +6,7 @@ using Library.Esliph.Components;
 using Pong.Global;
 using Library.Esliph.Common.Stats;
 
-namespace Pong.Scenarios.Rotation.Entities;
+namespace Pong.Scenes.Rotation.Entities;
 
 public class RectangleRotation : GameObject, IKeyEventComponentObject
 {

@@ -10,15 +10,15 @@ namespace Library.Esliph.Controller;
 public class GameController
 {
     private readonly static GameController instance = new();
-    private readonly List<IScenario> scenarios;
+    private readonly List<IScene> scenes;
     private readonly GameObjectsController globalGameObjectsController;
     private GameTime gameTime = new();
-    private int currentScenarioIndex { get; set; }
-    private IScenario currentScenario
+    private int currentSceneIndex { get; set; }
+    private IScene currentScene
     {
         get
         {
-            return this.scenarios.ElementAt(this.currentScenarioIndex);
+            return this.scenes.ElementAt(this.currentSceneIndex);
         }
     }
 
@@ -29,74 +29,74 @@ public class GameController
 
     public GameController()
     {
-        this.scenarios = new();
+        this.scenes = new();
         this.globalGameObjectsController = new();
-        this.currentScenarioIndex = 0;
+        this.currentSceneIndex = 0;
     }
 
-    public void CreateScenario<TScenario>() where TScenario : Scenario, new()
+    public void CreateScene<TScene>() where TScene : Scene, new()
     {
-        IScenario scenario = new TScenario();
+        IScene scene = new TScene();
 
-        this.AddScenario(scenario);
+        this.AddScene(scene);
     }
 
-    private void AddScenario(IScenario scenario)
+    private void AddScene(IScene scene)
     {
-        this.scenarios.Add(scenario);
-        scenario.Initialize();
+        this.scenes.Add(scene);
+        scene.Initialize();
     }
 
-    public void ToggleScenario(string nameScenario)
+    public void ToggleScene(string nameScene)
     {
-        var scenarioIndex = this.scenarios.FindIndex(scenario => scenario.GetName() == nameScenario);
+        var sceneIndex = this.scenes.FindIndex(scene => scene.GetName() == nameScene);
 
-        if (scenarioIndex < 0)
+        if (sceneIndex < 0)
         {
-            throw new Exception($"Scenario \"{nameScenario}\" not found");
+            throw new Exception($"Scene \"{nameScene}\" not found");
         }
 
-        this.ToggleScenario(scenarioIndex);
+        this.ToggleScene(sceneIndex);
     }
 
-    public void ToggleScenario(int scenarioIndex)
+    public void ToggleScene(int sceneIndex)
     {
-        this.currentScenarioIndex = scenarioIndex;
+        this.currentSceneIndex = sceneIndex;
     }
 
-    public List<IGameObject> GetGameObjectsOfTheScenario(int scenarioIndex)
+    public List<IGameObject> GetGameObjectsOfTheScene(int sceneIndex)
     {
-        return this.GetScenario(scenarioIndex).GetGameObjects();
+        return this.GetScene(sceneIndex).GetGameObjects();
     }
 
-    public List<IGameObject> GetGameObjectsOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsOfTheCurrentScene()
     {
-        return this.GetCurrentScenario().GetGameObjects();
+        return this.GetCurrentScene().GetGameObjects();
     }
 
-    public List<IGameObject> GetGameObjectsAliveOfTheScenario(int scenarioIndex)
+    public List<IGameObject> GetGameObjectsAliveOfTheScene(int sceneIndex)
     {
-        return this.GetScenario(scenarioIndex).GetGameObjectsIsAlive();
+        return this.GetScene(sceneIndex).GetGameObjectsIsAlive();
     }
 
-    public List<IGameObject> GetGameObjectsAliveInAreaOfTheCurrentScenario(Vector2 position, float radius)
+    public List<IGameObject> GetGameObjectsAliveInAreaOfTheCurrentScene(Vector2 position, float radius)
     {
-        return this.GetGameObjectsAliveOfTheCurrentScenario().Where(gameObject => gameObject.GetShape2D<Shape2D>().IsInsideArea(position, radius)).ToList();
+        return this.GetGameObjectsAliveOfTheCurrentScene().Where(gameObject => gameObject.GetShape2D<Shape2D>().IsInsideArea(position, radius)).ToList();
     }
 
-    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScenario(params Guid[] ignoreIds)
+    public List<IGameObject> GetGameObjectsAliveOfTheCurrentScene(params Guid[] ignoreIds)
     {
-        return this.GetCurrentScenario().GetGameObjectsIsAlive(ignoreIds);
+        return this.GetCurrentScene().GetGameObjectsIsAlive(ignoreIds);
     }
 
-    public List<IGameObject> GetGameObjectsToUpdateOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsToUpdateOfTheCurrentScene()
     {
-        return this.GetCurrentScenario().GetGameObjectsToUpdate();
+        return this.GetCurrentScene().GetGameObjectsToUpdate();
     }
 
-    public List<IGameObject> GetGameObjectsToDrawOfTheCurrentScenario()
+    public List<IGameObject> GetGameObjectsToDrawOfTheCurrentScene()
     {
-        return this.GetCurrentScenario().GetGameObjectsToDraw();
+        return this.GetCurrentScene().GetGameObjectsToDraw();
     }
 
     public void AddGlobalGameObjects(params IGameObject[] gameObjects)
@@ -124,23 +124,23 @@ public class GameController
         return 1f / (float)this.gameTime.ElapsedGameTime.TotalSeconds;
     }
 
-    public List<IScenario> GetScenarios()
+    public List<IScene> GetScenes()
     {
-        return this.scenarios;
+        return this.scenes;
     }
 
-    public IScenario GetCurrentScenario()
+    public IScene GetCurrentScene()
     {
-        return this.currentScenario;
+        return this.currentScene;
     }
 
-    public IScenario GetScenario(string name)
+    public IScene GetScene(string name)
     {
-        return this.scenarios.Find(scenario => scenario.GetName() == name);
+        return this.scenes.Find(scene => scene.GetName() == name);
     }
 
-    public IScenario GetScenario(int scenarioIndex)
+    public IScene GetScene(int sceneIndex)
     {
-        return this.scenarios.ElementAt(scenarioIndex);
+        return this.scenes.ElementAt(sceneIndex);
     }
 }

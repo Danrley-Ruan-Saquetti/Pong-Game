@@ -4,7 +4,7 @@ using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Pong.Global;
 
-namespace Pong.Scenarios.Main.Entities;
+namespace Pong.Scenes.Main.Entities;
 
 public class Ball : GameObject, IColliderComponentObject
 {

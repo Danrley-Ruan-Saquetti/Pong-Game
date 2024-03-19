@@ -37,8 +37,8 @@ public class AppGame : Game
 
     protected override void Initialize()
     {
-        if (this.gameController.GetScenarios().Count == 0)
-            this.gameController.CreateScenario<BaseScenario>();
+        if (this.gameController.GetScenes().Count == 0)
+            this.gameController.CreateScene<BaseScene>();
 
         this.IsMouseVisible = true;
 
@@ -59,7 +59,7 @@ public class AppGame : Game
         this.keyboardController.Update();
         this.mouseController.Update();
 
-        var gameObjects = this.gameController.GetGlobalGameObjectsIsAlive().Concat(this.gameController.GetGameObjectsToUpdateOfTheCurrentScenario()).ToList();
+        var gameObjects = this.gameController.GetGlobalGameObjectsIsAlive().Concat(this.gameController.GetGameObjectsToUpdateOfTheCurrentScene()).ToList();
 
         foreach (var gameObject in gameObjects)
         {
@@ -69,11 +69,11 @@ public class AppGame : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(this.gameController.GetCurrentScenario().GetBackgroundColor());
+        GraphicsDevice.Clear(this.gameController.GetCurrentScene().GetBackgroundColor());
 
         SpriteBatchExtensions.GetSpriteBatch().Begin();
 
-        var gameObjects = this.gameController.GetGameObjectsToDrawOfTheCurrentScenario();
+        var gameObjects = this.gameController.GetGameObjectsToDrawOfTheCurrentScene();
 
         foreach (var gameObject in gameObjects)
         {

@@ -1,13 +1,13 @@
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
-using Pong.Scenarios.Main.Entities;
+using Pong.Scenes.Main.Entities;
 using Pong.Global;
 
-namespace Pong.Scenarios;
+namespace Pong.Scenes;
 
-public class MainScenario : Scenario
+public class MainScene : Scene
 {
-    public MainScenario() : base("Main", Color.Black) { }
+    public MainScene() : base("Main", Color.Black) { }
 
     public override void Initialize()
     {

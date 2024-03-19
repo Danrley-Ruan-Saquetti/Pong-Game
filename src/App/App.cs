@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Core;
 using Pong.Global;
 using Pong.Scripts;
-using Pong.Scenarios;
-using Test.Scenarios;
+using Pong.Scenes;
+using Test.Scenes;
 
 namespace Pong;
 
@@ -20,13 +20,13 @@ public class App : AppGame
     {
         this.gameController.AddGlobalGameObjects(
             new MouseTest(),
-            new ToggleScenarioScript()
+            new ToggleSceneScript()
         );
-        this.gameController.CreateScenario<MainScenario>();
-        this.gameController.CreateScenario<RotationScenario>();
+        this.gameController.CreateScene<MainScene>();
+        this.gameController.CreateScene<RotationScene>();
 
-        this.gameController.ToggleScenario("Main");
-        // this.gameController.ToggleScenario("Rotation");
+        this.gameController.ToggleScene("Main");
+        // this.gameController.ToggleScene("Rotation");
 
         // this.graphics.IsFullScreen = true;
         this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
