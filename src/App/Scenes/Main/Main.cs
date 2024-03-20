@@ -3,6 +3,7 @@ using Library.Esliph.Common;
 using Pong.Scenes.Main.Entities;
 using Pong.Global;
 using Pong.Scenes.Main.Colliders;
+using Pong.Scenes.Main.Fonts;
 
 namespace Pong.Scenes;
 
@@ -25,7 +26,9 @@ public class MainScene : Scene
             new WallScoreCollider(ball, player2, (int)GlobalGame.WINDOW_DIMENSION.Width),
             ball,
             player1,
-            player2
+            player2,
+            new ScoreFont(player1, new(GlobalGame.WINDOW_DIMENSION.Width / 4, GlobalGame.WINDOW_DIMENSION.Height / 5)),
+            new ScoreFont(player2, new((int)(GlobalGame.WINDOW_DIMENSION.Width * 0.75), GlobalGame.WINDOW_DIMENSION.Height / 5))
         );
 
         base.Initialize();

@@ -17,14 +17,13 @@ public class FontShape : Shape2D, IFontShape
 {
     private SpriteFont font;
     private Vector2 position;
-    private Color color;
     private string content;
 
     public FontShape(string contentName, Vector2 position, Color color = new()) : base()
     {
         this.font = this.gameController.GetContentManager().Load<SpriteFont>(contentName);
         this.position = position;
-        this.color = color;
+        this.SetColor(color);
     }
 
     public override void Draw()

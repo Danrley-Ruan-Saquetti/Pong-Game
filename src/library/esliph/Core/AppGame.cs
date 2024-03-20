@@ -28,11 +28,7 @@ public class AppGame : Game
         this.gameController = GameController.GetInstance();
         this.mouseController = MouseController.GetInstance();
         this.keyboardController = KeyboardController.GetInstance();
-    }
-
-    public void Setup()
-    {
-        this.Initialize();
+        GameController.Initialize(this.Content);
     }
 
     protected override void Initialize()
@@ -41,7 +37,6 @@ public class AppGame : Game
             this.gameController.CreateScene<BaseScene>();
 
         this.IsMouseVisible = true;
-        GameController.Initialize(this.Content);
 
         graphics.ApplyChanges();
         base.Initialize();
