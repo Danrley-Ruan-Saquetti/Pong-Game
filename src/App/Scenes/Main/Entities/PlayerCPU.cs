@@ -4,11 +4,11 @@ namespace Pong.Scenes.Main.Entities;
 
 public class PlayerCPU : Player
 {
-    private Ball ball { get; set; }
+    private BallRectangle ball { get; set; }
 
     public PlayerCPU(PlayerSide side) : base(side) { }
-    public PlayerCPU(PlayerSide side, float x, Ball ball) : this(side, (int)x, ball) { }
-    public PlayerCPU(PlayerSide side, int x, Ball ball) : base(side, x)
+    public PlayerCPU(PlayerSide side, float x, BallRectangle ball) : this(side, (int)x, ball) { }
+    public PlayerCPU(PlayerSide side, int x, BallRectangle ball) : base(side, x)
     {
         this.ball = ball;
         this.AddTags("CPU");
@@ -29,7 +29,7 @@ public class PlayerCPU : Player
     public void MoveToBall()
     {
         int gap = (int)this.GetShape2D().Height / 5;
-        if (this.ball.GetShape2D().InitialY < this.GetShape2D().Y + gap)
+        if (this.ball.GetShape2D().Y < this.GetShape2D().Y + gap)
         {
             this.MoveUp();
         }
@@ -44,12 +44,12 @@ public class PlayerCPU : Player
         return this.ball.GetDirection().X == (int)this.side;
     }
 
-    public Ball GetBall()
+    public BallRectangle GetBall()
     {
         return this.ball;
     }
 
-    public void SetBall(Ball ball)
+    public void SetBall(BallRectangle ball)
     {
         this.ball = ball;
     }

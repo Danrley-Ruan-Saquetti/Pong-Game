@@ -15,7 +15,7 @@ public class ToggleSceneScript : GeneralScript, IKeyEventComponentObject
 
     public void OnKeyDown(KeyEvent keyEvent)
     {
-        if (keyEvent.IsKeyDown(Keys.LeftShift, Keys.D1))
+        if (keyEvent.IsKeyDown(Keys.D1))
             this.gameController.ToggleScene("Main");
         else if (keyEvent.IsKeyDown(Keys.D2))
             this.gameController.ToggleScene("Rotation");
