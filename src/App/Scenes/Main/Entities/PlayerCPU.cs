@@ -29,7 +29,7 @@ public class PlayerCPU : Player
     public void MoveToBall()
     {
         int gap = (int)this.GetShape2D().Height / 5;
-        if (this.ball.GetShape2D().InitialY < this.GetShape2D().Y + gap)
+        if (this.ball.GetShape2D().Y < this.GetShape2D().Y + gap)
         {
             this.MoveUp();
         }

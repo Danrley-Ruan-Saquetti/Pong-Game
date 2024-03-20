@@ -76,4 +76,9 @@ public class Player : RectangleGameObject
             this.GetShape2D().Y = this.initialPosition.Y;
         }
     }
+
+    public void ResetToInitialPosition()
+    {
+        this.GetShape2D().position = this.initialPosition;
+    }
 }

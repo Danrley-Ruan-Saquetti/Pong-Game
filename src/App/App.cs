@@ -19,7 +19,7 @@ public class App : AppGame
     protected override void Initialize()
     {
         this.gameController.AddGlobalGameObjects(
-            new MouseTest(),
+        // new MouseTest(),
             new ToggleSceneScript()
         );
         this.gameController.CreateScene<MainScene>();
@@ -28,7 +28,8 @@ public class App : AppGame
         this.gameController.ToggleScene("Main");
         // this.gameController.ToggleScene("Rotation");
 
-        // this.graphics.IsFullScreen = true;
+        this.Window.AllowUserResizing = true;
+        this.graphics.IsFullScreen = false;
         this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         this.IsFixedTimeStep = true;
         graphics.SynchronizeWithVerticalRetrace = false;
