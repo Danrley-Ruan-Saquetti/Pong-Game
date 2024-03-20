@@ -41,6 +41,7 @@ public class AppGame : Game
             this.gameController.CreateScene<BaseScene>();
 
         this.IsMouseVisible = true;
+        GameController.Initialize(this.Content);
 
         graphics.ApplyChanges();
         base.Initialize();

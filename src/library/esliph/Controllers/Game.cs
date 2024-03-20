@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Library.Esliph.Common;
 using Library.Esliph.Shapes;
+using Microsoft.Xna.Framework.Content;
 
 namespace Library.Esliph.Controller;
 
@@ -12,6 +13,7 @@ public class GameController
     private readonly static GameController instance = new();
     private readonly List<IScene> scenes;
     private readonly GameObjectsController globalGameObjectsController;
+    private ContentManager contentManager;
     private GameTime gameTime = new();
     private int currentSceneIndex { get; set; }
     private IScene currentScene
@@ -22,16 +24,21 @@ public class GameController
         }
     }
 
-    public static GameController GetInstance()
-    {
-        return GameController.instance;
-    }
-
     public GameController()
     {
         this.scenes = new();
         this.globalGameObjectsController = new();
         this.currentSceneIndex = 0;
+    }
+
+    public static void Initialize(ContentManager contentManager)
+    {
+        GameController.GetInstance().contentManager = contentManager;
+    }
+
+    public static GameController GetInstance()
+    {
+        return GameController.instance;
     }
 
     public void CreateScene<TScene>() where TScene : Scene, new()
@@ -142,5 +149,10 @@ public class GameController
     public IScene GetScene(int sceneIndex)
     {
         return this.scenes.ElementAt(sceneIndex);
+    }
+
+    public ContentManager GetContentManager()
+    {
+        return this.contentManager;
     }
 }

@@ -2,8 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Core;
-using Pong.Global;
 using Pong.Scripts;
+using Pong.Global;
 using Pong.Scenes;
 using Test.Scenes;
 
@@ -32,7 +32,7 @@ public class App : AppGame
         this.graphics.IsFullScreen = false;
         this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         this.IsFixedTimeStep = true;
-        graphics.SynchronizeWithVerticalRetrace = false;
+        this.graphics.SynchronizeWithVerticalRetrace = false;
 
         base.Initialize();
     }
