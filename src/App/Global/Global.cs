@@ -2,7 +2,7 @@ using Library.Esliph.Utils;
 
 namespace Pong.Global;
 
-public class GlobalGame
+public static class GlobalGame
 {
     public static Dimension WINDOW_DIMENSION = new(900, 450);
     public static Dimension PLAYER_DIMENSION = new(12, 100);

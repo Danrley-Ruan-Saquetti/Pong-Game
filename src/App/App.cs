@@ -24,9 +24,13 @@ public class App : AppGame
         );
         this.gameController.CreateScene<MainScene>();
         this.gameController.CreateScene<RotationScene>();
+        // this.gameController.CreateScene<SoundScene>();
+        this.gameController.CreateScene<PothioScene>();
 
-        this.gameController.ToggleScene("Main");
+        // this.gameController.ToggleScene("Main");
         // this.gameController.ToggleScene("Rotation");
+        // this.gameController.ToggleScene("Sound");
+        this.gameController.ToggleScene("Pothio");
 
         this.Window.AllowUserResizing = true;
         this.graphics.IsFullScreen = false;

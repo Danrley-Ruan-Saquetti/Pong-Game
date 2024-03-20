@@ -20,3 +20,15 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Score.spritefont
 
+#begin Sounds/ambient-game.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/ambient-game.mp3
+
+#begin Sounds/movement-swipe-whoosh.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/movement-swipe-whoosh.mp3
+
