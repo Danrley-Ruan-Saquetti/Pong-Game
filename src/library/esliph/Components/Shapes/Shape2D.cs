@@ -8,6 +8,10 @@ namespace Library.Esliph.Shapes;
 public interface IShape2D : IComponent
 {
     public void Draw() { }
+    public void MoveTo(Vector2 position, float speed, float deltaTime) { }
+    public void MoveTo(double radius, float speed, float deltaTime) { }
+    public void MoveTo(float x, float y) { }
+    public void MoveTo(Vector2 position) { }
     public float GetRotation();
     public void Rotate(float degrees);
     public void RotateToLeft(float degrees);

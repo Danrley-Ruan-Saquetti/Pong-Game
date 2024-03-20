@@ -4,17 +4,17 @@ namespace Library.Utils.Interval;
 
 public static class Interval
 {
-    public static Timer SetInterval(ElapsedEventHandler handler, int milliseconds = 0)
+    public static Timer SetInterval(ElapsedEventHandler handler, int milliseconds = 1)
     {
         return SetTimer(handler, milliseconds, true);
     }
 
-    public static Timer SetTimeout(ElapsedEventHandler handler, int milliseconds = 0)
+    public static Timer SetTimeout(ElapsedEventHandler handler, int milliseconds = 1)
     {
         return SetTimer(handler, milliseconds, false);
     }
 
-    public static Timer SetTimer(ElapsedEventHandler handler, int milliseconds = 0, bool isRepeat = true)
+    public static Timer SetTimer(ElapsedEventHandler handler, int milliseconds = 1, bool isRepeat = true)
     {
         Timer timer = new(milliseconds);
         timer.Elapsed += handler;

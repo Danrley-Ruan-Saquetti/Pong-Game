@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Esliph.Utils;
 using Library.Esliph.Global;
 using Library.Esliph.Controller;
+using System;
 
 namespace Library.Esliph.Core;
 
@@ -14,7 +15,7 @@ public class AppGame : Game
     protected readonly MouseController mouseController;
     protected readonly KeyboardController keyboardController;
 
-    public AppGame(Dimension windowDimension = null, int FSP = 60)
+    public AppGame(Dimension windowDimension = null, int FPS = 60)
     {
         if (windowDimension == null)
         {
@@ -28,6 +29,7 @@ public class AppGame : Game
         this.gameController = GameController.GetInstance();
         this.mouseController = MouseController.GetInstance();
         this.keyboardController = KeyboardController.GetInstance();
+        this.gameController.SetLimitFPS(FPS);
         GameController.Initialize(this.Content);
     }
 
@@ -36,6 +38,8 @@ public class AppGame : Game
         if (this.gameController.GetScenes().Count == 0)
             this.gameController.CreateScene<BaseScene>();
 
+        // this.TargetElapsedTime = TimeSpan.FromSeconds(1d / this.gameController.GetLimitFPS());
+        // this.IsFixedTimeStep = true;
         this.IsMouseVisible = true;
 
         graphics.ApplyChanges();

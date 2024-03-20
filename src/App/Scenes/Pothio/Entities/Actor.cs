@@ -39,4 +39,9 @@ public class Actor : RectangleGameObject
     {
         return GlobalGame.CalcDistanceMove(this.speed, (float)this.gameController.GetGameTime().ElapsedGameTime.TotalSeconds);
     }
+
+    public int GetSpeed()
+    {
+        return this.speed;
+    }
 }

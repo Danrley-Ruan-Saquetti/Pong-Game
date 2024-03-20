@@ -8,10 +8,14 @@ namespace Library.Esliph.Components.GameObjects;
 
 public class RectangleGameObject : GameObject
 {
+    private RectangleShape2D shape2D;
+
     public RectangleGameObject(Vector2 position = new(), Dimension dimension = default, float rotation = 0, Texture2D texture2D = null, Color color = new()) : base()
     {
+        this.shape2D = new(position, dimension, rotation, texture2D, color);
+
         this.AddComponents(
-            new RectangleShape2D(position, dimension, rotation, texture2D, color)
+            this.shape2D
         );
 
         this.AddTags("_RectangleShape");
@@ -19,6 +23,6 @@ public class RectangleGameObject : GameObject
 
     public RectangleShape2D GetShape2D()
     {
-        return this.GetShape2D<RectangleShape2D>();
+        return this.shape2D;
     }
 }

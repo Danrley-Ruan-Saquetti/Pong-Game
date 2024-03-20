@@ -19,6 +19,6 @@ public class Program
     private static void StartGame()
     {
         game = new App();
-        game.Run();
+        game.RunOneFrame();
     }
 }

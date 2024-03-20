@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Library.Esliph.Core;
@@ -11,7 +10,7 @@ namespace Pong;
 
 public class App : AppGame
 {
-    public App() : base(GlobalGame.WINDOW_DIMENSION)
+    public App() : base(GlobalGame.WINDOW_DIMENSION, 20)
     {
         this.Content.RootDirectory = "Content";
     }
@@ -25,16 +24,10 @@ public class App : AppGame
         this.gameController.CreateScene<MainScene>();
         this.gameController.CreateScene<RotationScene>();
         // this.gameController.CreateScene<SoundScene>();
-        this.gameController.CreateScene<PothioScene>();
-
-        // this.gameController.ToggleScene("Main");
-        // this.gameController.ToggleScene("Rotation");
-        // this.gameController.ToggleScene("Sound");
-        this.gameController.ToggleScene("Pothio");
+        this.gameController.CreateScene<PothioScene>(true);
 
         this.Window.AllowUserResizing = true;
         this.graphics.IsFullScreen = false;
-        this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         this.IsFixedTimeStep = true;
         this.graphics.SynchronizeWithVerticalRetrace = false;
 

@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Library.Esliph.Common;
 using Library.Esliph.Shapes;
-using Microsoft.Xna.Framework.Content;
 
 namespace Library.Esliph.Controller;
 
@@ -12,6 +12,7 @@ public class GameController
 {
     private readonly static GameController instance = new();
     private readonly List<IScene> scenes;
+    private int LimitFPS;
     private readonly GameObjectsController globalGameObjectsController;
     private ContentManager contentManager;
     private GameTime gameTime = new();
@@ -26,6 +27,7 @@ public class GameController
 
     public GameController()
     {
+        this.LimitFPS = 60;
         this.scenes = new();
         this.globalGameObjectsController = new();
         this.currentSceneIndex = 0;
@@ -41,11 +43,16 @@ public class GameController
         return GameController.instance;
     }
 
-    public void CreateScene<TScene>() where TScene : Scene, new()
+    public void CreateScene<TScene>(bool isActive = false) where TScene : Scene, new()
     {
         IScene scene = new TScene();
 
         this.AddScene(scene);
+
+        if (isActive)
+        {
+            this.ToggleScene(scene.GetName());
+        }
     }
 
     private void AddScene(IScene scene)
@@ -154,5 +161,15 @@ public class GameController
     public ContentManager GetContentManager()
     {
         return this.contentManager;
+    }
+
+    public void SetLimitFPS(int limitFPS)
+    {
+        this.LimitFPS = limitFPS;
+    }
+
+    public int GetLimitFPS()
+    {
+        return this.LimitFPS;
     }
 }

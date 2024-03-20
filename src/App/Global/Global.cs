@@ -1,3 +1,4 @@
+using System;
 using Library.Esliph.Utils;
 
 namespace Pong.Global;
@@ -10,6 +11,7 @@ public static class GlobalGame
     PLAYER_SPEED = 200f,
     BALL_SPEED = 300f,
     BALL_RADIUS = 12f;
+    public static Random random = new();
 
     public static int CalcDistanceMove(float speed, float totalSecondsGameTime)
     {

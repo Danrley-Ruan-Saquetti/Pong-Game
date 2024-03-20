@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Library.Esliph.Shapes;
 using Library.Esliph.Components;
 using Library.Esliph.Controller;
+using System.Runtime.Serialization;
 
 namespace Library.Esliph.Common;
 
@@ -34,6 +35,8 @@ public class GameObject : IGameObject
 {
     protected GameController gameController = GameController.GetInstance();
     private readonly Guid id;
+
+    [DataMember]
     private List<string> tags;
     private bool alive, visible;
     private List<IComponent> components;
@@ -74,6 +77,11 @@ public class GameObject : IGameObject
     public void AddTags(params string[] tags)
     {
         this.tags.AddRange(tags);
+    }
+
+    public void RemoveTags(params string[] tags)
+    {
+        this.tags.RemoveAll(tag => tags.Contains(tag));
     }
 
     public bool CompareTo(string tagName)
