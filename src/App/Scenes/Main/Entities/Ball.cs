@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
-using Library.Esliph.Shapes;
 using Library.Esliph.Common;
 using Library.Esliph.Components;
 using Library.Esliph.Components.GameObjects;
 using Pong.Global;
+using Library.Esliph.Shapes;
 
 namespace Pong.Scenes.Main.Entities;
 
@@ -53,10 +53,6 @@ public class Ball : RectangleGameObject, IColliderComponentObject
             if (shape.Y <= 0 || shape.EndY >= gameObject.GetComponent<RectangleShape2D>().Height)
             {
                 this.direction.Y *= -1;
-            }
-            if (shape.X <= 0 || shape.EndX >= gameObject.GetComponent<RectangleShape2D>().Width)
-            {
-                this.direction.X *= -1;
             }
         }
     }
