@@ -14,9 +14,14 @@ public static class GlobalCore
 
     public static double CalculateAngle(Vector2 vector1, Vector2 vector2)
     {
-        float xDiff = vector2.X - vector1.X;
-        float yDiff = vector2.Y - vector1.Y;
+        float differenceX = vector2.X - vector1.X;
+        float differenceY = vector2.Y - vector1.Y;
 
-        return Math.Atan2(yDiff, xDiff);
+        return Math.Atan2(differenceY, differenceX);
+    }
+
+    public static float CalculateDistance(float speed, float totalSecondsGameTime)
+    {
+        return speed * totalSecondsGameTime;
     }
 }

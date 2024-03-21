@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Library.Esliph.Utils;
 using Library.Esliph.Core;
-using System;
-using Library.Esliph.Global;
+using Library.Esliph.Utils;
 
 namespace Library.Esliph.Shapes;
 
@@ -87,31 +85,17 @@ public class RectangleShape2D : Shape2D, IRectangleShape2D
         base.Draw();
     }
 
-    public virtual void MoveTo(Vector2 position, float speed, float deltaTime)
+    public override void MoveTo(Vector2 position, float speed, float deltaTime)
     {
-        var angle = GlobalCore.CalculateAngle(this.position, position);
-
-        WriteLine(this.position + ", " + position + ", " + angle);
-
-        this.MoveTo(angle, speed, deltaTime);
+        this.MoveTo(PositionHelper.CalculateAngle(this.position, position), speed, deltaTime);
     }
 
-    public virtual void MoveTo(double angle, float speed, float deltaTime)
+    public override void MoveTo(Vector2 position, float distance)
     {
-        float distance = speed * deltaTime;
-
-        float deltaX = distance * (float)Math.Cos(angle);
-        float deltaY = distance * (float)Math.Sin(angle);
-
-        this.MoveTo(deltaX, deltaY);
+        this.MoveTo(PositionHelper.CalculateAngle(this.position, position), distance);
     }
 
-    public virtual void MoveTo(float x, float y)
-    {
-        this.MoveTo(new(x, y));
-    }
-
-    public virtual void MoveTo(Vector2 position)
+    public override void MoveTo(Vector2 position)
     {
         this.position += position;
     }

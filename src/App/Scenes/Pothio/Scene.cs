@@ -30,7 +30,7 @@ public class PothioScene : Scene
                 X = GlobalGame.random.Next(-(int)PothioGlobal.ENEMY_DIMENSION.Width, (int)GlobalGame.WINDOW_DIMENSION.Width);
             }
 
-            var enemy = new Enemy(player, new(X, Y));
+            var enemy = new Enemy(player, new(900, 207));
 
             this.AddGameObjects(enemy);
         });
